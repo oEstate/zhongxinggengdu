@@ -175,7 +175,7 @@ export default class extends Vue {
     align-items: center;
     justify-content: space-between;
     height: 56px;
-    margin: 18px 260px 0 240px;
+    margin-left: 240px;
     font-size: 20px;
     color: #fff;
     .login-nav-bar {
