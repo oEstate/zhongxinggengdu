@@ -93,6 +93,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import pageFooter from "@/components/footer/index.vue";
 import { Dictionary } from "vue-router/types/router";
 import { isValidUsername } from "@/utils/validate";
+import { UserModule } from "@/store/modules/user";
 import { Form as ElForm, Input } from "element-ui";
 @Component({
   name: "Login",
@@ -151,8 +152,31 @@ export default class extends Vue {
       (this.$refs.code as Input).focus();
     }
   }
-  handleLogin(){
-    this.$router.push({path:'/certification'})
+
+  async handleLogin() {
+    await UserModule.Login(this.loginForm);
+    // 当没认证跳转到认证页
+    //认证成功跳转到首页
+    // this.$router.push({ path: "/certification" });
+    this.$router.push({ path: "/" });
+    // (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
+    //   if (valid) {
+    //     this.loading = true
+    //     await UserModule.Login(this.loginForm)
+    //     this.$router.push({
+    //       path: this.redirect || '/',
+    //       query: this.otherQuery
+    //     }).catch(err => {
+    //       console.warn(err)
+    //     })
+    //     // Just to simulate the time of the request
+    //     setTimeout(() => {
+    //       this.loading = false
+    //     }, 0.5 * 1000)
+    //   } else {
+    //     return false
+    //   }
+    // })
   }
 }
 </script>
@@ -175,9 +199,10 @@ export default class extends Vue {
     align-items: center;
     justify-content: space-between;
     height: 56px;
-    margin: 18px 260px 0 240px;
+    margin-left: 240px;
     font-size: 20px;
     color: #fff;
+    margin-top: 19px;
     .login-nav-bar {
       display: flex;
       align-items: center;
@@ -213,7 +238,7 @@ export default class extends Vue {
     }
   }
 }
-::v-deep .el-tabs__item{
+::v-deep .el-tabs__item {
   height: 61px;
   line-height: 61px;
   font-size: 20px;
@@ -232,7 +257,7 @@ export default class extends Vue {
   color: #fff;
   font-size: 16px;
 }
-::v-deep .el-input{
+::v-deep .el-input {
   font-size: 16px;
 }
 .login-form {
@@ -298,5 +323,4 @@ export default class extends Vue {
     margin-top: 18px;
   }
 }
-
 </style>

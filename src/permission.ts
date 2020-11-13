@@ -7,28 +7,31 @@ import { UserModule } from '@/store/modules/user'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/index','/login','/certification','/storesCertification','/govCertification','/auditCertification']
+const whiteList = ['/login', '/index']
 
-router.beforeEach(async(to: Route, _: Route, next: any) => {
+router.beforeEach(async (to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
-
-  // Determine whether the user has logged in
+  console.log(UserModule.token)
+  console.log(to.path)
+  // 确定用户是否已经登录并且 是否已经认证
   if (UserModule.token) {
-    if (to.path === '/index') {
-      // If is logged in, redirect to the home page
+ if (to.path === '/login') {
+      // 已经认证
+      // 如果已登录并且已经认证，则重定向到主页
       next({ path: '/' })
+      // 没有认证从定向到认证页
       NProgress.done()
     } else {
-      // Check whether the user has obtained his permission roles
+      // 检查用户是否已获得其权限角色
       if (UserModule.roles.length === 0) {
         try {
-          // Get user info, including roles
+          // 获取用户信息，包括角色
           await UserModule.GetUserInfo()
-          // Set the replace: true, so the navigation will not leave a history record
+          // 设置replace: true，这样导航将不会留下历史记录
           next({ ...to, replace: true })
         } catch (err) {
-          // Remove token and redirect to login page
+          // 删除令牌并重定向到登录页面
           UserModule.ResetToken()
           Message.error(err || 'Has Error')
           next(`/index?redirect=${to.path}`)
@@ -39,13 +42,13 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
       }
     }
   } else {
-    // Has no token
+    // 没有令牌token
     console.log(to.path)
     if (whiteList.indexOf(to.path) !== -1) {
-      // In the free login whitelist, go directly
+      // 在免费登录白名单中，直接访问
       next()
     } else {
-      // Other pages that do not have permission to access are redirected to the login page.
+      // 其他没有访问权限的页面被重定向到登录页面。
       next(`/index`)
       NProgress.done()
     }

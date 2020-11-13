@@ -7,7 +7,7 @@ const service = axios.create({
   timeout: 5000
 })
 
-// Request interceptors
+// 请求拦截器
 service.interceptors.request.use(
   (config) => {
     // Add X-Access-Token header to every request, you can add other custom headers here
@@ -21,17 +21,16 @@ service.interceptors.request.use(
   }
 )
 
-// Response interceptors
+// 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    // Some example codes here:
     // code == 20000: success
-    // code == 50001: invalid access token
-    // code == 50002: already login in other place
-    // code == 50003: access token expired
-    // code == 50004: invalid user (user not exist)
-    // code == 50005: username or password is incorrect
-    // You can change this part for your own usage.
+    // code == 50001: 无效的访问令牌
+    // code == 50002: 已经在其他地方登录
+    // code == 50003: 访问令牌过期
+    // code == 50004: 无效用户(用户不存在)
+    // code == 50005: 用户名或密码不正确
+    // 您可以根据自己的使用更改此部分。
     const res = response.data
     if (res.code !== 20000) {
       Message({
@@ -41,11 +40,11 @@ service.interceptors.response.use(
       })
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         MessageBox.confirm(
-          'You have been logged out, try to login again.',
-          'Log out',
+          '登录状态已过期，您可以继续留在该页面，或者重新登录',
+          '系统提示',
           {
-            confirmButtonText: 'Relogin',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: '重新登录',
+            cancelButtonText: '取消',
             type: 'warning'
           }
         ).then(() => {

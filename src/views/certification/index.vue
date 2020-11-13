@@ -96,8 +96,18 @@ ul {
   text-align: center;
   margin-right: 100px;
   cursor: pointer;
+  transition: 0.5s;
   &:last-child {
     margin-right: 0;
+  }
+  &:hover {
+    .user-type-h1 {
+      border-color: #00b54d;
+      color: #00b54d;
+    }
+    .user-type-h2 {
+      color: #00b54d;
+    }
   }
   .user-type-h1 {
     width: 112px;
