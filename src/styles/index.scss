@@ -45,3 +45,51 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+
+.u_f,
+.u_f_ac,
+.u_f_ajc,
+.u_f_ajs,
+.u_f_ajsv,
+.u_f_aja {
+	display: flex;
+}
+
+.u_f_ac,
+.u_f_ajc,
+.u_f_ajs,
+.u_f_ajsv,
+.u_f_aja {
+	align-items: center;
+}
+
+.u_f_ajc {
+	justify-content: center;
+}
+
+.u_f_ajs {
+	justify-content: space-between;
+}
+
+.u_f_ajsv {
+	justify-content: space-evenly;
+}
+
+.u_f_aja {
+	justify-content: space-around;
+}
+
+.pr {
+	position: relative;
+}
+
+p{
+	margin: 0;
+}
+ul,
+ol,
+li {
+	list-style: none;
+	padding-inline-start: 0;
+}

@@ -1,173 +1,107 @@
 <template>
-  <div class="navbar">
-    <hamburger
-      id="hamburger-container"
-      :is-active="sidebar.opened"
-      class="hamburger-container"
-      @toggle-click="toggleSideBar"
-    />
-    <breadcrumb
-      id="breadcrumb-container"
-      class="breadcrumb-container"
-    />
-    <div class="right-menu">
-      <el-dropdown
-        class="avatar-container right-menu-item hover-effect"
-        trigger="click"
-      >
-        <div class="avatar-wrapper">
-          <img
-            :src="avatar+'?imageView2/1/w/80/h/80'"
-            class="user-avatar"
-          >
-          <i class="el-icon-caret-bottom" />
+  <div class="header">
+    <div class="sidebar u_f">
+      <div class="sidebar_item">
+        <div class="logo">
+          <img src="@/assets/common/logogreen.png" alt="" />
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
-          </router-link>
-          <a
-            target="_blank"
-            href="https://github.com/armour/vue-typescript-admin-template/"
-          >
-            <el-dropdown-item>
-              Github
-            </el-dropdown-item>
-          </a>
-          <a
-            target="_blank"
-            href="https://armour.github.io/vue-typescript-admin-docs/"
-          >
-            <el-dropdown-item>
-              Docs
-            </el-dropdown-item>
-          </a>
-          <el-dropdown-item divided>
-            <span
-              style="display:block;"
-              @click="logout"
-            >LogOut</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+        <div class="sidebar_welcome">
+          <div class="sidebar_welcome_img">
+            <img src="@/assets/common/logogreen.png" alt="" />
+          </div>
+          <div class="sidebar_welcome_title">定南县人民政府</div>
+          <div class="sidebar_welcome_text">您好！欢迎登录</div>
+        </div>
+      </div>
+      <div>
+        <el-input placeholder="请输入内容" >
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { AppModule } from '@/store/modules/app'
-import { UserModule } from '@/store/modules/user'
-import Breadcrumb from '@/components/Breadcrumb/index.vue'
-import Hamburger from '@/components/Hamburger/index.vue'
+import { Component, Vue } from "vue-property-decorator";
+import { AppModule } from "@/store/modules/app";
 
 @Component({
-  name: 'Navbar',
-  components: {
-    Breadcrumb,
-    Hamburger
-  }
+  name: "SideBar",
+  components: {},
 })
 export default class extends Vue {
   get sidebar() {
-    return AppModule.sidebar
+    return AppModule.sidebar;
   }
 
-  get device() {
-    return AppModule.device.toString()
+  get routes() {
+    return (this.$router as any).options.routes;
   }
 
-  get avatar() {
-    return UserModule.avatar
+  get activeMenu() {
+    const route = this.$route;
+    const { meta, path } = route;
+    if (meta.activeMenu) {
+      return meta.activeMenu;
+    }
+    return path;
   }
 
-  private toggleSideBar() {
-    AppModule.ToggleSideBar(false)
-  }
-
-  private async logout() {
-    await UserModule.LogOut()
-    this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+  get isCollapse() {
+    return !this.sidebar.opened;
   }
 }
 </script>
 
+
 <style lang="scss" scoped>
-.navbar {
-  height: 50px;
-  overflow: hidden;
-  position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
-
-  .hamburger-container {
-    line-height: 46px;
-    height: 100%;
-    float: left;
-    padding: 0 15px;
-    cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
-
-    &:hover {
-      background: rgba(0, 0, 0, .025)
-    }
-  }
-
-  .breadcrumb-container {
-    float: left;
-  }
-
-  .right-menu {
-    float: right;
-    height: 100%;
-    line-height: 50px;
-
-    &:focus {
-      outline: none;
-    }
-
-    .right-menu-item {
-      display: inline-block;
-      padding: 0 8px;
-      height: 100%;
-      font-size: 18px;
-      color: #5a5e66;
-      vertical-align: text-bottom;
-
-      &.hover-effect {
-        cursor: pointer;
-        transition: background .3s;
-
-        &:hover {
-          background: rgba(0, 0, 0, .025)
-        }
+.header {
+  background-color: #00B54D;
+}
+.sidebar {
+  width: 1299px;
+  margin: 0 auto;
+  justify-content: space-between;
+  .sidebar_item {
+    height: 310px;
+    .logo {
+      padding-top: 19px;
+      margin-bottom: 41px;
+      img {
+        height: 44px;
       }
     }
-
-    .avatar-container {
-      margin-right: 30px;
-
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+    .sidebar_welcome {
+      text-align: center;
+      width: 222px;
+      height: 179px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 52px;
+      margin-left: 28px;
+      .sidebar_welcome_img {
+        width: 68px;
+        height: 73px;
+        margin: 0 auto 12px auto;
+        padding-top: 20px;
+        img {
+          width: 100%;
+          height: 100%;
         }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
+      }
+      .sidebar_welcome_title {
+        height: 28px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #FFFFFF;
+        line-height: 28px;
+        margin-bottom: 3px;
+      }
+      .sidebar_welcome_text {
+        height: 20px;
+        font-size: 14px;
+        color: #FFFFFF;
+        line-height: 20px;
       }
     }
   }

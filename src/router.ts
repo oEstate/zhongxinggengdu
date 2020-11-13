@@ -16,6 +16,7 @@ Vue.use(Router)
 
 export default new Router({
   // mode: 'history',  // Enable this if you need.
+
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
@@ -26,51 +27,60 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      name: 'index',
       path: '/index',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
-      meta: { hidden: true }
+      component: () => import('@/views/login/index.vue'),
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '首页' },
     },
     {
+      name: 'login',
       path: '/login',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/login/login.vue'),
-      meta: { hidden: true }
+      component: () => import('@/views/login/login.vue'),
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '登陆' },
     },
     {
+      name: 'certification',
       path: '/certification',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/certification/index.vue'),
-      meta: { hidden: true }
+      component: () => import('@/views/certification/index.vue'),
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '选择身份' },
     },
     {
+      name: 'storesCertification',
       path: '/storesCertification',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/certification/storesCertification.vue'),
-      meta: { hidden: true }
+      component: () => import('@/views/certification/storesCertification.vue'),
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '提交认证' },
     },
     {
+      name: 'govCertification',
       path: '/govCertification',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/certification/govCertification.vue'),
-      meta: { hidden: true }
+      component: () => import('@/views/certification/govCertification.vue'),
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '提交认证' },
     },
     {
+      name: 'auditCertification',
       path: '/auditCertification',
-      component: () => import(/* webpackChunkName: "login" */ '@/views/certification/auditCertification.vue'),
-      meta: { hidden: true }
+      component: () => import('@/views/certification/auditCertification.vue'),
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '平台审核' },
     },
 
     {
+      name: '404',
       path: '/404',
       component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
-      meta: { hidden: true }
+      meta: { roles: ['admin', 'editor'], hidden: true, title: '404' }
     },
     {
       path: '/',
+      name: 'dashboard',
       component: Layout,
       redirect: '/dashboard',
+      meta: { hidden: false, title: '数据中心' },
       children: [
         {
           path: 'dashboard',
           component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
           meta: {
-            title: 'Dashboard',
+            title: '首页',
             icon: 'dashboard'
           }
         }
@@ -80,25 +90,14 @@ export default new Router({
       path: '/example',
       component: Layout,
       redirect: '/example/tree',
-      meta: {
-        title: 'Example',
-        icon: 'example'
-      },
+      meta: { hidden: false, title: '内容管理'},
       children: [
         {
           path: 'tree',
           component: () => import(/* webpackChunkName: "tree" */ '@/views/tree/index.vue'),
           meta: {
             title: 'Tree',
-            icon: 'tree'
-          }
-        },
-        {
-          path: 'table',
-          component: () => import(/* webpackChunkName: "table" */ '@/views/table/index.vue'),
-          meta: {
-            title: 'Table',
-            icon: 'table'
+            icon: 'tree', 
           }
         }
       ]
@@ -106,6 +105,7 @@ export default new Router({
     {
       path: '/form',
       component: Layout,
+      meta: { hidden: false, title: '轮播管理'},
       children: [
         {
           path: 'index',
@@ -121,47 +121,8 @@ export default new Router({
       path: '/nested',
       component: Layout,
       redirect: '/nested/menu1',
-      meta: {
-        title: 'Nested',
-        icon: 'nested'
-      },
+      meta: { hidden: false, title: '消息中心' },
       children: [
-        {
-          path: 'menu1',
-          component: () => import(/* webpackChunkName: "menu1" */ '@/views/nested/menu1/index.vue'),
-          redirect: '/nested/menu1/menu1-1',
-          meta: { title: 'Menu1' },
-          children: [
-            {
-              path: 'menu1-1',
-              component: () => import(/* webpackChunkName: "menu1-1" */ '@/views/nested/menu1/menu1-1/index.vue'),
-              meta: { title: 'Menu1-1' }
-            },
-            {
-              path: 'menu1-2',
-              component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/nested/menu1/menu1-2/index.vue'),
-              redirect: '/nested/menu1/menu1-2/menu1-2-1',
-              meta: { title: 'Menu1-2' },
-              children: [
-                {
-                  path: 'menu1-2-1',
-                  component: () => import(/* webpackChunkName: "menu1-2-1" */ '@/views/nested/menu1/menu1-2/menu1-2-1/index.vue'),
-                  meta: { title: 'Menu1-2-1' }
-                },
-                {
-                  path: 'menu1-2-2',
-                  component: () => import(/* webpackChunkName: "menu1-2-2" */ '@/views/nested/menu1/menu1-2/menu1-2-2/index.vue'),
-                  meta: { title: 'Menu1-2-2' }
-                }
-              ]
-            },
-            {
-              path: 'menu1-3',
-              component: () => import(/* webpackChunkName: "menu1-3" */ '@/views/nested/menu1/menu1-3/index.vue'),
-              meta: { title: 'Menu1-3' }
-            }
-          ]
-        },
         {
           path: 'menu2',
           component: () => import(/* webpackChunkName: "menu2" */ '@/views/nested/menu2/index.vue'),
@@ -172,6 +133,7 @@ export default new Router({
     {
       path: 'external-link',
       component: Layout,
+      meta: { hidden: false, title: '账号设置'},
       children: [
         {
           path: 'https://github.com/Armour/vue-typescript-admin-template',
