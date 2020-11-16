@@ -87,16 +87,16 @@ export default new Router({
       ]
     },
     {
-      path: '/example',
+      path: '/views',
       component: Layout,
-      redirect: '/example/tree',
+      redirect: '/views/matter',
       meta: { hidden: false, title: '内容管理'},
       children: [
         {
-          path: 'tree',
-          component: () => import(/* webpackChunkName: "tree" */ '@/views/tree/index.vue'),
+          path: 'matter',
+          component: () => import(/* webpackChunkName: "tree" */ '@/views/matter/index.vue'),
           meta: {
-            title: 'Tree',
+            title: '内容管理',
             icon: 'tree', 
           }
         }
