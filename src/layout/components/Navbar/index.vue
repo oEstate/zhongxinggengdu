@@ -14,9 +14,10 @@
         </div>
       </div>
       <div>
-        <el-input placeholder="请输入内容" >
+        <el-input class="query">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
+        <i class="el-icon-s-unfold query_icon"></i>
       </div>
     </div>
   </div>
@@ -105,5 +106,33 @@ export default class extends Vue {
       }
     }
   }
+  .query {
+    width: 219px;
+
+    border-radius: 8px;
+    margin-top: 21px;
+  }
+  ::v-deep .el-input__inner {
+    background: rgba(255, 255, 255, 0.2);
+    border: 0;
+    color: #fff;
+  }
+  ::v-deep .el-input__prefix {
+    color: #fff;
+  }
+}
+.query_icon {
+  width: 54px;
+  height: 38px;
+  border-radius: 8px;
+  opacity: 0.4;
+  border: 1px solid #FFFFFF;
+  text-align: center;
+  line-height: 38px;
+  color: #fff;
+  font-size: 20px;
+  margin-left: 16px;
+  position: relative;
+  top:2px;
 }
 </style>

@@ -1,10 +1,5 @@
 <template>
   <section class="app-main">
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-      <span>内容管理</span>
-    </div>
-
     <transition name="fade-transform" mode="out-in">
       <router-view :routes="routes" />
     </transition>
@@ -13,9 +8,11 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
 @Component({
   name: "AppMain",
+  components: {
+    
+  },
 })
 export default class extends Vue {
   created() {
@@ -45,21 +42,10 @@ export default class extends Vue {
 .app-main {
   overflow: hidden;
   width: 100%;
-  height: 994px;
   background: #F3F6F5;
   box-shadow: 0px 0px 16px 6px rgba(12, 44, 27, 0.05);
   border-radius: 18px;
   margin-top: -210px;
-  .header {
-    height: 70px;
-    background: #E8EFEC;
-    line-height: 70px;
-    font-size: 18px;
-    color: #444444;
-    padding-left: 33px;
-    i {
-      margin-right: 13px;
-    }
-  }
+  height:calc(100vh - 240px);
 }
 </style>
