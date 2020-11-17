@@ -110,3 +110,7 @@ body .el-scrollbar__wrap {
   text-align: center;
   margin-top: 14px;
 }
+
+.el-select-dropdown .el-select-dropdown__wrap {
+  overflow-x: scroll;
+}

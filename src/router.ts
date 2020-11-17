@@ -128,7 +128,15 @@ export default new Router({
             title: '轮播管理',
             icon: 'form'
           }
-        }
+        },
+        {
+          path: 'addCarousel',
+          component: () => import('@/views/government/carousel/addCarousel.vue'),
+          meta: {
+            title: '新增轮播',
+            icon: 'form'
+          }
+        },
       ]
     },
     {
