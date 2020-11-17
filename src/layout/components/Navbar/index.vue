@@ -3,11 +3,11 @@
     <div class="sidebar u_f">
       <div class="sidebar_item">
         <div class="logo">
-          <img src="@/assets/common/logogreen.png" alt="" />
+          <img src="@/assets/common/logo3.png" alt="" />
         </div>
         <div class="sidebar_welcome">
           <div class="sidebar_welcome_img">
-            <img src="@/assets/common/logogreen.png" alt="" />
+            <img src="@/assets/common/gh.png" alt="" />
           </div>
           <div class="sidebar_welcome_title">定南县人民政府</div>
           <div class="sidebar_welcome_text">您好！欢迎登录</div>
@@ -17,7 +17,7 @@
         <el-input class="query">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
-        <i class="el-icon-s-unfold query_icon"></i>
+        <img class="query_icon" src="@/assets/common/back.png" alt="" />
       </div>
     </div>
   </div>
@@ -80,11 +80,12 @@ export default class extends Vue {
       background: rgba(0, 0, 0, 0.08);
       border-radius: 52px;
       margin-left: 28px;
+      box-sizing: border-box;
+      padding-top: 20px;
       .sidebar_welcome_img {
         width: 68px;
         height: 73px;
         margin: 0 auto 12px auto;
-        padding-top: 20px;
         img {
           width: 100%;
           height: 100%;
@@ -122,8 +123,7 @@ export default class extends Vue {
   }
 }
 .query_icon {
-  width: 54px;
-  height: 38px;
+  cursor: pointer;
   border-radius: 8px;
   opacity: 0.4;
   border: 1px solid #FFFFFF;
@@ -133,6 +133,7 @@ export default class extends Vue {
   font-size: 20px;
   margin-left: 16px;
   position: relative;
-  top:2px;
+  top: 14px;
+  padding: 8px 16px;
 }
 </style>

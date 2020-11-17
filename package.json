@@ -11,6 +11,9 @@
     "test:unit": "jest --clearCache && vue-cli-service test:unit"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^3.2.6",
+    "tinymce": "^5.5.1",
+    "@types/tinymce": "^4.6.0",
     "@types/echarts": "^4.9.0",
     "axios": "^0.21.0",
     "core-js": "^3.7.0",

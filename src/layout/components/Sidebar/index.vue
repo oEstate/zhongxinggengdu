@@ -8,7 +8,7 @@
           v-if="!route.meta || !route.meta.hidden"
           @click="menu_item(route.path, index)"
         >
-          <i class="el-icon-edit"></i>
+          <i :class="route.meta.icon"></i>
           <span>{{ route.meta.title }}</span>
         </div>
       </div>
