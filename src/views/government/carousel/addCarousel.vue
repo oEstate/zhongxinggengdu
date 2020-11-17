@@ -101,6 +101,7 @@
         <li class="ags">
           <el-button type="success" plain @click="next">取消</el-button>
           <el-button type="success" @click="next">发布</el-button>
+          
         </li>
       </ul>
     </el-scrollbar>
