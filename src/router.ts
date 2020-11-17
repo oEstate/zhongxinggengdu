@@ -66,7 +66,7 @@ export default new Router({
     {
       name: '404',
       path: '/404',
-      component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
+      component: () => import('@/views/404.vue'),
       meta: { roles: ['admin', 'editor'], hidden: true, title: '404' }
     },
     {
@@ -74,11 +74,11 @@ export default new Router({
       name: 'dashboard',
       component: Layout,
       redirect: '/dashboard',
-      meta: { hidden: false, title: '数据中心' },
+      meta: { hidden: false, title: '数据中心',icon: 'el-icon-data-line' },
       children: [
         {
           path: 'dashboard',
-          component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+          component: () => import('@/views/government/dashboard/index.vue'),
           meta: {
             title: '首页',
             icon: 'dashboard'
@@ -90,57 +90,70 @@ export default new Router({
       path: '/views',
       component: Layout,
       redirect: '/views/matter',
-      meta: { hidden: false, title: '内容管理'},
+      meta: { hidden: false, title: '内容管理',icon: 'el-icon-document' },
       children: [
         {
           path: 'matter',
-          component: () => import(/* webpackChunkName: "tree" */ '@/views/matter/index.vue'),
+          component: () => import('@/views/government/matter/index.vue'),
           meta: {
             title: '内容管理',
-            icon: 'tree', 
+          }
+        },
+        {
+          path: 'addColumn',
+          component: () => import('@/views/government/matter/addColumn.vue'),
+          meta: {
+            title: '新增栏目',
+          }
+        },
+        {
+          path: 'addContent',
+          component: () => import('@/views/government/matter/addContent.vue'),
+          meta: {
+            title: '新增内容',
           }
         }
       ]
     },
     {
-      path: '/form',
+      path: '/carousel',
       component: Layout,
-      meta: { hidden: false, title: '轮播管理'},
+      redirect: '/carousel/setter',
+      meta: { hidden: false, title: '轮播管理',icon: 'el-icon-picture-outline'},
       children: [
         {
-          path: 'index',
-          component: () => import(/* webpackChunkName: "form" */ '@/views/form/index.vue'),
+          path: 'setter',
+          component: () => import('@/views/government/carousel/index.vue'),
           meta: {
-            title: 'Form',
+            title: '轮播管理',
             icon: 'form'
           }
         }
       ]
     },
     {
-      path: '/nested',
+      path: '/message',
       component: Layout,
-      redirect: '/nested/menu1',
-      meta: { hidden: false, title: '消息中心' },
+      redirect: '/message/list',
+      meta: { hidden: false, title: '消息中心',icon: 'el-icon-chat-line-square' },
       children: [
         {
-          path: 'menu2',
-          component: () => import(/* webpackChunkName: "menu2" */ '@/views/nested/menu2/index.vue'),
-          meta: { title: 'Menu2' }
+          path: 'list',
+          component: () => import('@/views/government/message/index.vue'),
+          meta: { title: '消息中心' }
         }
       ]
     },
     {
-      path: 'external-link',
+      path: '/setting',
       component: Layout,
-      meta: { hidden: false, title: '账号设置'},
+      redirect: '/setting/info',
+      meta: { hidden: false, title: '账号设置',icon: 'el-icon-set-up' },
       children: [
         {
-          path: 'https://github.com/Armour/vue-typescript-admin-template',
-          meta: {
-            title: 'External Link',
-            icon: 'link'
-          }
+          path: 'info',
+          component: () => import('@/views/setting/index.vue'),
+          meta: { title: '账号设置' }
         }
       ]
     },

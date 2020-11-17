@@ -91,5 +91,22 @@ ul,
 ol,
 li {
 	list-style: none;
-	padding-inline-start: 0;
+  padding-inline-start: 0;
+  margin: 0;
+}
+.el-pagination.is-background .el-pager li:not(.disabled):hover{
+  color: #00B54D;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active{
+  background-color: #00B54D;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active:hover{
+  color: #fff;
+}
+body .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.el-pagination{
+  text-align: center;
+  margin-top: 14px;
 }
