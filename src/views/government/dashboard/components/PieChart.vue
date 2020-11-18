@@ -38,16 +38,16 @@ export default class extends mixins(ResizeMixin) {
         formatter: "{a} <br/>{b} : {c} ({d}%)",
       },
       legend: {
-        left: "center",
-        bottom: "10",
-        data: ["定南县老城镇", "定南县新城区", "定南县新城区1"],
+        // left: "center",
+        // bottom: "10",
+        data: [],
       },
       series: [
         {
           name: "全县店铺总量分布",
           type: "pie",
           radius: [45, 95],
-          center: ["50%", "38%"],
+          center: ["50%", "51%"],
           data: [
             {
               value: 320,
@@ -74,8 +74,11 @@ export default class extends mixins(ResizeMixin) {
           label: {
             show: false,
           },
+          labelLine: {
+            show: false,
+          },
           animationEasing: "cubicInOut",
-          animationDuration: 2600,
+          animationDuration: 1000,
         },
       ],
     } as EChartOption<EChartOption.SeriesPie>);
