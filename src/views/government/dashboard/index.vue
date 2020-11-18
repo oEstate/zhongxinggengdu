@@ -4,48 +4,130 @@
       <i slot="prefix" class="el-input__icon el-icon-search"></i>
       <span>数据中心</span>
     </div>
-    <div class="dashboard-container">
-      <div class="u_f_ajs report">
-        <div class="u_f_ac">
-          <span class="icon-k"></span>
-          <span class="title">全县营收情况</span>
+    <el-scrollbar style="height: 620px">
+      <div class="dashboard-container">
+        <div class="u_f_ajs report">
+          <div class="u_f_ac">
+            <span class="icon-k"></span>
+            <span class="title">全县营收情况</span>
+          </div>
+          <div>
+            <span class="report-title">查看详细报表</span>
+            <i class="el-icon-arrow-right ic"></i>
+          </div>
         </div>
-        <div>
-          <span class="report-title">查看详细报表</span>
-          <i class="el-icon-arrow-right ic"></i>
+        <ul class="statistical u_f_ajsv">
+          <li>
+            <div class="statistical-n">1799</div>
+            <div class="statistical-t">今日订单成交量</div>
+          </li>
+          <li>
+            <div class="statistical-n">884.34</div>
+            <div class="statistical-t">今日总营业额(万元)</div>
+          </li>
+          <li>
+            <div class="statistical-n">11345.12</div>
+            <div class="statistical-t">本周总营业额(万元)</div>
+          </li>
+          <li>
+            <div class="statistical-n">45872.14</div>
+            <div class="statistical-t">本月总营业额(万元)</div>
+          </li>
+        </ul>
+        <div class="u_f_ajs report">
+          <div class="u_f_ac">
+            <span class="icon-k"></span>
+            <span class="title">全县营收情况</span>
+          </div>
+          <div>
+            <span class="report-title">查看详细报表</span>
+            <i class="el-icon-arrow-right ic"></i>
+          </div>
         </div>
+        <ul class="dist u_f_ajs">
+          <li class="dist-item">
+            <div class="dist-item-title u_f_ac">
+              <span class="dist-item-icon"></span>
+              <span class="dist-item-txt">全县店铺总量分布</span>
+            </div>
+            <div class="pie-chart">
+              <pie-chart />
+              <ul class="pie-chart-list">
+                <li class="pie-chart-list-item">
+                  <span class="w55">乡镇街道</span>
+                  <span class="w25">总量</span>
+                  <span class="w20">占比</span>
+                </li>
+                <li class="pie-chart-list-item1 u_f">
+                  <div class="u_f_ac w55">
+                    <span class="pie-chart-item-icon icon-color1"></span>
+                    <span>定南县老城镇</span>
+                  </div>
+                  <div class="w25">1900</div>
+                  <div class="w20">28%</div>
+                </li>
+                <li class="pie-chart-list-item1 u_f">
+                  <div class="u_f_ac w55">
+                    <span class="pie-chart-item-icon icon-color2"></span>
+                    <span>定南县老城镇</span>
+                  </div>
+                  <div class="w25">1900</div>
+                  <div class="w20">28%</div>
+                </li>
+                <li class="pie-chart-list-item1 u_f">
+                  <div class="u_f_ac w55">
+                    <span class="pie-chart-item-icon icon-color3"></span>
+                    <span>定南县老城镇</span>
+                  </div>
+                  <div class="w25">1900</div>
+                  <div class="w20">28%</div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="dist-item">
+            <div class="dist-item-title u_f_ac">
+              <span class="dist-item-icon"></span>
+              <span class="dist-item-txt">全县商品总类分布</span>
+            </div>
+            <div class="pie-chart">
+              <pie-chart />
+              <ul class="pie-chart-list">
+                <li class="pie-chart-list-item">
+                  <span class="w55">乡镇街道</span>
+                  <span class="w25">总量</span>
+                  <span class="w20">占比</span>
+                </li>
+                <li class="pie-chart-list-item1 u_f">
+                  <div class="u_f_ac w55">
+                    <span class="pie-chart-item-icon icon-color1"></span>
+                    <span>定南县老城镇</span>
+                  </div>
+                  <div class="w25">1900</div>
+                  <div class="w20">28%</div>
+                </li>
+                <li class="pie-chart-list-item1 u_f">
+                  <div class="u_f_ac w55">
+                    <span class="pie-chart-item-icon icon-color2"></span>
+                    <span>定南县老城镇</span>
+                  </div>
+                  <div class="w25">1900</div>
+                  <div class="w20">28%</div>
+                </li>
+                <li class="pie-chart-list-item1 u_f">
+                  <div class="u_f_ac w55">
+                    <span class="pie-chart-item-icon icon-color3"></span>
+                    <span>定南县老城镇</span>
+                  </div>
+                  <div class="w25">1900</div>
+                  <div class="w20">28%</div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
       </div>
-      <ul class="statistical u_f_ajsv">
-        <li>
-          <div class="statistical-n">1799</div>
-          <div class="statistical-t">今日订单成交量</div>
-        </li>
-        <li>
-          <div class="statistical-n">884.34</div>
-          <div class="statistical-t">今日总营业额(万元)</div>
-        </li>
-        <li>
-          <div class="statistical-n">11345.12</div>
-          <div class="statistical-t">本周总营业额(万元)</div>
-        </li>
-        <li>
-          <div class="statistical-n">45872.14</div>
-          <div class="statistical-t">本月总营业额(万元)</div>
-        </li>
-      </ul>
-      <div class="u_f_ajs report">
-        <div class="u_f_ac">
-          <span class="icon-k"></span>
-          <span class="title">全县营收情况</span>
-        </div>
-        <div>
-          <span class="report-title">查看详细报表</span>
-          <i class="el-icon-arrow-right ic"></i>
-        </div>
-      </div>
-
-      <pie-chart />
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -78,7 +160,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .header {
   height: 70px;
-  background: #E8EFEC;
+  background: #e8efec;
   line-height: 70px;
   font-size: 18px;
   color: #444444;
@@ -91,13 +173,13 @@ export default class extends Vue {
 .dashboard {
   &-container {
     .report {
-      border-bottom: 2px solid #E8EFEC;
+      border-bottom: 2px solid #e8efec;
       box-sizing: border-box;
       padding: 26px 36px 18px 37px;
       .icon-k {
         width: 6px;
         height: 6px;
-        background: #00B54D;
+        background: #00b54d;
         margin-right: 14px;
         display: inline-block;
       }
@@ -111,7 +193,7 @@ export default class extends Vue {
         color: #777777;
       }
       .ic {
-        color: #00B54D;
+        color: #00b54d;
       }
     }
 
@@ -121,7 +203,7 @@ export default class extends Vue {
         height: 70px;
         font-size: 50px;
         font-weight: 600;
-        color: #00B54D;
+        color: #00b54d;
         line-height: 70px;
         letter-spacing: 1px;
         margin-bottom: 6px;
@@ -131,6 +213,79 @@ export default class extends Vue {
         font-size: 16px;
         color: #444444;
         line-height: 22px;
+      }
+    }
+  }
+}
+
+.dist {
+  margin: 32px 38px;
+  .dist-item {
+    .dist-item-title {
+      margin-bottom: 20px;
+      .dist-item-icon {
+        width: 3px;
+        height: 16px;
+        background: #00b54d;
+        margin-right: 10px;
+        display: inline-block;
+      }
+      .dist-item-txt {
+        font-size: 18px;
+        color: #444;
+      }
+    }
+    .pie-chart {
+      width: 460px;
+      height: 466px;
+      background: #e8efec;
+      border-radius: 18px;
+
+      .pie-chart-list {
+        .w55 {
+          width: 55%;
+        }
+        .w25 {
+          width: 25%;
+        }
+        .w20 {
+          width: 20%;
+        }
+        .pie-chart-list-item {
+          margin-bottom: 16px;
+          span {
+            font-size: 18px;
+            font-weight: 500;
+            color: #444;
+            display: inline-block;
+          }
+        }
+        .pie-chart-list-item1 {
+          font-size: 16px;
+          color: #444444;
+          .pie-chart-item-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-right: 7px;
+          }
+          .icon-color1 {
+            background: #33c4af;
+          }
+          .icon-color2 {
+            background: #fe8fa5;
+          }
+          .icon-color3 {
+            background: #968efb;
+          }
+          span {
+            margin-bottom: 14px;
+          }
+        }
+        li {
+          margin-left: 58px;
+        }
       }
     }
   }
