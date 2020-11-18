@@ -75,6 +75,8 @@ export default new Router({
       component: () => import('@/views/404.vue'),
       meta: { roles: ['admin', 'editor'], hidden: true, title: '404' }
     },
+
+    //政府
     {
       path: '/',
       name: 'dashboard',
@@ -176,6 +178,21 @@ export default new Router({
         }
       ]
     },
+    //商家后台
+    {
+      path: '/material',
+      component: Layout,
+      redirect: '/material/library',
+      meta: { hidden: false, title: '素材库', icon: 'el-icon-picture-outline' },
+      children: [
+        {
+          path: 'library',
+          component: () => import('@/views/shop/material/index.vue'),
+          meta: { title: '素材库' }
+        }
+      ]
+    },
+
     {
       path: '*',
       redirect: '/404',
