@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="tabsActive" @tab-click="handleClick">
+  <el-tabs v-model="active" @tab-click="handleClick">
     <el-tab-pane
       v-for="item in tabsData"
       :key="item.name"
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit, Watch } from "vue-property-decorator";
 
 @Component({
   name: "tabs",
@@ -20,11 +20,8 @@ import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 export default class extends Vue {
   @Prop() tabsActive!: any;
   @Prop() tabsData!: any;
+  private active = this.tabsActive;
 
-  get tabs() {
-    let tabs: any = this.tabsActive;
-    return tabs;
-  }
   created() {}
   handleClick(tab: any, event: any) {
     let path = this.tabsData[tab.index].path;
@@ -40,12 +37,12 @@ export default class extends Vue {
   line-height: 61px;
 }
 ::v-deep .el-tabs__item.is-active {
-  color: #00B54D;
+  color: #00b54d;
 }
 ::v-deep .el-tabs__active-bar {
-  background-color: #00B54D;
+  background-color: #00b54d;
 }
 ::v-deep .el-tabs__item:hover {
-  color: #00B54D;
+  color: #00b54d;
 }
 </style>

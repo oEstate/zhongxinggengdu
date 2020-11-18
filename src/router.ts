@@ -14,6 +14,12 @@ Vue.use(Router)
   }
 */
 
+//获取原型对象上的push函数
+const originalPush: any = Router.prototype.push
+//修改原型对象中的push方法
+Router.prototype.push = function push(location: any) {
+  return originalPush.call(this, location).catch((err: any) => err)
+}
 export default new Router({
   // mode: 'history',  // Enable this if you need.
 
@@ -74,7 +80,7 @@ export default new Router({
       name: 'dashboard',
       component: Layout,
       redirect: '/dashboard',
-      meta: { hidden: false, title: '数据中心',icon: 'el-icon-data-line' },
+      meta: { hidden: false, title: '数据中心', icon: 'el-icon-data-line' },
       children: [
         {
           path: 'dashboard',
@@ -90,7 +96,7 @@ export default new Router({
       path: '/views',
       component: Layout,
       redirect: '/views/matter',
-      meta: { hidden: false, title: '内容管理',icon: 'el-icon-document' },
+      meta: { hidden: false, title: '内容管理', icon: 'el-icon-document' },
       children: [
         {
           path: 'matter',
@@ -119,7 +125,7 @@ export default new Router({
       path: '/carousel',
       component: Layout,
       redirect: '/carousel/setter',
-      meta: { hidden: false, title: '轮播管理',icon: 'el-icon-picture-outline'},
+      meta: { hidden: false, title: '轮播管理', icon: 'el-icon-picture-outline' },
       children: [
         {
           path: 'setter',
@@ -143,12 +149,17 @@ export default new Router({
       path: '/message',
       component: Layout,
       redirect: '/message/list',
-      meta: { hidden: false, title: '消息中心',icon: 'el-icon-chat-line-square' },
+      meta: { hidden: false, title: '消息中心', icon: 'el-icon-chat-line-square' },
       children: [
         {
           path: 'list',
           component: () => import('@/views/government/message/index.vue'),
           meta: { title: '消息中心' }
+        },
+        {
+          path: 'info',
+          component: () => import('@/views/government/message/info.vue'),
+          meta: { title: '消息详情' }
         }
       ]
     },
@@ -156,7 +167,7 @@ export default new Router({
       path: '/setting',
       component: Layout,
       redirect: '/setting/info',
-      meta: { hidden: false, title: '账号设置',icon: 'el-icon-set-up' },
+      meta: { hidden: false, title: '账号设置', icon: 'el-icon-set-up' },
       children: [
         {
           path: 'info',

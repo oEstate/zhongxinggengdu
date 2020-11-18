@@ -6,6 +6,7 @@
           class="li u_f_ac"
           v-for="(item, index) in tableData"
           :key="index"
+          @click="jump"
         >
           <div class="message-icon">
             <img src="@/assets/common/auditsuccess.png" alt="" />
@@ -19,7 +20,7 @@
         </div>
       </el-scrollbar>
     </el-row>
-        <el-pagination background layout="total,prev, pager, next" :total="1000">
+    <el-pagination background layout="total,prev, pager, next" :total="1000">
     </el-pagination>
   </div>
 </template>
@@ -32,6 +33,9 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 export default class extends Vue {
   private tableData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1];
   created() {}
+  jump() {
+    this.$router.push({ path: "/message/info" });
+  }
 }
 </script>
 
@@ -45,6 +49,7 @@ export default class extends Vue {
     border-bottom: 1px solid #e1e1e1;
     margin: 0 18px 16px 18px;
     width: auto;
+    cursor: pointer;
     &:first-child {
       margin-top: 17px;
     }

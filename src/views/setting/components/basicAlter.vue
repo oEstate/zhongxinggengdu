@@ -77,14 +77,14 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { regionData } from "element-china-area-data";
+// import { regionData } from "element-china-area-data";
 @Component({
   name: "basicAlter",
 })
 export default class extends Vue {
   private active = 2;
   private shopName = "";
-  private options = regionData;
+  // private options = regionData;
   private selectedOptions = [];
   private imageUrl = "";
   jump() {

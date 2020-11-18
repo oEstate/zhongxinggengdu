@@ -81,7 +81,7 @@ export default class extends Vue {
 
   getPath(e:any){
     // alert(2)
-    console.log(e)
+    // console.log(e)
     this.isComponent=e
   }
 }

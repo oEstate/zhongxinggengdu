@@ -114,3 +114,33 @@ body .el-scrollbar__wrap {
 .el-select-dropdown .el-select-dropdown__wrap {
   overflow-x: scroll;
 }
+.el-dialog--center .el-dialog__body{
+  padding-top:0;
+  padding-bottom:0;
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.el-dialog{
+  border-radius: 10px;
+  height:547px
+}
+.el-dialog__header{
+  border-bottom: 2px solid #E8EFEC;
+}
+.el-dialog__footer{
+  border-top: 2px solid #E8EFEC;
+  .el-button{
+    margin-right: 30px;
+  }
+}
+
+.el-input__inner {
+  // border-color:#f0f0f0;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 6px;
+  font-size: 16px;
+}
+html{
+  min-width: 1340px;
+}
