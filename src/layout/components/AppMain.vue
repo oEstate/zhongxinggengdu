@@ -1,7 +1,9 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <router-view :routes="routes" />
+      <keep-alive>
+        <router-view :routes="routes" />
+      </keep-alive>
     </transition>
   </section>
 </template>
@@ -10,14 +12,12 @@
 import { Component, Vue } from "vue-property-decorator";
 @Component({
   name: "AppMain",
-  components: {
-    
-  },
+  components: {},
 })
 export default class extends Vue {
   created() {
-    console.log(this.nowroute);
-    console.log(this.routes);
+    // console.log(this.nowroute);
+    // console.log(this.routes);
   }
   get routes() {
     let routes: any = {
@@ -42,11 +42,11 @@ export default class extends Vue {
 .app-main {
   overflow: hidden;
   width: 100%;
-  background: #F3F6F5;
+  background: #f3f6f5;
   box-shadow: 0px 0px 16px 6px rgba(12, 44, 27, 0.05);
   border-radius: 18px;
   margin-top: -210px;
   // height:calc(100vh - 240px);
-  height:690px;
+  height: 690px;
 }
 </style>

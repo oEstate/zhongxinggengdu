@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="query">
-      <el-button type="success">新增栏目</el-button>
+      <el-button type="success" @click="addCarousel">新增栏目</el-button>
     </div>
     <el-table
       align="center"
@@ -127,6 +127,10 @@ export default class extends Vue {
       // 增添被删除的那一条数据
       that.tableData.splice(index, 0, downDate);
     }
+  }
+
+  addCarousel(){
+    this.$router.push({path:'/carousel/addCarousel'})
   }
 }
 </script>

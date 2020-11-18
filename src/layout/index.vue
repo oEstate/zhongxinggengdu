@@ -48,8 +48,8 @@ export default class extends mixins(ResizeMixin) {
 .app-wrapper {
   @include clearfix;
   position: relative;
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
   background-color: #F1F4F3;
 }
 

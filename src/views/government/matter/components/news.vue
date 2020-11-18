@@ -8,7 +8,10 @@
         <li class="column_item">民生</li>
         <li class="column_item">教育</li>
       </ul>
-      <el-button type="success" @click="addColumn">新增栏目</el-button>
+      <el-button type="success" @click="dialogVisible = true"
+        >编辑栏目</el-button
+      >
+      <!--<el-button type="success" @click="addColumn">编辑栏目</el-button>-->
     </div>
     <div class="u_f_ajs query">
       <div class="u_f">
@@ -67,6 +70,47 @@
         <el-button type="text" icon="el-icon-upload2">发布</el-button>
       </el-table-column>
     </el-table>
+
+    <el-dialog
+      title="编辑栏目"
+      :visible.sync="dialogVisible"
+      width="960px"
+      center
+      :before-close="handleClose"
+    >
+      <el-scrollbar style="height: 374px">
+        <div class="matter">
+          <ul class="dialog-column u_f">
+            <li
+              v-for="(item, index) in tableData"
+              :key="index"
+              class="dialog-columnItem u_f_ac"
+            >
+              <span class="dialog-columnItemTxt">定南要闻</span>
+              <i class="el-icon-delete"></i>
+            </li>
+          </ul>
+          <div class="dialog-addColumn">
+            <el-button type="success">新建栏目</el-button>
+          </div>
+          <div class="dialog-addColumn u_f">
+            <el-input
+              v-model="shopName"
+              placeholder="请输入栏目名"
+            ></el-input>
+            <el-button type="success">确认</el-button>
+          </div>
+        </div>
+      </el-scrollbar>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="success" @click="dialogVisible = false" plain
+          >取 消</el-button
+        >
+        <el-button type="success" @click="dialogVisible = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -76,6 +120,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   name: "news",
 })
 export default class extends Vue {
+  private dialogVisible = false;
   private tableData = [
     {
       date: "2016-05-02",
@@ -86,6 +131,141 @@ export default class extends Vue {
       date: "2016-05-04",
       name: "王小虎",
       address: "上海市普陀区金沙江路 1517 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-04",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1517 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-04",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1517 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-04",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1517 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-04",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1517 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
+    {
+      date: "2016-05-04",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1517 弄",
+    },
+    {
+      date: "2016-05-01",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "王小虎",
+      address: "上海市普陀区金沙江路 1516 弄",
     },
     {
       date: "2016-05-01",
@@ -136,7 +316,41 @@ export default class extends Vue {
     }
   }
 }
-.row-name {
-  background-color: #f3f6f5;
+
+.matter {
+  box-sizing: border-box;
+  padding: 0 24px;
+  .dialog-column {
+    flex-wrap: wrap;
+    .dialog-columnItem {
+      margin-right: 50px;
+      margin-bottom: 26px;
+      &:nth-child(5n) {
+        margin-right: 0;
+      }
+      .dialog-columnItemTxt {
+        width: 96px;
+        height: 44px;
+        border-radius: 8px;
+        border: 1px solid #cccccc;
+        margin-right: 16px;
+
+        text-align: center;
+        line-height: 44px;
+        font-size: 16px;
+        color: #666;
+      }
+      i {
+        font-size: 20px;
+        color: #00b54d;
+      }
+    }
+  }
+  .dialog-addColumn {
+    .el-input{
+      width: 166px;
+      margin-right: 16px;
+    }
+  }
 }
 </style>

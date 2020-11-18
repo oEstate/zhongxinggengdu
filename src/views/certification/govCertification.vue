@@ -117,7 +117,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { regionData } from "element-china-area-data";
+// import { regionData } from "element-china-area-data";
 import grayHeader from "@/components/header/index.vue";
 import grayFooter from "@/components/footer/gray.vue";
 import steps from "@/components/common/steps.vue";
@@ -132,7 +132,7 @@ import steps from "@/components/common/steps.vue";
 export default class extends Vue {
   private active = 2;
   private shopName = "";
-  private options = regionData;
+  // private options = regionData;
   private selectedOptions = [];
   private imageUrl = "";
   jump() {

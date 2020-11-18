@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
 import { login, logout, getUserInfo } from '@/api/users'
-import { getToken, setToken, removeToken } from '@/utils/cookies'
+import { getToken, setToken, removeToken ,removeActive} from '@/utils/cookies'
 import store from '@/store'
 
 export interface IUserState {
@@ -57,6 +57,7 @@ class User extends VuexModule implements IUserState {
   @Action
   public ResetToken() {
     removeToken()
+    removeActive()
     this.SET_TOKEN('')
     this.SET_ROLES([])
   }

@@ -18,17 +18,23 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import {  AppModule } from "@/store/modules/app";
 @Component({
   name: "SideBar",
 })
 export default class extends Vue {
-  private active = 7;
+  private active = AppModule.active;
+   created() {
+    console.log(AppModule);
+    // console.log(this.routes);
+  }
   get routes() {
     return (this.$router as any).options.routes;
   }
   menu_item(url: any, index: any) {
-    console.log(index);
+    // console.log(index);
     this.active = index;
+    AppModule.ToggleActive(index);
     this.$router.push(url);
   }
 }
