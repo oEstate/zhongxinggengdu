@@ -1,206 +1,187 @@
 <template>
-  <div>
-    <div class="container">
-      <el-scrollbar style="height: 100%">
-        <ul class="from">
-          <li class="ag">
-            <div class="from-itrm-l">店铺头像</div>
-            <el-upload
-              class="from-logo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="uplogo" />
-              更换图片
-            </el-upload>
-          </li>
-          <li class="ag">
-            <div class="from-itrm-l">店铺名称</div>
-            <div>
-              <el-input
-                v-model="shopName"
-                placeholder="请输入店铺名称"
-              ></el-input>
+  <el-container>
+    <div class="aside" style="width: 166px">
+      <el-scrollbar style="height: 440px">
+        <ul class="aside-list">
+          <li class="is-active">未分组</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+          <li>定南脐橙</li>
+          <li>关于店铺</li>
+        </ul>
+      </el-scrollbar>
+      <div class="btn">
+        <div class="editor">
+          <el-button type="success" plain>编辑</el-button>
+        </div>
+        <div class="tc">
+          <el-button type="success">新增分类</el-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <div class="u_f_ajs query">
+        <div class="u_f">
+          <el-input placeholder="请输入关键字">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
+          <el-button class="query_btn" type="success">搜索</el-button>
+        </div>
+        <div>
+          <el-button type="success" @click="addColumn">上传视频</el-button>
+          <el-button type="success" @click="addColumn">转移分组</el-button>
+          <el-button type="success" @click="addColumn">批量删除</el-button>
+        </div>
+      </div>
+      <el-scrollbar style="height: 480px">
+        <ul class="container-list u_f">
+          <li class="is-active-img">未分组</li>
+          <li
+            v-for="(item, index) in [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+            ]"
+            :key="index"
+          >
+            <div class="item-img">
+              <img src="http://dwz.date/dp5k" alt="" />
             </div>
-          </li>
-          <li>
-            <div class="from-itrm-l">店铺简介</div>
-            <div style="width: 88%">
-              <el-input
-                type="textarea"
-                placeholder="请输入店铺简介（限制500个字符）"
-                v-model="shopName"
-                class="textareaInfo"
-                maxlength="500"
-                show-word-limit
-              >
-              </el-input>
-            </div>
-          </li>
-          <li class="ag">
-            <div class="from-itrm-l">店铺地址</div>
-            <div>
-              <el-cascader
-                size="large"
-                :options="options"
-                v-model="selectedOptions"
-                @change="handleChange"
-                placeholder="请选择地址"
-              >
-              </el-cascader>
-            </div>
-          </li>
-          <li>
-            <div class="from-itrm-l">店铺图片</div>
-            <el-upload
-              class="icard"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="icard-img" />
-              更换图片
-            </el-upload>
+            <div class="item-name">肉蛋</div>
+            <div class="item-size">300X300</div>
           </li>
         </ul>
       </el-scrollbar>
     </div>
-    <div class="next-btn">
-      <el-button type="success" plain @click="changeShop">取消修改</el-button>
-      <el-button type="success" @click="changeShop">完成修改</el-button>
-    </div>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-// import { regionData } from "element-china-area-data";
 @Component({
   name: "materialVideo",
 })
 export default class extends Vue {
   private active = 2;
   private shopName = "";
-  // private options = regionData;
   private selectedOptions = [];
   private imageUrl = "";
-  jump() {
-    this.$router.push({ path: "/login" });
-  }
-  handleChange(value: any) {
-    console.log(value);
-  }
-  handleAvatarSuccess(res: any, file: any) {
-    this.imageUrl = URL.createObjectURL(file.raw);
-  }
-  beforeAvatarUpload(file: any) {
-    const isJPG = file.type === "image/jpeg";
-    const isLt2M = file.size / 1024 / 1024 < 2;
-
-    if (!isJPG) {
-      this.$message.error("上传头像图片只能是 JPG 格式!");
-    }
-    if (!isLt2M) {
-      this.$message.error("上传头像图片大小不能超过 2MB!");
-    }
-    return isJPG && isLt2M;
-  }
   changeShop() {
-    this.$emit("changeShop", "basic");
+    this.$emit("changeShop", "basicAlter");
   }
 }
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-link {
-  align-items: flex-end;
-}
-.el-link.el-link--default:hover {
-  color: #06c654;
-}
-.el-link.el-link--default {
-  color: #666;
-}
-
-::v-deep .el-input__inner {
-  // border-color:#f0f0f0;
-  background-color: #f0f0f0;
-  color: #333;
-  border-radius: 6px;
-  width: 462px;
-  font-size: 16px;
-}
-::v-deep .el-textarea__inner {
-  background-color: #f0f0f0;
-  // border-color:#f0f0f0;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #333;
-  height: 178px;
-}
-.container {
-  height: 470px;
-}
-.from {
-  li {
-    list-style: none;
-    display: flex;
-    margin-bottom: 18px;
-    &:first-child {
-      margin-bottom: 24px;
-    }
-    .from-itrm-l {
-      margin-right: 22px;
-      font-size: 16px;
-      color: #333333;
-    }
-    .from-logo {
-      width: 76px;
-      height: 76px;
-      background: #eaeaea;
-      border-radius: 76px;
+.aside {
+  border-right: 2px solid #e8efec;
+  // position: relative;
+  height: 560px;
+  .aside-list {
+    margin-bottom: 8px;
+    li {
+      height: 60px;
       text-align: center;
-      line-height: 76px;
-      color: #999;
-      font-size: 14px;
+      line-height: 60px;
+      font-size: 18px;
+      color: #444444;
       cursor: pointer;
-      .uplogo {
-        width: 76px;
-        height: 76px;
-        border-radius: 76px;
-      }
     }
-    .icard {
-      width: 259px;
-      height: 146px;
-      background: #f0f0f0;
-      border-radius: 8px;
-      opacity: 0.8;
+    .is-active {
+      background-color: #e8efec;
+      color: #00b54d;
+      font-weight: 500;
+    }
+  }
+  .btn {
+    // position: absolute;
+    // bottom: 14px;
+    // left: 50%;
+    // transform: translateX(-50%);
+    .editor {
+      margin-bottom: 14px;
       text-align: center;
-      cursor: pointer;
-      border: 1px solid #f0f0f0;
-      line-height: 146px;
-      .icard-img {
-        width: 259px;
-        height: 146px;
-        border-radius: 8px;
-        border: 1px solid #f0f0f0;
+      .el-button {
+        width: 97px;
       }
     }
   }
-  .ag {
-    align-items: center;
-  }
 }
-.next-btn {
-  text-align: center;
-  margin-top: 10px;
+.gallery {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 21px 26px 0 26px;
 
-  .el-button {
-    margin-right: 20px;
+  .query {
+    margin-bottom: 20px;
+    .query_btn {
+      margin-left: 12px;
+    }
+  }
+  .container-list {
+    flex-wrap: wrap;
+    li {
+      width: 140px;
+      height: 168px;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #dddddd;
+      text-align: center;
+      margin: 0 20px 20px 0;
+      &:nth-child(5n){
+        margin-right: 0;
+      }
+      .item-img {
+        overflow: hidden;
+        img {
+          width: 140px;
+          height: 110px;
+          border-radius: 10px 10px 0px 0px;
+        }
+      }
+      .item-name {
+        font-size: 16px;
+        color: #444444;
+        margin-bottom: 4px;
+      }
+      .item-size {
+        font-size: 13px;
+        color: #666666;
+      }
+    }
   }
 }
 </style>

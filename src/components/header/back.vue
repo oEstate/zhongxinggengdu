@@ -4,7 +4,7 @@
       <i slot="prefix" class="el-input__icon el-icon-search" :class="icon"></i>
       <span>{{titleTxt}}</span>
     </div>
-    <div class="back">
+    <div class="back" :style="{marginBottom:bt}">
       <el-button type="text" icon="el-icon-back" @click="back"
         >{{backTxt}}</el-button
       >
@@ -21,6 +21,7 @@ export default class extends Vue {
   @Prop() icon!: any;
   @Prop() titleTxt!: any;
   @Prop() backTxt!: any;
+  @Prop({ default: 52 }) bt!: any;
   back() {
     this.$router.go(-1);
   }
