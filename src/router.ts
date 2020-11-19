@@ -179,6 +179,24 @@ export default new Router({
       ]
     },
     //商家后台
+
+    {
+      path: '/ss',
+      name: 'dashboard1',
+      component: Layout,
+      redirect: '/ss/dashboard1',
+      meta: { hidden: false, title: '数据中心', icon: 'el-icon-data-line' },
+      children: [
+        {
+          path: 'dashboard1',
+          component: () => import('@/views/shop/dashboard/index.vue'),
+          meta: {
+            title: '首页',
+            icon: 'dashboard1'
+          }
+        }
+      ]
+    },
     {
       path: '/material',
       component: Layout,
@@ -192,7 +210,42 @@ export default new Router({
         }
       ]
     },
-
+    {
+      path: '/order',
+      component: Layout,
+      redirect: '/order/ment',
+      meta: { hidden: false, title: '订单管理', icon: 'el-icon-document' },
+      children: [
+        {
+          path: 'ment',
+          component: () => import('@/views/shop/order/index.vue'),
+          meta: { title: '订单管理' }
+        },
+        {
+          path: 'details',
+          component: () => import('@/views/shop/order/details.vue'),
+          meta: { title: '订单详情' }
+        }
+      ]
+    },
+    {
+      path: '/goods',
+      component: Layout,
+      redirect: '/goods/list',
+      meta: { hidden: false, title: '商品管理', icon: 'el-icon-shopping-bag-1' },
+      children: [
+        {
+          path: 'list',
+          component: () => import('@/views/shop/goods/index.vue'),
+          meta: { title: '商品管理' }
+        },
+        {
+          path: 'add',
+          component: () => import('@/views/shop/goods/addGoods.vue'),
+          meta: { title: '商品发布' }
+        },
+      ]
+    },
     {
       path: '*',
       redirect: '/404',

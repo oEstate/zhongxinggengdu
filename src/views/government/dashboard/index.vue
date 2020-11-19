@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-      <span>数据中心</span>
+    <div class="header u_f_ajs">
+      <div>
+        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        <span>数据中心</span>
+      </div>
+      <div class="header_r">
+        <i class="el-icon-download"></i>
+        下载详细报表
+      </div>
     </div>
     <el-scrollbar style="height: 620px">
       <div class="dashboard-container">
@@ -165,8 +171,21 @@ export default class extends Vue {
   font-size: 18px;
   color: #444444;
   padding-left: 33px;
-  i {
+  .el-input__icon {
     margin-right: 13px;
+  }
+  .header_r {
+    cursor: pointer;
+    i {
+      color: #00b54d;
+      font-size: 18px;
+      font-weight: 700;
+      position: relative;
+      top: 2px;
+    }
+    font-size: 16px;
+    color: #777777;
+    margin-right: 36px;
   }
 }
 

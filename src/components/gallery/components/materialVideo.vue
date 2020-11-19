@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <div class="aside" style="width: 166px">
-      <el-scrollbar style="height: 440px">
+      <el-scrollbar style="height: 688px">
         <ul class="aside-list">
           <li class="is-active">未分组</li>
           <li>定南脐橙</li>
@@ -22,31 +22,10 @@
           <li>关于店铺</li>
         </ul>
       </el-scrollbar>
-      <div class="btn">
-        <div class="editor">
-          <el-button type="success" plain>编辑</el-button>
-        </div>
-        <div class="tc">
-          <el-button type="success">新增分类</el-button>
-        </div>
-      </div>
     </div>
 
     <div class="gallery">
-      <div class="u_f_ajs query">
-        <div class="u_f">
-          <el-input placeholder="请输入关键字">
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-          <el-button class="query_btn" type="success">搜索</el-button>
-        </div>
-        <div>
-          <el-button type="success" @click="addColumn">上传VR</el-button>
-          <el-button type="success" @click="addColumn">转移分组</el-button>
-          <el-button type="success" @click="addColumn">批量删除</el-button>
-        </div>
-      </div>
-      <el-scrollbar style="height: 480px">
+      <el-scrollbar style="height: 670px">
         <ul class="container-list u_f">
           <li class="is-active-img">未分组</li>
           <li
@@ -92,7 +71,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 @Component({
-  name: "materialVr",
+  name: "materialVideo",
 })
 export default class extends Vue {
   private active = 2;
@@ -109,7 +88,6 @@ export default class extends Vue {
 .aside {
   border-right: 2px solid #e8efec;
   // position: relative;
-  height: 560px;
   .aside-list {
     margin-bottom: 8px;
     li {
@@ -126,31 +104,12 @@ export default class extends Vue {
       font-weight: 500;
     }
   }
-  .btn {
-    // position: absolute;
-    // bottom: 14px;
-    // left: 50%;
-    // transform: translateX(-50%);
-    .editor {
-      margin-bottom: 14px;
-      text-align: center;
-      .el-button {
-        width: 97px;
-      }
-    }
-  }
+
 }
 .gallery {
   width: 100%;
   box-sizing: border-box;
   padding: 21px 26px 0 26px;
-
-  .query {
-    margin-bottom: 20px;
-    .query_btn {
-      margin-left: 12px;
-    }
-  }
   .container-list {
     flex-wrap: wrap;
     li {
@@ -161,7 +120,7 @@ export default class extends Vue {
       border: 1px solid #dddddd;
       text-align: center;
       margin: 0 20px 20px 0;
-      &:nth-child(5n){
+      &:nth-child(6n){
         margin-right: 0;
       }
       .item-img {

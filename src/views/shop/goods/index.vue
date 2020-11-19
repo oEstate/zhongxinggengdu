@@ -2,21 +2,21 @@
   <div>
     <div class="header">
       <i slot="prefix" class="el-input__icon el-icon-search"></i>
-      <span>消息中心</span>
+      <span>商品管理</span>
     </div>
     <div class="container">
-      <messageItem />
+      <goodList />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import messageItem from "./components/messageItem.vue";
+import goodList from "./components/goodList.vue";
 @Component({
-  name: "message",
+  name: "carousel",
   components: {
-    messageItem,
+    goodList,
   },
 })
 export default class extends Vue {
@@ -38,6 +38,6 @@ export default class extends Vue {
 }
 .container {
   box-sizing: border-box;
-  padding: 25px 32px 36px 32px;
+  padding: 20px 32px 36px 32px;
 }
 </style>
