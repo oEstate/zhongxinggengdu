@@ -11,6 +11,7 @@
           class="uploads"
           action="https://jsonplaceholder.typicode.com/posts/"
           :show-file-list="false"
+          :multiple="multiple"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
@@ -23,19 +24,25 @@
         :tabsActive="tabsActive"
         @getPath="getPath"
       >
-        <component :is="isComponent" @changeShop="changeShop"></component>
+        <component
+          :is="isComponent"
+          @getArr="getArr"
+          :limitType="limitType"
+          :totalNum="totalNum"
+          :selectNum="selectNum"
+        ></component>
       </tabs>
     </div>
 
     <span slot="footer" class="dialog-footer u_f_ajs">
-      <p class="tips">您已选中1张，还可以选择3张</p>
+      <p class="tips">
+        您已选中{{ selectNum + selectImgArr.length }}张，还可以选择{{
+          totalNum - selectNum - selectImgArr.length
+        }}张
+      </p>
       <div>
-        <el-button type="success" @click="dialogVisible = false" plain
-          >取 消</el-button
-        >
-        <el-button type="success" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="success" @click="handleClose" plain>取 消</el-button>
+        <el-button type="success" @click="handleClose">确 定</el-button>
       </div>
     </span>
   </el-dialog>
@@ -57,8 +64,14 @@ import materialVr from "./components/materialVr.vue";
 })
 export default class extends Vue {
   @Prop({ default: false }) dialogVisible!: Boolean;
+  @Prop({ default: true }) limitType!: Boolean; //是否限制了上传数量 true支持  false不支持
+  @Prop({ default: false }) multiple!: Boolean; //本地上传是否支持多选  true支持  false不支持
+  @Prop({ default: 5 }) totalNum!: any; //可选择的总数
+  @Prop({ default: 0 }) selectNum!: any; //已选择数量
   private tabsActive = "0";
   private isComponent = "materialImg";
+  private selectImgArr: Array<any> = []; // 选中的图片
+
   private tabsData = [
     {
       label: "图片库",
@@ -77,6 +90,9 @@ export default class extends Vue {
     },
   ];
   created() {}
+  handleClose() {
+    this.$emit("onlyclose", true);
+  }
   getPath(e: any) {
     // alert(2)
     console.log(e);
@@ -84,6 +100,21 @@ export default class extends Vue {
   }
   changeShop(e: any) {
     this.isComponent = e;
+  }
+  getArr(e: any) {
+    console.log(e);
+    this.selectImgArr = e;
+  }
+  beforeAvatarUpload(file: any) {
+    const isJPG = file.type === "image/jpeg";
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isJPG) {
+      this.$message.error("上传头像图片只能是 JPG 格式!");
+    }
+    if (!isLt2M) {
+      this.$message.error("上传头像图片大小不能超过 2MB!");
+    }
+    return isJPG && isLt2M;
   }
 }
 </script>

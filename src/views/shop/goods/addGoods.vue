@@ -102,7 +102,7 @@
       </ul>
     </el-scrollbar>
 
-    <gallery :dialogVisible="isShow" />
+    <gallery @onlyclose="isShow = false" :dialogVisible="isShow" />
   </div>
 </template>
 
