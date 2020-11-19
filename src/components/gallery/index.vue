@@ -71,7 +71,6 @@ export default class extends Vue {
   private tabsActive = "0";
   private isComponent = "materialImg";
   private selectImgArr: Array<any> = []; // 选中的图片
-
   private tabsData = [
     {
       label: "图片库",
