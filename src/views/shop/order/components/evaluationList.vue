@@ -18,8 +18,10 @@
           苹果大小均匀个头挺大的不错，肉厚皮薄多汁口感很好的，品尝了一个很好吃，水分很多，口感很好，拿回来两天就被吃完了，肉厚皮薄多汁口感很好的，品尝了一个很好吃，水分很多
         </p>
         <div class="evaluation-img">
-          <img src="http://dwz.date/dp5k" alt="" />
-          <img src="http://dwz.date/dp5k" alt="" />
+          <el-image class="img" :src="url" :preview-src-list="[url]">
+          </el-image>
+          <el-image class="img" :src="url" :preview-src-list="[url]">
+          </el-image>
         </div>
         <p class="goods">红富士苹果</p>
       </li>
@@ -37,6 +39,7 @@ import myRate from "@/components/common/stars.vue";
   },
 })
 export default class extends Vue {
+  private url = "http://dwz.date/dp5k";
   private tableData = [
     1,
     1,
@@ -103,7 +106,7 @@ ul {
     }
     .evaluation-img {
       margin-bottom: 8px;
-      img {
+      .img {
         width: 186px;
         height: 129px;
         margin-right: 18px;
