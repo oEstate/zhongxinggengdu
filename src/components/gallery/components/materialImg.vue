@@ -143,7 +143,10 @@ export default class extends Vue {
         this.limitType &&
         this.totalNum - this.selectNum - this.selectImgArr.length <= 0
       ) {
-        this.$message.error("已超过添加最大图片数量");
+        this.$message({
+          message: "已超过添加最大图片数量",
+          type: "warning",
+        });
         return;
       }
       this.selectImgArr.push(e);
@@ -206,6 +209,7 @@ export default class extends Vue {
       text-align: center;
       margin: 0 20px 20px 0;
       position: relative;
+      cursor: pointer;
       .isLayer {
         position: absolute;
         background-color: rgba(0, 0, 0, 0.3);
@@ -218,11 +222,11 @@ export default class extends Vue {
         align-items: center;
         justify-content: center;
         border-radius: 10px;
-        .el-icon-success{
-          color: #00B54D;
+        .el-icon-success {
+          color: #00b54d;
           font-size: 40px;
         }
-        span{
+        span {
           font-size: 30px;
           font-weight: 700;
           color: #fff;
