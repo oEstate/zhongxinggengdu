@@ -150,3 +150,18 @@ html{
 .el-input .el-input__count .el-input__count-inner{
   background-color: #f0f0f0;
 }
+.dangerFont{
+  color:#ff2222;
+}
+.f12{
+  font-size: 12px;
+}
+.el-button--text{
+  color: #00B54D;
+}
+.el-button--text:active,.el-button--text:hover, .el-button--text:focus,.el-select-dropdown__item.selected{
+  color:#13ce66
+}
+.el-input__inner:focus,.el-textarea__inner:focus,.el-select .el-input__inner:focus,.el-select .el-input.is-focus .el-input__inner{
+  border-color:#13ce66
+}
