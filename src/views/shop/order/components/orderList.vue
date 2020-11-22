@@ -106,6 +106,13 @@
         label="下单时间"
       >
       </el-table-column>
+      <el-table-column
+        :show-overflow-tooltip="true"
+        prop="address"
+        width="200"
+        label="状态"
+      >
+      </el-table-column>
       <el-table-column prop="address" label="操作" width="200" fixed="right">
         <el-button type="text" @click="details">查看</el-button>
         <el-button type="text">编辑</el-button>

@@ -53,6 +53,19 @@
           </div>
         </li>
         <li class="ag">
+          <div class="from-itrm-l">店铺行业：</div>
+          <div>
+            <el-cascader
+              size="large"
+              :options="options"
+              v-model="selectedOptions"
+              @change="handleChange"
+              placeholder="请选择地址"
+            >
+            </el-cascader>
+          </div>
+        </li>
+        <li class="ag">
           <div class="from-itrm-l">本人姓名：</div>
           <div>
             <el-input
@@ -257,7 +270,7 @@ export default class extends Vue {
     align-items: center;
   }
 }
-.next-btn{
+.next-btn {
   text-align: center;
   margin-bottom: 122px;
 }

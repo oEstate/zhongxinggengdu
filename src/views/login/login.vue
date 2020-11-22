@@ -32,12 +32,12 @@
               label-position="left"
               label-width="65px"
             >
-              <el-form-item prop="username" label="手机号">
+              <el-form-item prop="phone" label="手机号">
                 <el-input
-                  ref="username"
-                  v-model="loginForm.username"
+                  ref="phone"
+                  v-model="loginForm.phone"
                   placeholder="请输入手机号"
-                  name="username"
+                  name="phone"
                   type="text"
                   tabindex="1"
                 />
@@ -92,7 +92,6 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import pageFooter from "@/components/footer/index.vue";
 import { Dictionary } from "vue-router/types/router";
-import { isValidUsername } from "@/utils/validate";
 import { UserModule } from "@/store/modules/user";
 import { Form as ElForm, Input } from "element-ui";
 @Component({
@@ -112,8 +111,8 @@ import { Form as ElForm, Input } from "element-ui";
   },
 })
 export default class extends Vue {
-  private validateUsername = (rule: any, value: string, callback: Function) => {
-    if (!isValidUsername(value)) {
+  private validatePhone = (rule: any, value: string, callback: Function) => {
+    if (value.length < 11) {
       callback(new Error("请输入正确的手机号"));
     } else {
       callback();
@@ -129,13 +128,13 @@ export default class extends Vue {
   };
 
   private loginForm = {
-    username: "admin",
+    phone: "admin",
     code: "111111",
   };
   private activeName = "second";
 
   private loginRules = {
-    username: [{ validator: this.validateUsername, trigger: "blur" }],
+    phone: [{ validator: this.validatePhone, trigger: "blur" }],
     code: [{ validator: this.validatePassword, trigger: "blur" }],
   };
 
@@ -146,7 +145,7 @@ export default class extends Vue {
   private redirect?: string;
   private otherQuery: Dictionary<string> = {};
   mounted() {
-    if (this.loginForm.username === "") {
+    if (this.loginForm.phone === "") {
       (this.$refs.username as Input).focus();
     } else if (this.loginForm.code === "") {
       (this.$refs.code as Input).focus();

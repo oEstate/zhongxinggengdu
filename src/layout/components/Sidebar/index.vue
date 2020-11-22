@@ -18,23 +18,26 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {  AppModule } from "@/store/modules/app";
+import { UserModule } from '@/store/modules/user'
+import { PermissionModule } from '@/store/modules/permission'
 @Component({
   name: "SideBar",
 })
 export default class extends Vue {
-  private active = AppModule.active;
+  private active = UserModule.active;
    created() {
-    console.log(AppModule);
-    // console.log(this.routes);
+    // console.log(AppModule);
+    console.log(this.routes);
   }
   get routes() {
-    return (this.$router as any).options.routes;
+    // console.log((this.$router as any).options.routes)
+    // return (this.$router as any).options.routes;
+    return PermissionModule.routes
   }
   menu_item(url: any, index: any) {
     // console.log(index);
     this.active = index;
-    AppModule.ToggleActive(index);
+    UserModule.ToggleActive(index);
     this.$router.push(url);
   }
 }

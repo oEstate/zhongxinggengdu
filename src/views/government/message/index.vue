@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    <div class="header u_f_ac">
+      <img
+        class="header-icon"
+        src="@/assets/header-icon/message.png"
+        alt=""
+      />
       <span>消息中心</span>
     </div>
     <div class="container">

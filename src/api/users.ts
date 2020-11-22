@@ -1,21 +1,26 @@
 import request from '@/utils/request'
 
-export const getUserInfo = (data: any) =>
+// export const getUserInfo = (data: any) =>
+//   request({
+//     url: '/permissions',
+//     method: 'post',
+//     data
+//   })
+  export const getUserInfo = (data: any) =>
   request({
-    url: '/users/info',
+    url: '/permissions1',
     method: 'post',
     data
   })
-
 export const login = (data: any) =>
   request({
-    url: '/users/login',
+    url: '/login',
     method: 'post',
     data
   })
 
 export const logout = () =>
   request({
-    url: '/users/logout',
+    url: '/logout',
     method: 'post'
   })

@@ -94,6 +94,20 @@
             </el-date-picker>
           </div>
         </li>
+        <li class="ag">
+          <div class="from-itrm-l">认领截止</div>
+          <div class="phone">
+            <el-date-picker v-model="value" type="date" placeholder="选择日期">
+            </el-date-picker>
+          </div>
+        </li>
+        <li class="ag">
+          <div class="from-itrm-l">预计发货时间</div>
+          <div class="phone">
+            <el-date-picker v-model="value" type="date" placeholder="选择日期">
+            </el-date-picker>
+          </div>
+        </li>
         <li style="display: block">
           <!-- 规格表 -->
           <div class="from-itrm-l">商品规格</div>
@@ -486,7 +500,7 @@ export default class extends Vue {
   private limitType = false;
   private selectNum = 0;
 
-  private imgMaterialType: Array<any> = [];
+  private imgMaterialType: any = "";
   private showImgMaterial = false;
   private currentSpecIdx = 0;
   private currentSpecChildIdx = 0;
@@ -978,8 +992,9 @@ export default class extends Vue {
       font-size: 16px;
       color: #333333;
       flex-shrink: 0;
-      width: 67px;
-      text-align: right;
+      // width: 67px;
+      margin-left: 5px;
+      // text-align: right;
     }
     .from-logo {
       width: 148px;

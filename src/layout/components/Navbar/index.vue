@@ -17,7 +17,12 @@
         <el-input class="query">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
-        <img class="query_icon" src="@/assets/common/back.png" alt="" />
+        <img
+          @click="logout"
+          class="query_icon"
+          src="@/assets/common/back.png"
+          alt=""
+        />
       </div>
     </div>
   </div>
@@ -25,16 +30,13 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { AppModule } from "@/store/modules/app";
-
+import { UserModule } from '@/store/modules/user'
 @Component({
   name: "SideBar",
   components: {},
 })
 export default class extends Vue {
-  get sidebar() {
-    return AppModule.sidebar;
-  }
+
 
   get routes() {
     return (this.$router as any).options.routes;
@@ -48,9 +50,13 @@ export default class extends Vue {
     }
     return path;
   }
-
-  get isCollapse() {
-    return !this.sidebar.opened;
+  private async logout() {
+    await UserModule.LogOut();
+    this.$router
+      .push(`/login?redirect=${this.$route.fullPath}`)
+      .catch((err) => {
+        console.warn(err);
+      });
   }
 }
 </script>
@@ -58,7 +64,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .header {
-  background-color: #00B54D;
+  background-color: #00b54d;
 }
 .sidebar {
   width: 1299px;
@@ -95,14 +101,14 @@ export default class extends Vue {
         height: 28px;
         font-size: 20px;
         font-weight: 500;
-        color: #FFFFFF;
+        color: #ffffff;
         line-height: 28px;
         margin-bottom: 3px;
       }
       .sidebar_welcome_text {
         height: 20px;
         font-size: 14px;
-        color: #FFFFFF;
+        color: #ffffff;
         line-height: 20px;
       }
     }
@@ -126,7 +132,7 @@ export default class extends Vue {
   cursor: pointer;
   border-radius: 8px;
   opacity: 0.4;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   text-align: center;
   line-height: 38px;
   color: #fff;

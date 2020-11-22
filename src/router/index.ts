@@ -77,11 +77,6 @@ export const constantRoutes: RouteConfig[] = [
     component: () => import('@/views/404.vue'),
     meta: { hidden: true, title: '404' }
   },
-  {
-    path: '*',
-    redirect: '/404',
-    meta: { hidden: true }
-  }
 ]
 
 /**
@@ -210,17 +205,17 @@ export const asyncRoutes: RouteConfig[] = [
     path: '/message',
     component: Layout,
     redirect: '/message/list',
-    meta: { hidden: false, title: '消息中心', icon: 'el-icon-chat-line-square', roles: ['merchants', 'county', 'township', 'village'] },
+    meta: { hidden: false, title: '消息中心', icon: 'el-icon-chat-line-square', roles: ['county', 'township', 'village'] },
     children: [
       {
         path: 'list',
         component: () => import('@/views/government/message/index.vue'),
-        meta: { title: '消息中心', roles: ['merchants', 'county', 'township', 'village'] }
+        meta: { title: '消息中心', roles: ['county', 'township', 'village'] }
       },
       {
         path: 'info',
         component: () => import('@/views/government/message/info.vue'),
-        meta: { title: '消息详情', roles: ['merchants', 'county', 'township', 'village'] }
+        meta: { title: '消息详情', roles: ['county', 'township', 'village'] }
       }
     ]
   },
@@ -228,12 +223,12 @@ export const asyncRoutes: RouteConfig[] = [
     path: '/setting',
     component: Layout,
     redirect: '/setting/info',
-    meta: { hidden: false, title: '账号设置', icon: 'el-icon-set-up', roles: ['merchants', 'county', 'township', 'village'] },
+    meta: { hidden: false, title: '账号设置', icon: 'el-icon-set-up', roles: ['county', 'township', 'village'] },
     children: [
       {
         path: 'info',
         component: () => import('@/views/setting/index.vue'),
-        meta: { title: '账号设置', roles: ['merchants', 'county', 'township', 'village'] }
+        meta: { title: '账号设置', roles: ['county', 'township', 'village'] }
       }
     ]
   },
@@ -254,6 +249,24 @@ export const asyncRoutes: RouteConfig[] = [
           icon: 'dashboard', roles: ['merchants']
         }
       }
+    ]
+  },
+  {
+    path: '/goods',
+    component: Layout,
+    redirect: '/goods/list',
+    meta: { hidden: false, title: '商品管理', icon: 'el-icon-shopping-bag-1', roles: ['merchants'] },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/shop/goods/index.vue'),
+        meta: { title: '商品管理', roles: ['merchants'] }
+      },
+      {
+        path: 'add',
+        component: () => import('@/views/shop/goods/addGoods.vue'),
+        meta: { title: '商品发布', roles: ['merchants'] }
+      },
     ]
   },
   {
@@ -288,22 +301,40 @@ export const asyncRoutes: RouteConfig[] = [
     ]
   },
   {
-    path: '/goods',
+    path: '/message',
     component: Layout,
-    redirect: '/goods/list',
-    meta: { hidden: false, title: '商品管理', icon: 'el-icon-shopping-bag-1', roles: ['merchants'] },
+    redirect: '/message/list',
+    meta: { hidden: false, title: '消息中心', icon: 'el-icon-chat-line-square', roles: ['merchants'] },
     children: [
       {
         path: 'list',
-        component: () => import('@/views/shop/goods/index.vue'),
-        meta: { title: '商品管理', roles: ['merchants'] }
+        component: () => import('@/views/government/message/index.vue'),
+        meta: { title: '消息中心', roles: ['merchants'] }
       },
       {
-        path: 'add',
-        component: () => import('@/views/shop/goods/addGoods.vue'),
-        meta: { title: '商品发布', roles: ['merchants'] }
-      },
+        path: 'info',
+        component: () => import('@/views/government/message/info.vue'),
+        meta: { title: '消息详情', roles: ['merchants'] }
+      }
     ]
+  },
+  {
+    path: '/setting',
+    component: Layout,
+    redirect: '/setting/info',
+    meta: { hidden: false, title: '账号设置', icon: 'el-icon-set-up', roles: ['merchants'] },
+    children: [
+      {
+        path: 'info',
+        component: () => import('@/views/setting/index.vue'),
+        meta: { title: '账号设置', roles: ['merchants'] }
+      }
+    ]
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    meta: { hidden: true }
   },
 ]
 

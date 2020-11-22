@@ -9,6 +9,7 @@ module.exports = {
   pwa: {
     name: name
   },
+  transpileDependencies: [],
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',
