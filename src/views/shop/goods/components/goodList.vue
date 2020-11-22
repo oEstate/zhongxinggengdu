@@ -30,7 +30,7 @@
       </div>
     </div>
     <el-table
-      height="430"
+      height="540"
       align="center"
       ref="multipleTable"
       :data="tableData"

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back icon="el-icon-search" titleTxt="内容管理" backTxt="新增栏目" />
-    <el-scrollbar style="height: 500px">
+    <el-scrollbar style="height: 614px">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">栏目标题</div>

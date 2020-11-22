@@ -46,7 +46,7 @@
           <el-button type="success" @click="addColumn">批量删除</el-button>
         </div>
       </div>
-      <el-scrollbar style="height: 480px">
+      <el-scrollbar style="height: 588px">
         <ul class="container-list u_f">
           <li
             @click="clickItem(item)"
@@ -182,7 +182,7 @@ export default class extends Vue {
 .aside {
   border-right: 2px solid #e8efec;
   // position: relative;
-  height: 560px;
+  height: 670px;
   .aside-list {
     margin-bottom: 8px;
     li {
@@ -204,6 +204,7 @@ export default class extends Vue {
     // bottom: 14px;
     // left: 50%;
     // transform: translateX(-50%);
+    margin-top: 30px;
     .editor {
       margin-bottom: 14px;
       text-align: center;

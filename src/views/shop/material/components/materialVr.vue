@@ -109,7 +109,7 @@ export default class extends Vue {
 .aside {
   border-right: 2px solid #e8efec;
   // position: relative;
-  height: 560px;
+  height: 680px;
   .aside-list {
     margin-bottom: 8px;
     li {

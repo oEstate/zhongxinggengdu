@@ -41,7 +41,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .ul {
-  height: 540px;
+  height: 640px;
   border-radius: 12px;
   border: 1px solid #cccccc;
   .li {

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back icon="el-icon-search" titleTxt="轮播管理" backTxt="新增轮播" />
-    <el-scrollbar style="height: 500px">
+    <el-scrollbar style="height: 614px">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">轮播标题</div>
