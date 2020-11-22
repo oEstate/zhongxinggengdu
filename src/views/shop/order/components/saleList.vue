@@ -27,7 +27,7 @@
       </div>
     </div>
     <el-table
-      height="400"
+      height="510"
       align="center"
       :data="tableData"
       border

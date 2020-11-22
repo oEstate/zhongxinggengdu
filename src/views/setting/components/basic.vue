@@ -57,7 +57,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .container {
-  height: 470px;
+  height: 570px;
 }
 .from {
   li {

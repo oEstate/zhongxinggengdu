@@ -7,7 +7,7 @@ import { UserModule } from '@/store/modules/user'
 import { PermissionModule } from '@/store/modules/permission'
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/index']
+const whiteList = ['/login', '/index','/certification','/storesCertification','/govCertification','/auditCertification']
 
 router.beforeEach(async (to: Route, _: Route, next: any) => {
 

@@ -6,7 +6,7 @@
         <sidebar class="sidebar-container" />
         <app-main />
       </div>
-      <grayFooter class="grayFooter" />
+      <grayFooter />
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@ import { Component } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
 import { DeviceType, AppModule } from "@/store/modules/app";
 import { AppMain, Navbar, Sidebar } from "./components";
-import grayFooter from "@/components/footer/gray.vue";
+import grayFooter from "@/components/footer/graySeter.vue";
 import ResizeMixin from "./mixin/resize";
 
 @Component({
@@ -62,7 +62,4 @@ export default class extends mixins(ResizeMixin) {
   }
 }
 
-.grayFooter {
-  margin-top: 45px;
-}
 </style>

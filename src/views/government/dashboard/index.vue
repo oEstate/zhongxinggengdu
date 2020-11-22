@@ -10,7 +10,7 @@
         下载详细报表
       </div>
     </div>
-    <el-scrollbar style="height: 620px">
+    <el-scrollbar style="height: 742px">
       <div class="dashboard-container">
         <div class="u_f_ajs report">
           <div class="u_f_ac">

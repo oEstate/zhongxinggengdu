@@ -135,7 +135,7 @@ li {
   }
 }
 .allprice {
-    margin: 0 30px;
+    margin: 30px 30px 0 30px;
   p {
     text-align: right;
     font-size: 16px;

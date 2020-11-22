@@ -6,7 +6,7 @@
       backTxt="商品发布"
       bt="30px"
     />
-    <el-scrollbar style="height: 500px">
+    <el-scrollbar style="height: 634px">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">商品类型</div>

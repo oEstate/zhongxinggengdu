@@ -48,8 +48,8 @@ export default class extends Vue {
   background: #f3f6f5;
   box-shadow: 0px 0px 16px 6px rgba(12, 44, 27, 0.05);
   border-radius: 18px;
-  margin-top: -210px;
+  margin-top: -230px;
   // height:calc(100vh - 240px);
-  height: 690px;
+  height: 800px;
 }
 </style>

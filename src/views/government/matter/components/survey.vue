@@ -10,7 +10,7 @@
       <el-button type="success" @click="addColumn">新增栏目</el-button>
     </div>
     <el-table
-      height="400"
+      height="510"
       align="center"
       :data="tableData"
       border
