@@ -1,9 +1,9 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive>
+    <!--<keep-alive>-->
         <router-view :routes="routes" />
-      </keep-alive>
+    <!--</keep-alive>-->
     </transition>
   </section>
 </template>
@@ -20,15 +20,18 @@ export default class extends Vue {
     // console.log(this.routes);
   }
   get routes() {
-    let routes: any = {
-      children: this.$router.options.routes,
-    };
-    let route: any = this.$route.matched;
-    for (var i = 0; i < route.length - 1; i++) {
-      routes = routes.children.find((e: any) => e.name == route[i].name);
-    }
 
-    return routes.children;
+    // let routes: any = {
+    //   children: (this.$router as any).options.routes
+    // };
+    // let route: any = this.$route.matched;
+    // for (var i = 0; i < route.length - 1; i++) {
+    //   console.log(route[i])
+    //   routes = routes.children.find((e: any) => e.name == route[i].name);
+
+    // }
+    // return routes.children;
+    return (this.$router as any).options.routes
   }
   get nowroute() {
     let route: any = this.$route;

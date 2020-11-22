@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container">
+      <el-scrollbar style="height: 100%">
         <ul class="from">
           <li class="ag">
             <div class="from-itrm-l">店铺头像</div>
@@ -21,11 +22,16 @@
             <div class="from-itrm-l">店铺地址</div>
             <div>小杨家的超市</div>
           </li>
+          <li class="ag">
+            <div class="from-itrm-l">店铺行业</div>
+            <div>制造业</div>
+          </li>
           <li>
             <div class="from-itrm-l">店铺图片</div>
             <img src="@/assets/common/auditsuccess.png" class="icard" />
           </li>
         </ul>
+      </el-scrollbar>
     </div>
     <div class="next-btn">
       <el-button type="success" @click="changeShop">修改</el-button>
@@ -44,14 +50,14 @@ export default class extends Vue {
   private selectedOptions = [];
   private imageUrl = "";
   changeShop() {
-    this.$emit("changeShop",'basicAlter');
+    this.$emit("changeShop", "basicAlter");
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
-  // height: 470px;
+  height: 470px;
 }
 .from {
   li {

@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    <div class="header u_f_ac">
+      <img
+        class="header-icon"
+        src="@/assets/header-icon/material.png"
+        alt=""
+      />
       <span>素材库</span>
     </div>
     <div class="dashboard-container">

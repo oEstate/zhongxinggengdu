@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-      <span>内容管理</span>
+    <div class="header u_f_ac">
+      <img
+        class="header-icon"
+        src="@/assets/header-icon/message.png"
+        alt=""
+      />
+      <span>账号设置</span>
     </div>
     <div class="dashboard-container">
       <tabs :tabsData="tabsData" :tabsActive="tabsActive" @getPath="getPath">

@@ -7,6 +7,7 @@
       align="center"
       :data="tableData"
       border
+           height="400"
       style="width: 100%"
       :header-cell-style="{
         background: '#E8EFEC',
@@ -143,7 +144,7 @@ export default class extends Vue {
     margin-left: 12px;
   }
 }
-// .el-button--text{
-//   color: #00B54D;
-// }
+::v-deep .el-table__body-wrapper{
+  background-color: #f3f6f5;
+}
 </style>

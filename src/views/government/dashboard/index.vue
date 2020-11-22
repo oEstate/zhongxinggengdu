@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="header u_f_ajs">
-      <div>
-        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+      <div class="u_f_ac">
+        <img class="header-icon" src="@/assets/header-icon/dashboard.png" alt="">
         <span>数据中心</span>
       </div>
       <div class="header_r">

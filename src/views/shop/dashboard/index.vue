@@ -1,8 +1,12 @@
 <template>
   <div>
     <div class="header u_f_ajs">
-      <div>
-        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+      <div class="u_f_ac">
+        <img
+          class="header-icon"
+          src="@/assets/header-icon/dashboard.png"
+          alt=""
+        />
         <span>数据中心</span>
       </div>
       <div class="header_r">
@@ -108,7 +112,7 @@ export default class extends Vue {
   .header_r {
     cursor: pointer;
     i {
-      color: #00B54D;
+      color: #00b54d;
       font-size: 18px;
       font-weight: 700;
       position: relative;

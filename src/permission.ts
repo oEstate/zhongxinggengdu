@@ -4,19 +4,28 @@ import 'nprogress/nprogress.css'
 import { Message } from 'element-ui'
 import { Route } from 'vue-router'
 import { UserModule } from '@/store/modules/user'
-
+import { PermissionModule } from '@/store/modules/permission'
 NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login', '/index']
 
 router.beforeEach(async (to: Route, _: Route, next: any) => {
-  // Start progress bar
+
+  // if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === 'index') {
+  //   //path:不兼容组件所在路由 　　　　
+  //   alert('组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看, 浏览器不兼容通知')
+  // } else {
+  //   next();
+  // }
+
+  // Sart progress bar
   NProgress.start()
-  console.log(UserModule.token)
-  console.log(to.path)
+  // console.log(UserModule.token)
+  // console.log(to.path)
   // 确定用户是否已经登录并且 是否已经认证
+  console.log(PermissionModule.dynamicRoutes)
   if (UserModule.token) {
- if (to.path === '/login') {
+    if (to.path === '/login') {
       // 已经认证
       // 如果已登录并且已经认证，则重定向到主页
       next({ path: '/' })
@@ -29,6 +38,15 @@ router.beforeEach(async (to: Route, _: Route, next: any) => {
           // 获取用户信息，包括角色
           await UserModule.GetUserInfo()
           // 设置replace: true，这样导航将不会留下历史记录
+
+          const roles = UserModule.roles
+          console.log(roles)
+          //根据角色生成可访问路线图
+          PermissionModule.GenerateRoutes(roles)
+          // 动态添加可访问路由
+          router.addRoutes(PermissionModule.dynamicRoutes)
+          console.log(PermissionModule.dynamicRoutes)
+          console.log(router)
           next({ ...to, replace: true })
         } catch (err) {
           // 删除令牌并重定向到登录页面
