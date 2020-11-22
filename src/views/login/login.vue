@@ -71,12 +71,11 @@
               <el-button
                 :loading="loading"
                 type="success"
-                size="small"
                 class="login-btn"
                 style="width: 100%"
                 @click.native.prevent="handleLogin"
               >
-                登陆
+                登录
               </el-button>
               <p class="login-tips">未注册手机号登录将自动创建账户</p>
             </el-form>
