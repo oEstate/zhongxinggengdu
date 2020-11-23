@@ -5,7 +5,7 @@
         <ul class="from">
           <li class="ag">
             <div class="from-itrm-l">店铺头像</div>
-            <img src="@/assets/common/auditsuccess.png" class="from-logo" />
+            <img src="http://dwz.date/drME" class="from-logo" />
           </li>
           <li class="ag">
             <div class="from-itrm-l">店铺名称</div>
@@ -28,7 +28,7 @@
           </li>
           <li>
             <div class="from-itrm-l">店铺图片</div>
-            <img src="@/assets/common/auditsuccess.png" class="icard" />
+            <img src="http://dwz.date/drMG" class="icard" />
           </li>
         </ul>
       </el-scrollbar>

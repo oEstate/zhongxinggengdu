@@ -124,12 +124,12 @@ export default class extends Vue {
   private tableData = [
     {
       date: "2016-05-02",
-      name: "王小虎1",
+      name: "张三1",
       address: "上海市普陀区金沙江路 1518 弄",
     },
     {
       date: "2016-05-04",
-      name: "王小虎",
+      name: "张三",
       address: "上海市普陀区金沙江路 1517 弄",
     },
     

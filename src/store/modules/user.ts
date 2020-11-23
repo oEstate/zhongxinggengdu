@@ -10,6 +10,7 @@ export interface IUserState {
   introduction: string
   roles: string[]
   active: any
+  code:any
 }
 
 @Module({ dynamic: true, store, name: 'user' })
@@ -21,6 +22,12 @@ class User extends VuexModule implements IUserState {
   public introduction = ''
   public userType = ''
   public roles: string[] = []
+
+  public code = ''
+  @Mutation
+  public Togglecode(code: any) {
+    this.code = code;
+  }
   @Mutation
   public ToggleActive(active: any) {
     this.active = active;
@@ -78,7 +85,7 @@ class User extends VuexModule implements IUserState {
     if (this.token === '') {
       throw Error('GetUserInfo: token is undefined!')
     }
-    const { data } = await getUserInfo({ /* Your params here */ })
+    const { data } = await getUserInfo({ code:this.code })
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
