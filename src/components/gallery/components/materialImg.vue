@@ -27,7 +27,6 @@
     <div class="gallery">
       <el-scrollbar style="height: 670px">
         <ul class="container-list u_f">
-          <li class="is-active-img">未分组</li>
           <li
             v-for="(item, index) in selectedOptions"
             :key="index"

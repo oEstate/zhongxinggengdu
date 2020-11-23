@@ -4,6 +4,7 @@
     width="1200px"
     :show-close="false"
     :before-close="handleClose"
+    top="4vh"
   >
     <div class="dashboard-container">
       <div class="adduploads">
