@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search" :class="icon"></i>
+    <div class="header u_f_ac">
+      <img
+        class="header-icon"
+        :src="icon"
+        alt=""
+      />
       <span>{{titleTxt}}</span>
     </div>
     <div class="back" :style="{marginBottom:bt}">

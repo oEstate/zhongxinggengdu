@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <back icon="el-icon-search" titleTxt="消息中心" backTxt="消息详情" />
+    <back :icon="icon" titleTxt="消息中心" backTxt="消息详情" />
     <el-scrollbar class="infoscrollbar" style="height: 536px">
       <div v-html="info"></div>
     </el-scrollbar>
@@ -20,6 +20,7 @@ import Tinymce from "@/components/Tinymce/index.vue";
   },
 })
 export default class extends Vue {
+    private icon = require("@/assets/header-icon/message.png");
   private info = `<div>
 	窑货店，顾名思义，凡窑里烧出来的东西，除了秦砖汉瓦什么都卖。</div>`
 }

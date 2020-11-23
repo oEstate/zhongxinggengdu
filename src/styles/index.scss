@@ -168,3 +168,22 @@ html{
 .header-icon{
   margin-right: 10px;
 }
+.el-tabs__item{
+  font-weight: 400;
+}
+.el-tabs__item.is-active{
+  font-weight: 700;
+}
+.el-button--success{
+  background-color: #00B54D;
+  border-color:#00B54D;
+}
+.el-button--success:hover, .el-button--success:focus{
+  
+  background-color: #13ce66;
+  border-color:#13ce66;
+}
+
+.el-cascader .el-input.is-focus .el-input__inner,.el-cascader .el-input .el-input__inner:focus{
+  border-color: #13ce66;
+}

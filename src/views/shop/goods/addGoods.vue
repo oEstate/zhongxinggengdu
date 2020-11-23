@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back
-      icon="el-icon-search"
+      :icon="icon"
       titleTxt="商品管理"
       backTxt="商品发布"
       bt="30px"
@@ -440,6 +440,8 @@ export default class extends Vue {
   private shopName = "";
 
   //
+  
+  private icon = require('@/assets/header-icon/goods.png');
   private isShow = false;
   private specArr: Array<any> = [
     {

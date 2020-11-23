@@ -29,7 +29,7 @@
         <li class="title">审核失败</li>
         <li class="info">很抱歉，您的身份认证未通过</li>
         <li class="info infoerr">原因：身份证照片不清晰</li>
-        <li><el-button type="success" @click="next">重新认证</el-button></li>
+        <li><el-button type="success" @click="jump">重新认证</el-button></li>
       </ul>
     </div>
     <grayFooter />
@@ -51,6 +51,9 @@ import steps from "@/components/common/steps.vue";
 })
 export default class extends Vue {
   private active = 3;
+  jump() {
+    this.$router.push({ path: "/certification" });
+  }
 }
 </script>
 
@@ -82,7 +85,7 @@ ul {
   }
   .infoerr {
     margin-bottom: 38px;
-    color: #F55340
+    color: #f55340;
   }
 }
 .title {
