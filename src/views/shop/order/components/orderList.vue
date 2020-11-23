@@ -115,7 +115,6 @@
       </el-table-column>
       <el-table-column prop="address" label="操作" width="200" fixed="right">
         <el-button type="text" @click="details">查看</el-button>
-        <el-button type="text">编辑</el-button>
         <el-button type="text">发货</el-button>
         <el-button type="text">物流</el-button>
         <el-button type="text">联系买家</el-button>

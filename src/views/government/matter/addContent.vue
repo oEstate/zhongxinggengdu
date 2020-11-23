@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back :icon="icon" titleTxt="内容管理" backTxt="新增内容" />
-    <el-scrollbar style="height: 614px">
+    <el-scrollbar :style="{height:clientHeight-310+'px'}">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">栏目标题</div>
@@ -13,7 +13,7 @@
           </div>
         </li>
         <li class="ag">
-          <div class="from-itrm-l">村居头像</div>
+          <div class="from-itrm-l">商品封面</div>
           <el-upload
             class="from-logo"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -45,6 +45,8 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 
 @Component({
   name: "matterAdd",
@@ -53,7 +55,7 @@ import Tinymce from "@/components/Tinymce/index.vue";
     Tinymce,
   },
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
     private icon = require("@/assets/header-icon/matter.png");
   private content = ``;
   private shopName = "";

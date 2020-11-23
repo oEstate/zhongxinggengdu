@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back :icon="icon" titleTxt="轮播管理" backTxt="新增轮播" />
-    <el-scrollbar style="height: 614px">
+    <el-scrollbar :style="{height:clientHeight-310+'px'}">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">轮播标题</div>
@@ -111,7 +111,8 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
-
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 @Component({
   name: "matterAdd",
   components: {
@@ -119,7 +120,7 @@ import Tinymce from "@/components/Tinymce/index.vue";
     Tinymce,
   },
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
   private icon = require("@/assets/header-icon/carousel.png");
   private options = [
     {
