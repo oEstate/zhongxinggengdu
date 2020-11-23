@@ -5,9 +5,9 @@
         <div class="login-img">
           <img src="@/assets/common/LOGO.png" alt="" />
         </div>
-        <el-link :underline="false" class="nav-button">首页</el-link>
+        <el-link :underline="false" class="nav-button" @click="home">首页</el-link>
         <el-link :underline="false" class="nav-button">常见问题</el-link>
-        <el-link :underline="false" class="nav-button">村居直供APP</el-link>
+        <el-link :underline="false" class="nav-button" @click="certification">村居直供APP</el-link>
       </div>
     </div>
     <div class="login-info">
@@ -175,6 +175,12 @@ export default class extends Vue {
     //     return false
     //   }
     // })
+  }
+  home(){
+    this.$router.push({ path: "/index" });
+  }
+  certification(){
+    this.$router.push({ path: "/certification" });
   }
 }
 </script>

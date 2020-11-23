@@ -14,7 +14,7 @@
     <div class="login-info">
       <div class="login-info-h1">村居直供云平台</div>
       <div class="login-info-h2">服务城乡居民</div>
-      <el-button class="login-info-btn" type="success">入住平台</el-button>
+      <el-button class="login-info-btn" type="success" @click="jump">入住平台</el-button>
     </div>
     <pageFooter />
   </div>

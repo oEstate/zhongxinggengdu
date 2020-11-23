@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <back icon="el-icon-search" titleTxt="轮播管理" backTxt="新增轮播" />
+    <back :icon="icon" titleTxt="轮播管理" backTxt="新增轮播" />
     <el-scrollbar style="height: 614px">
       <ul class="from">
         <li class="ag">
@@ -101,7 +101,6 @@
         <li class="ags">
           <el-button type="success" plain @click="next">取消</el-button>
           <el-button type="success" @click="next">发布</el-button>
-          
         </li>
       </ul>
     </el-scrollbar>
@@ -121,6 +120,7 @@ import Tinymce from "@/components/Tinymce/index.vue";
   },
 })
 export default class extends Vue {
+  private icon = require("@/assets/header-icon/carousel.png");
   private options = [
     {
       value: "0",

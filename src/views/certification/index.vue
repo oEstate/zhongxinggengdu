@@ -56,7 +56,7 @@ export default class extends Vue {
       typeInfo: "村委居委云平台管理 编辑村委居委概况 发布本地资讯等",
     },
     {
-      typeName: "乡镇",
+      typeName: "乡镇街道",
       typeTitle: "乡镇街道",
       typeInfo: "乡镇街道云平台管理 编辑乡镇街道概况 发布本地资讯等",
     },
@@ -69,8 +69,20 @@ export default class extends Vue {
   jump() {
     this.$router.push({ path: "/login" });
   }
+  // next() {
+  //   (this.$refs.steps as any).next();
+  // }
   next() {
-    (this.$refs.steps as any).next();
+    switch (this.defaultActive) {
+      case 0:
+        this.$router.push({ path: "/storesCertification" });
+      case 1:
+        this.$router.push({ path: "/govCertification" });
+      case 2:
+        this.$router.push({ path: "/govCertification" });
+      case 2:
+        this.$router.push({ path: "/govCertification" });
+    }
   }
   selectUserType(index: any) {
     this.defaultActive = index;
@@ -121,6 +133,9 @@ ul {
     margin-bottom: 12px;
     font-weight: 600;
     color: #bbbbbb;
+    box-sizing: border-box;
+    padding: 10px;
+      font-size: 23px;
   }
   .user-type-h2 {
     font-size: 20px;

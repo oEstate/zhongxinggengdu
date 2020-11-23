@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <back icon="el-icon-search" titleTxt="内容管理" backTxt="新增内容" />
+    <back :icon="icon" titleTxt="内容管理" backTxt="新增内容" />
     <el-scrollbar style="height: 614px">
       <ul class="from">
         <li class="ag">
@@ -54,6 +54,7 @@ import Tinymce from "@/components/Tinymce/index.vue";
   },
 })
 export default class extends Vue {
+    private icon = require("@/assets/header-icon/matter.png");
   private content = ``;
   private shopName = "";
   changeShop() {

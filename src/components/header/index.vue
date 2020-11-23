@@ -5,7 +5,7 @@
         <div class="login-img">
           <img src="@/assets/common/logogreen.png" alt="" />
         </div>
-        <el-link :underline="false" class="nav-button">首页</el-link>
+        <el-link :underline="false" class="nav-button" @click="home">首页</el-link>
         <el-link :underline="false" class="nav-button">常见问题</el-link>
         <el-link :underline="false" class="nav-button">村居直供APP</el-link>
       </div>
@@ -44,6 +44,9 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class extends Vue {
   created() {}
+  home() {
+    this.$router.push({ path: "/index" });
+  }
 }
 </script>
 

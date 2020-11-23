@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="header">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    <div class="header u_f_ac">
+      <img class="header-icon" src="@/assets/header-icon/matter.png" alt="" />
       <span>内容管理</span>
     </div>
     <div class="dashboard-container">
@@ -34,7 +34,7 @@ import tabs from "@/components/common/tabs.vue";
     construction,
     convenience,
     customs,
-    opengov
+    opengov,
   },
 })
 export default class extends Vue {
@@ -79,10 +79,10 @@ export default class extends Vue {
   ];
   created() {}
 
-  getPath(e:any){
+  getPath(e: any) {
     // alert(2)
-    console.log(e)
-    this.isComponent=e
+    console.log(e);
+    this.isComponent = e;
   }
 }
 </script>
@@ -90,7 +90,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .header {
   height: 70px;
-  background: #E8EFEC;
+  background: #e8efec;
   line-height: 70px;
   font-size: 18px;
   color: #444444;
@@ -105,25 +105,25 @@ export default class extends Vue {
   line-height: 61px;
 }
 ::v-deep .el-tabs__item.is-active {
-  color: #00B54D;
+  color: #00b54d;
 }
 ::v-deep .el-tabs__active-bar {
-  background-color: #00B54D;
+  background-color: #00b54d;
 }
 ::v-deep .el-tabs__item:hover {
-  color: #00B54D;
+  color: #00b54d;
 }
 .dashboard {
   &-container {
     margin: 18px 32px 0 32px;
     .report {
-      border-bottom: 2px solid #E8EFEC;
+      border-bottom: 2px solid #e8efec;
       box-sizing: border-box;
       padding: 26px 36px 18px 37px;
       .icon-k {
         width: 6px;
         height: 6px;
-        background: #00B54D;
+        background: #00b54d;
         margin-right: 14px;
         display: inline-block;
       }
@@ -137,7 +137,7 @@ export default class extends Vue {
         color: #777777;
       }
       .ic {
-        color: #00B54D;
+        color: #00b54d;
       }
     }
 
@@ -147,7 +147,7 @@ export default class extends Vue {
         height: 70px;
         font-size: 50px;
         font-weight: 600;
-        color: #00B54D;
+        color: #00b54d;
         line-height: 70px;
         letter-spacing: 1px;
         margin-bottom: 6px;

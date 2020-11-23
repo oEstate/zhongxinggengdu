@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back
-      icon="el-icon-search"
+      :icon="icon"
       titleTxt="订单管理"
       backTxt="订单详情"
       bt="20px"
@@ -78,6 +78,7 @@ import Tinymce from "@/components/Tinymce/index.vue";
   },
 })
 export default class extends Vue {
+  private icon = require("@/assets/header-icon/order.png");
   private content = ``;
   private shopName = "";
   changeShop() {
@@ -135,15 +136,15 @@ li {
   }
 }
 .allprice {
-    margin: 30px 30px 0 30px;
+  margin: 30px 30px 0 30px;
   p {
     text-align: right;
     font-size: 16px;
     color: #333333;
     line-height: 22px;
     margin-bottom: 7px;
-    .isColor{
-      color: #FB3737;
+    .isColor {
+      color: #fb3737;
     }
   }
 }

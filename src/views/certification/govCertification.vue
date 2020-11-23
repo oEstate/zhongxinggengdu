@@ -109,7 +109,7 @@
       </ul>
     </div>
     <div class="next-btn">
-      <el-button type="success">提交</el-button>
+      <el-button type="success" @click="submit">提交</el-button>
     </div>
     <grayFooter />
   </div>
@@ -137,6 +137,9 @@ export default class extends Vue {
   private imageUrl = "";
   jump() {
     this.$router.push({ path: "/login" });
+  }
+  submit() {
+    this.$router.push({ path: "/auditCertification" });
   }
   handleChange(value: any) {
     console.log(value);
