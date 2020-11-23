@@ -12,15 +12,15 @@
         </li>
         <li class="ag nolinje">
           <div class="from-itrm-l">身份证（正面）</div>
-          <img src="@/assets/common/auditsuccess.png" class="icard" />
+          <img src="http://dwz.date/drMN" class="icard" />
         </li>
         <li class="ag nolinje">
           <div class="from-itrm-l">身份证（反面）</div>
-          <img src="@/assets/common/auditsuccess.png" class="icard" />
+          <img src="http://dwz.date/drMQ" class="icard" />
         </li>
         <li class="ag nolinje">
           <div class="from-itrm-l">本人手持身份证</div>
-          <img src="@/assets/common/auditsuccess.png" class="icard" />
+          <img src="http://dwz.date/drMP" class="icard" />
         </li>
       </ul>
     </el-scrollbar>

@@ -9,7 +9,7 @@
           @click="jump"
         >
           <div class="message-icon">
-            <img src="@/assets/common/auditsuccess.png" alt="" />
+            <img src="http://dwz.date/drME" alt="" />
           </div>
           <div class="message">
             <p class="message-title">轮播名称轮播名称轮播名称</p>

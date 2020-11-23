@@ -152,6 +152,7 @@ export default class extends Vue {
   }
 
   async handleLogin() {
+    UserModule.Togglecode(this.loginForm.code);
     await UserModule.Login(this.loginForm);
     // 当没认证跳转到认证页
     //认证成功跳转到首页
