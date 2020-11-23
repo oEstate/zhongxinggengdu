@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <el-scrollbar style="height: 100%">
+      <el-scrollbar :style="{height:clientHeight-370+'px'}">
         <ul class="from">
           <li class="ag">
             <div class="from-itrm-l">店铺头像</div>
@@ -78,10 +78,12 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 // import { regionData } from "element-china-area-data";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 @Component({
   name: "basicAlter",
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
   private active = 2;
   private shopName = "";
   // private options = regionData;
@@ -141,9 +143,7 @@ export default class extends Vue {
   color: #333;
   height: 178px;
 }
-.container {
-  height: 570px;
-}
+
 .from {
   li {
     list-style: none;

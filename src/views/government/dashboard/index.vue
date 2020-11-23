@@ -2,7 +2,11 @@
   <div>
     <div class="header u_f_ajs">
       <div class="u_f_ac">
-        <img class="header-icon" src="@/assets/header-icon/dashboard.png" alt="">
+        <img
+          class="header-icon"
+          src="@/assets/header-icon/dashboard.png"
+          alt=""
+        />
         <span>数据中心</span>
       </div>
       <div class="header_r">
@@ -10,7 +14,7 @@
         下载详细报表
       </div>
     </div>
-    <el-scrollbar style="height: 742px">
+    <el-scrollbar :style="{height:clientHeight-194+'px'}">
       <div class="dashboard-container">
         <div class="u_f_ajs report">
           <div class="u_f_ac">
@@ -138,9 +142,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop} from "vue-property-decorator";
 import { UserModule } from "@/store/modules/user";
 import PieChart from "./components/PieChart.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 
 @Component({
   name: "Dashboard",
@@ -148,15 +154,15 @@ import PieChart from "./components/PieChart.vue";
     PieChart,
   },
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
   @Prop() routes!: any;
   created() {
     console.log(this.routes);
+    console.log(this.clientHeight)
   }
   get name() {
     return UserModule.name;
   }
-
   get roles() {
     return UserModule.roles;
   }

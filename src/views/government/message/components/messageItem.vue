@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row class="ul">
+    <el-row class="ul" :style="{height:clientHeight-300+'px'}">
       <el-scrollbar style="height: 100%">
         <div
           class="li u_f_ac"
@@ -27,10 +27,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 @Component({
   name: "messageItem",
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
   private tableData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1];
   created() {}
   jump() {
@@ -41,7 +43,6 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .ul {
-  height: 640px;
   border-radius: 12px;
   border: 1px solid #cccccc;
   .li {

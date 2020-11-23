@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-scrollbar style="height: 100%">
+    <el-scrollbar :style="{height:clientHeight-286+'px'}">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">本人姓名</div>
@@ -29,10 +29,12 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 @Component({
   name: "certification",
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
   private active = 2;
   private shopName = "";
   private selectedOptions = [];
@@ -44,9 +46,6 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  height: 636px;
-}
 .from {
   margin-top: 10px;
   li {
