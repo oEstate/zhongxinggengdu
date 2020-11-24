@@ -42,6 +42,6 @@ export default class extends Vue {
 }
 .container {
   box-sizing: border-box;
-  padding: 20px 32px 36px 32px;
+  padding: 20px 32px 14px 32px;
 }
 </style>

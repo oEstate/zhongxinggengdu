@@ -28,19 +28,53 @@
       </div>
       <ul class="statistical u_f_ajsv">
         <li>
-          <div class="statistical-n">1799</div>
+          <div class="statistical-n">
+            <count-to
+              :start-val="0"
+              :end-val="1799"
+              :duration="2000"
+              :decimals="2"
+              separator=""
+              class="card-panel-num"
+            />
+          </div>
           <div class="statistical-t">今日订单成交量</div>
         </li>
         <li>
-          <div class="statistical-n">884.34</div>
+          <div class="statistical-n">
+            <count-to
+              :start-val="0"
+              :end-val="884.34"
+              :duration="2000"
+              :decimals="2"
+              separator=""
+              class="card-panel-num"
+            />
+          </div>
           <div class="statistical-t">今日总营业额(元)</div>
         </li>
         <li>
-          <div class="statistical-n">11345.12</div>
+          <div class="statistical-n">
+            <count-to
+              :start-val="0"
+              :end-val="11345"
+              :duration="2000"
+              separator=""
+              class="card-panel-num"
+            />
+          </div>
           <div class="statistical-t">今日访客数(人)</div>
         </li>
         <li>
-          <div class="statistical-n">45872.14</div>
+          <div class="statistical-n">
+            <count-to
+              :start-val="0"
+              :end-val="45872.14"
+              :duration="2000"
+              separator=""
+              class="card-panel-num"
+            />
+          </div>
           <div class="statistical-t">累计客户(人)</div>
         </li>
       </ul>
@@ -79,9 +113,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { UserModule } from "@/store/modules/user";
-
+import CountTo from "vue-count-to";
 @Component({
   name: "Dashboard",
+  components: {
+    CountTo,
+  },
 })
 export default class extends Vue {
   @Prop() routes!: any;

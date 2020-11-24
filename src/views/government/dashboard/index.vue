@@ -14,7 +14,7 @@
         下载详细报表
       </div>
     </div>
-    <el-scrollbar :style="{height:clientHeight-194+'px'}">
+    <el-scrollbar :style="{ height: clientHeight - 194 + 'px' }">
       <div class="dashboard-container">
         <div class="u_f_ajs report">
           <div class="u_f_ac">
@@ -28,19 +28,55 @@
         </div>
         <ul class="statistical u_f_ajsv">
           <li>
-            <div class="statistical-n">1799</div>
+            <div class="statistical-n">
+              <count-to
+                :start-val="0"
+                :end-val="1799"
+                :duration="2000"
+                :decimals="2"
+                separator=''
+                class="card-panel-num"
+              />
+            </div>
             <div class="statistical-t">今日订单成交量</div>
           </li>
           <li>
-            <div class="statistical-n">884.34</div>
+            <div class="statistical-n">
+              <count-to
+                :start-val="0"
+                :end-val="884.34"
+                :duration="2000"
+                :decimals="2"
+                separator=''
+                class="card-panel-num"
+              />
+            </div>
             <div class="statistical-t">今日总营业额(万元)</div>
           </li>
           <li>
-            <div class="statistical-n">11345.12</div>
+            <div class="statistical-n">
+              <count-to
+                :start-val="0"
+                :end-val="11345.12"
+                :duration="2000"
+                :decimals="2"
+                separator=''
+                class="card-panel-num"
+              />
+            </div>
             <div class="statistical-t">本周总营业额(万元)</div>
           </li>
           <li>
-            <div class="statistical-n">45872.14</div>
+            <div class="statistical-n">
+              <count-to
+                :start-val="0"
+                :end-val="45872.14"
+                :duration="2000"
+                :decimals="2"
+                separator=''
+                class="card-panel-num"
+              />
+            </div>
             <div class="statistical-t">本月总营业额(万元)</div>
           </li>
         </ul>
@@ -142,23 +178,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { UserModule } from "@/store/modules/user";
 import PieChart from "./components/PieChart.vue";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
+import CountTo from "vue-count-to";
 
 @Component({
   name: "Dashboard",
   components: {
     PieChart,
+    CountTo,
   },
 })
 export default class extends mixins(ResizeMixin1) {
   @Prop() routes!: any;
   created() {
     console.log(this.routes);
-    console.log(this.clientHeight)
+    console.log(this.clientHeight);
   }
   get name() {
     return UserModule.name;
