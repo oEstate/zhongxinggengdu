@@ -32,7 +32,9 @@
     "vue-router": "^3.4.8",
     "vue-svgicon": "^3.2.9",
     "vuex": "^3.5.1",
-    "vuex-module-decorators": "^1.0.1"
+    "vuex-module-decorators": "^1.0.1",
+    "vue-count-to": "^1.0.13",
+    "autoprefixer": "^9.8.6"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.12.1",

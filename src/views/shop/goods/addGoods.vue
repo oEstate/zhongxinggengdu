@@ -6,7 +6,7 @@
       backTxt="商品发布"
       bt="30px"
     />
-    <el-scrollbar style="height: 634px">
+    <el-scrollbar :style="{height:clientHeight-288+'px'}">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">商品类型</div>
@@ -426,6 +426,8 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
 import gallery from "@/components/gallery/index.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 @Component({
   name: "addGoods",
   components: {
@@ -434,7 +436,7 @@ import gallery from "@/components/gallery/index.vue";
     gallery,
   },
 })
-export default class extends Vue {
+export default class extends mixins(ResizeMixin1) {
   //
 
   private shopName = "";

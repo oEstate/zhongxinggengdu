@@ -5,9 +5,13 @@
         <div class="login-img">
           <img src="@/assets/common/LOGO.png" alt="" />
         </div>
-        <el-link :underline="false" class="nav-button" @click="home">首页</el-link>
+        <el-link :underline="false" class="nav-button" @click="home"
+          >首页</el-link
+        >
         <el-link :underline="false" class="nav-button">常见问题</el-link>
-        <el-link :underline="false" class="nav-button" @click="certification">村居直供APP</el-link>
+        <el-link :underline="false" class="nav-button" @click="certification"
+          >村居直供APP</el-link
+        >
       </div>
     </div>
     <div class="login-info">
@@ -127,7 +131,7 @@ export default class extends Vue {
   };
 
   private loginForm = {
-    phone: "admin",
+    phone: "merchants",
     code: "111111",
   };
   private activeName = "second";
@@ -152,12 +156,13 @@ export default class extends Vue {
   }
 
   async handleLogin() {
-    UserModule.Togglecode(this.loginForm.code);
     await UserModule.Login(this.loginForm);
     // 当没认证跳转到认证页
     //认证成功跳转到首页
     // this.$router.push({ path: "/certification" });
-    this.$router.push({ path: "/" });
+    this.$router.push({ path: "/" }).catch((err) => {
+      console.warn(err);
+    });
     // (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
     //   if (valid) {
     //     this.loading = true
@@ -177,10 +182,10 @@ export default class extends Vue {
     //   }
     // })
   }
-  home(){
+  home() {
     this.$router.push({ path: "/index" });
   }
-  certification(){
+  certification() {
     this.$router.push({ path: "/certification" });
   }
 }
