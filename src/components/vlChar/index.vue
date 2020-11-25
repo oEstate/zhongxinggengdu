@@ -1,11 +1,6 @@
 <template>
   <div class="vs_char" v-loading="loading">
     <div class="vs_char_list">
-      <!--<div class="vs_char_user">
-				<div class="vs_char_user_img">
-					<img :src="(('myInfo' in dataList) && ('avatar' in dataList.myInfo) && dataList.myInfo.avatar !== '' && dataList.myInfo.avatar !== null && dataList.myInfo.avatar !== undefined)?dataList.myInfo.avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'" alt=""></div>
-				<div class="vs_char_user_name">{{ (('myInfo' in dataList) && ('nick' in dataList.myInfo) && dataList.myInfo.nick !== '' && dataList.myInfo.nick !== null && dataList.myInfo.nick !== undefined)?dataList.myInfo.nick:'' }}</div>
-			</div>-->
       <el-scrollbar style="height: 100%; width: 255px">
         <ul class="vs_char_user_list_wraper">
           <li
@@ -72,18 +67,7 @@
     <div class="vs_char_wrap">
       <div v-if="toAccount === ''" class=""></div>
       <div v-else>
-        <!--<div class="vs_char_top">
-					<div class="vs_char_top_to">
-						<div class="vs_char_top_to_img">
-							<img :src="(toUserImg !== '' && toUserImg !== null && toUserImg !== undefined)?toUserImg:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'" alt="">
-						</div>
-						<div class="vs_char_top_to_name">{{ (toUserName !== '' && toUserName !== null && toUserName !== undefined)?toUserName:'未知好友' }}</div>
-					</div>
-					<div>
-						<div class="vs_char_top_more"></div>
-					</div>
-				</div>-->
-        <div class="vs_char_view" id="vs_char_view" v-loading="loading1">
+        <div class="vs_char_view" id="vs_char_view">
           <div v-for="(item, index) in sessionsList" :key="index">
             <div class="vs_char_view_time" v-if="'printTime' in item">
               {{ item.printTime }}
@@ -154,7 +138,6 @@
                   />
                 </div>
                 <div class="vs_char_view_user_info_img">
-                  <!--<img :src="item.file.url" alt="" />-->
                   <el-image
                     style="width: 100%; height: 100%"
                     :src="item.file.url"
@@ -170,7 +153,6 @@
                 <div
                   class="vs_char_view_user_info_img vs_char_view_user_info_img_right"
                 >
-                  <!--<img :src="item.file.url" alt="" />-->
                   <el-image
                     style="width: 100%; height: 100%"
                     :src="item.file.url"
@@ -261,7 +243,6 @@ export default {
   data() {
     return {
       loading: false,
-      loading1: false,
       avatar: require("@/assets/common/avatar.png"),
       loginError: false,
       dataList: {}, // 初始化信息
@@ -452,7 +433,6 @@ export default {
           }
         }
       }
-      this.loading1 = false;
       console.log(this.sessionsList);
     },
     addUserNameAvatar() {
@@ -469,6 +449,7 @@ export default {
       }
     },
     init() {
+      // alert(1)
       let that = this;
       that.loading = true;
       if (this.appKey === "" || this.account === "" || this.token === "") {
@@ -539,6 +520,7 @@ export default {
       this.$forceUpdate();
     },
     onConnect() {
+      // alert(2)
       console.log("连接成功");
     },
     onWillReconnect(obj) {
@@ -952,7 +934,6 @@ export default {
       this.updateSessionsUI();
     },
     onUpdateSession(session) {
-      this.loading1 = true;
       console.log("会话更新了", session);
       this.dataList.sessions = this.nim.mergeSessions(
         this.dataList.sessions,
