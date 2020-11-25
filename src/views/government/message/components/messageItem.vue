@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-row class="ul" :style="{height:clientHeight-300+'px'}">
+  <div class="container">
+    <el-row class="ul" :style="{height:clientHeight-380+'px'}">
       <el-scrollbar style="height: 100%">
         <div
           class="li u_f_ac"
@@ -42,6 +42,10 @@ export default class extends mixins(ResizeMixin1) {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  box-sizing: border-box;
+  padding: 15px 32px 0px 32px;
+}
 .ul {
   border-radius: 12px;
   border: 1px solid #cccccc;

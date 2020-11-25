@@ -173,6 +173,8 @@
           </li>
         </ul>
       </div>
+
+
     </el-scrollbar>
   </div>
 </template>
@@ -189,7 +191,7 @@ import CountTo from "vue-count-to";
   name: "Dashboard",
   components: {
     PieChart,
-    CountTo,
+    CountTo
   },
 })
 export default class extends mixins(ResizeMixin1) {
