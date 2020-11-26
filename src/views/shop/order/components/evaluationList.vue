@@ -9,7 +9,17 @@
             </div>
             <div>
               <div class="user-name">李先生</div>
-              <div><myRate :score="2" /></div>
+              <div>
+                <el-rate
+                  v-model="value"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  disabled-void-color="#ccc"
+                  score-template="{value}"
+                >
+                </el-rate>
+              </div>
             </div>
           </div>
           <div class="time">2020-10-09 20：12：34</div>
@@ -31,15 +41,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import myRate from "@/components/common/stars.vue";
 @Component({
   name: "evaluationList",
   components: {
-    myRate,
   },
 })
 export default class extends Vue {
   private url = "http://dwz.date/dp5k";
+  private value = 3.5;
   private tableData = [
     1,
     1,
