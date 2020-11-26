@@ -2,13 +2,18 @@
   <div>
     <ul class="u_f info">
       <li>
-        <div class="u_f_ac">
-          <span class="icon-k"></span>
-          <span class="title">店铺余额</span>
+        <div class="u_f_ajs">
+          <div>
+            <span class="icon-k"></span>
+            <span class="title">店铺余额</span>
+          </div>
+          <p class="withdrawal">您有1条提现进行中</p>
         </div>
         <div class="money u_f_ac">
           <div class="money_txt">1799.00</div>
-          <el-button type="success" plain>提现</el-button>
+          <el-button type="success" plain @click="dialogVisible = true"
+            >提现</el-button
+          >
         </div>
         <div class="tips u_f_ac">
           <div>可用余额(元)</div>
@@ -20,7 +25,7 @@
           <span class="icon-k"></span>
           <span class="title">银行卡信息</span>
         </div>
-        <div class="u_f u_f_end">
+        <!--<div class="u_f u_f_end">
           <div class="card">
             <div class="bank u_f_ac">
               <span class="bank_img"><img src="http://dwz.date/dutK" alt="" /></span>
@@ -29,6 +34,9 @@
             <p class="bank_number">**** **** **** **** 220</p>
           </div>
           <div><el-button type="text">更换银行卡</el-button></div>
+        </div>-->
+        <div class="card card_none">
+          <el-button type="success" @click="addCard">添加银行卡</el-button>
         </div>
       </li>
     </ul>
@@ -123,6 +131,33 @@
         >
         </el-pagination>
       </div>
+
+      <el-dialog
+        :visible.sync="dialogVisible"
+        width="506px"
+        :before-close="handleClose"
+        center
+        :close-on-click-modal="false"
+      >
+        <div class="dialog_content">
+          <div>
+            <!--<el-input v-model="input" placeholder="0.00"></el-input>-->
+
+            <el-input-number
+              v-model="value1"
+              :precision="2"
+              placeholder="0.00"
+            ></el-input-number>
+          </div>
+          <div class="tips u_f_ac">
+            <div>可用余额(元)</div>
+            <div><i class="el-icon-question"></i></div>
+          </div>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="success" @click="submit">提交申请</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -134,7 +169,10 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class extends Vue {
   private value = "";
+  private value1 = undefined;
   private multipleSelection = [];
+
+  private dialogVisible = false;
   private tableData = [
     {
       date: "2016-05-02",
@@ -178,12 +216,16 @@ export default class extends Vue {
     },
   ];
   created() {}
-  addGoods() {
-    this.$router.push({ path: "/goods/add" });
+  addCard() {
+    this.$router.push({ path: "/wallet/addCard" });
   }
 
   handleSelectionChange(val: any) {
     this.multipleSelection = val;
+  }
+  submit() {
+    this.dialogVisible = false;
+    this.$router.push({ path: "/wallet/results" });
   }
 }
 </script>
@@ -203,6 +245,12 @@ export default class extends Vue {
   font-size: 18px;
   font-weight: 500;
   color: #444444;
+}
+.withdrawal {
+  font-size: 16px;
+  color: #00b54d;
+  letter-spacing: 1px;
+  margin-right: 35px;
 }
 .info {
   border-bottom: 2px solid #e8efec;
@@ -267,7 +315,7 @@ export default class extends Vue {
           padding: 3px;
           overflow: hidden;
           margin-right: 8px;
-          img{
+          img {
             width: 100%;
             height: 100%;
           }
@@ -285,6 +333,73 @@ export default class extends Vue {
         font-weight: 500;
         color: #444444;
       }
+    }
+    .card_none {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+::v-deep .el-dialog--center .el-dialog__body {
+  padding: 0 73px;
+}
+::v-deep .el-dialog {
+  height: auto;
+  .el-dialog__header,
+  .el-dialog__footer {
+    border: 0;
+  }
+  .el-dialog__footer .el-button {
+    margin: 0;
+    width: 294px;
+  }
+  .tips {
+    font-size: 18px;
+    color: #444444;
+    letter-spacing: 1px;
+    margin-bottom: 41px;
+    margin-top: 14px;
+    cursor: pointer;
+    i {
+      color: #00b34c;
+      margin-left: 6px;
+    }
+  }
+  .el-input-number {
+    width: 100%;
+  }
+  .el-input-number__decrease,
+  .el-input-number__increase {
+    display: none;
+  }
+  .el-input {
+    .el-input__inner {
+      height: 81px;
+      font-size: 58px;
+      font-weight: 600;
+      color: #00b54d;
+      line-height: 81px;
+      letter-spacing: 2px;
+      padding: 0;
+      border: 0;
+      background-color: #fff;
+      border-radius: 0;
+      text-align: left;
+    }
+    .el-input__inner::placeholder {
+      color: rgba(0, 181, 77, 0.2);
+    }
+    /* 谷歌 */
+    .el-input__inner::-webkit-input-placeholder {
+      color: rgba(0, 181, 77, 0.2);
+    }
+    /* 火狐 */
+    .el-input__inner:-moz-placeholder {
+      color: rgba(0, 181, 77, 0.2);
+    }
+    /*ie*/
+    .el-input__inner:-ms-input-placeholder {
+      color: rgba(0, 181, 77, 0.2);
     }
   }
 }

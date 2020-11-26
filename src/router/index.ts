@@ -322,12 +322,22 @@ export const asyncRoutes: RouteConfig[] = [
     path: '/wallet',
     component: Layout,
     redirect: '/wallet/info',
-    meta: { hidden: false, title: '账户总览', icon: 'el-icon-set-up', roles: ['merchants'] },
+    meta: { hidden: false, title: '账户总览', icon: 'el-icon-wallet', roles: ['merchants'] },
     children: [
       {
         path: 'info',
         component: () => import('@/views/shop/wallet/index.vue'),
         meta: { title: '账户总览', roles: ['merchants'] }
+      },
+      {
+        path: 'addCard',
+        component: () => import('@/views/shop/wallet/addCard.vue'),
+        meta: { title: '添加银行卡', roles: ['merchants'] }
+      },
+      {
+        path: 'results',
+        component: () => import('@/views/shop/wallet/results.vue'),
+        meta: { title: '提现状态', roles: ['merchants'] }
       }
     ]
   },
