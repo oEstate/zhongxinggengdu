@@ -319,6 +319,19 @@ export const asyncRoutes: RouteConfig[] = [
     ]
   },
   {
+    path: '/wallet',
+    component: Layout,
+    redirect: '/wallet/info',
+    meta: { hidden: false, title: '账户总览', icon: 'el-icon-set-up', roles: ['merchants'] },
+    children: [
+      {
+        path: 'info',
+        component: () => import('@/views/shop/wallet/index.vue'),
+        meta: { title: '账户总览', roles: ['merchants'] }
+      }
+    ]
+  },
+  {
     path: '/setting',
     component: Layout,
     redirect: '/setting/info',
