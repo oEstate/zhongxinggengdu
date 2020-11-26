@@ -33,7 +33,6 @@
                 :start-val="0"
                 :end-val="1799"
                 :duration="2000"
-                :decimals="2"
                 separator=''
                 class="card-panel-num"
               />
