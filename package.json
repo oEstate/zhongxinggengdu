@@ -14,6 +14,7 @@
     "@tinymce/tinymce-vue": "^3.2.6",
     "@types/echarts": "^4.9.0",
     "@types/tinymce": "^4.6.0",
+    "autoprefixer": "^9.8.6",
     "axios": "^0.21.0",
     "cjs": "^0.0.11",
     "core-js": "^3.7.0",
@@ -24,17 +25,17 @@
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
+    "qrcodejs2": "^0.0.2",
     "register-service-worker": "^1.7.1",
     "tinymce": "^5.5.1",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
+    "vue-count-to": "^1.0.13",
     "vue-property-decorator": "^9.0.2",
     "vue-router": "^3.4.8",
     "vue-svgicon": "^3.2.9",
     "vuex": "^3.5.1",
-    "vuex-module-decorators": "^1.0.1",
-    "vue-count-to": "^1.0.13",
-    "autoprefixer": "^9.8.6"
+    "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.12.1",

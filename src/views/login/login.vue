@@ -20,10 +20,7 @@
         <el-tabs :stretch="true" v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="扫码登录" name="first">
             <div class="Qr-code">
-              <img
-                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1605007627525&di=117ccced9e5f6869bc5b723a8505408a&imgtype=0&src=http%3A%2F%2Fimg.haote.com%2Fupload%2Fqrcode%2F1525%2Fhaote0d9b960dabea1299c1971d8817467cff.png"
-                alt=""
-              />
+              <div class="img" id="qrCode" ref="qrCodeDiv"></div>
               <div class="Qr-code-tips">请使用手机村居直供扫码</div>
             </div>
           </el-tab-pane>
@@ -114,6 +111,7 @@ import { Form as ElForm, Input } from "element-ui";
   },
 })
 export default class extends Vue {
+  private QRCode: any;
   private validatePhone = (rule: any, value: string, callback: Function) => {
     if (value.length < 11) {
       callback(new Error("请输入正确的手机号"));
@@ -153,8 +151,16 @@ export default class extends Vue {
     } else if (this.loginForm.code === "") {
       (this.$refs.code as Input).focus();
     }
-  }
 
+    new this.QRCode(this.$refs.qrCodeDiv, {
+      text: "https://www.baidu.com",
+      width: 180,
+      height: 180,
+      colorDark: "#000", //二维码颜色
+      colorLight: "#fff", //二维码背景色
+      correctLevel: this.QRCode.CorrectLevel.L, //容错率，L/M/H
+    });
+  }
   async handleLogin() {
     await UserModule.Login(this.loginForm);
     // 当没认证跳转到认证页
@@ -321,6 +327,16 @@ export default class extends Vue {
   text-align: center;
   margin: 0 auto;
   margin-top: 13px;
+  .img {
+    display: inline-block;
+    background-color: #fff;
+    padding: 6px;
+    box-sizing: border-box;
+    img {
+      width: 180px;
+      height: 180px;
+    }
+  }
   img {
     width: 186px;
     height: 186px;
