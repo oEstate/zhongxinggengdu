@@ -17,18 +17,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import PieChart from "./components/PieChart.vue";
-import survey from "./components/survey.vue";
-import news from "./components/news.vue";
-import message from "./components/message.vue";
-import construction from "./components/construction.vue";
-import convenience from "./components/convenience.vue";
-import customs from "./components/customs.vue";
-import opengov from "./components/opengov.vue";
-import tabs from "@/components/common/tabs.vue";
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import PieChart from './components/PieChart.vue'
+import survey from './components/survey.vue'
+import news from './components/news.vue'
+import message from './components/message.vue'
+import construction from './components/construction.vue'
+import convenience from './components/convenience.vue'
+import customs from './components/customs.vue'
+import opengov from './components/opengov.vue'
+import tabs from '@/components/common/tabs.vue'
 @Component({
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
     PieChart,
     tabs,
@@ -39,54 +39,55 @@ import tabs from "@/components/common/tabs.vue";
     convenience,
     customs,
     opengov
-  },
+  }
 })
 export default class extends Vue {
-  private tabsActive = "0";
-  private isComponent = "survey";
+  private tabsActive = '0';
+  private isComponent = 'survey';
   private tabsData = [
     {
-      label: "本地概况",
-      name: "0",
-      path: "survey",
+      label: '本地概况',
+      name: '0',
+      path: 'survey'
     },
     {
-      label: "本地资讯",
-      name: "1",
-      path: "news",
+      label: '本地资讯',
+      name: '1',
+      path: 'news'
     },
     {
-      label: "通知消息",
-      name: "2",
-      path: "message",
+      label: '通知消息',
+      name: '2',
+      path: 'message'
     },
     {
-      label: "党建",
-      name: "3",
-      path: "construction",
+      label: '党建',
+      name: '3',
+      path: 'construction'
     },
     {
-      label: "便民",
-      name: "4",
-      path: "convenience",
+      label: '便民',
+      name: '4',
+      path: 'convenience'
     },
     {
-      label: "民风民俗",
-      name: "5",
-      path: "customs",
+      label: '民风民俗',
+      name: '5',
+      path: 'customs'
     },
     {
-      label: "政务公开",
-      name: "6",
-      path: "opengov",
-    },
+      label: '政务公开',
+      name: '6',
+      path: 'opengov'
+    }
   ];
+
   created() {}
 
-  getPath(e:any){
+  getPath(e:any) {
     // alert(2)
     // console.log(e)
-    this.isComponent=e
+    this.isComponent = e
   }
 }
 </script>

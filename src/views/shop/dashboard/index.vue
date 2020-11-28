@@ -26,7 +26,7 @@
           <i class="el-icon-arrow-right ic"></i>
         </div>
       </div>
-      <ul class="statistical u_f_ajsv">
+      <ul class="statistical u_f_ajsv1">
         <li>
           <div class="statistical-n">
             <count-to
@@ -83,7 +83,7 @@
           <span class="title">订单管理</span>
         </div>
       </div>
-      <ul class="statistical u_f_ajsv">
+      <ul class="statistical u_f_ajsv1">
         <li class="tc">
           <div class="statistical-n">17</div>
           <div class="statistical-t">待付款订单</div>
@@ -110,26 +110,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { UserModule } from "@/store/modules/user";
-import CountTo from "vue-count-to";
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { UserModule } from '@/store/modules/user'
+import CountTo from 'vue-count-to'
 @Component({
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
-    CountTo,
-  },
+    CountTo
+  }
 })
 export default class extends Vue {
   @Prop() routes!: any;
   created() {
-    console.log(this.routes);
+    console.log(this.routes)
   }
+
   get name() {
-    return UserModule.name;
+    return UserModule.name
   }
 
   get roles() {
-    return UserModule.roles;
+    return UserModule.roles
   }
 }
 </script>

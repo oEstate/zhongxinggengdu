@@ -7,12 +7,11 @@ import { UserModule } from '@/store/modules/user'
 import { PermissionModule } from '@/store/modules/permission'
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/index','/certification','/storesCertification','/govCertification','/auditCertification']
+const whiteList = ['/login', '/index', '/certification', '/storesCertification', '/govCertification', '/auditCertification']
 
-router.beforeEach(async (to: Route, _: Route, next: any) => {
-
+router.beforeEach(async(to: Route, _: Route, next: any) => {
   // if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === 'index') {
-  //   //path:不兼容组件所在路由 　　　　
+  //   //path:不兼容组件所在路由
   //   alert('组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看, 浏览器不兼容通知')
   // } else {
   //   next();
@@ -41,7 +40,7 @@ router.beforeEach(async (to: Route, _: Route, next: any) => {
 
           const roles = UserModule.roles
           console.log(roles)
-          //根据角色生成可访问路线图
+          // 根据角色生成可访问路线图
           PermissionModule.GenerateRoutes(roles)
           // 动态添加可访问路由
           router.addRoutes(PermissionModule.dynamicRoutes)
@@ -67,7 +66,7 @@ router.beforeEach(async (to: Route, _: Route, next: any) => {
       next()
     } else {
       // 其他没有访问权限的页面被重定向到登录页面。
-      next(`/index`)
+      next('/index')
       NProgress.done()
     }
   }

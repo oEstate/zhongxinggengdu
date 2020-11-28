@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit, Watch } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator'
 
 @Component({
-  name: "tabs",
+  name: 'tabs'
 })
 export default class extends Vue {
   @Prop() tabsActive!: any;
@@ -24,8 +24,8 @@ export default class extends Vue {
 
   created() {}
   handleClick(tab: any, event: any) {
-    let path = this.tabsData[tab.index].path;
-    this.$emit("getPath", path);
+    const path = this.tabsData[tab.index].path
+    this.$emit('getPath', path)
   }
 }
 </script>

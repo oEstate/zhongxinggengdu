@@ -92,8 +92,6 @@ export default class extends Vue {
   // https://www.tiny.cloud/docs/configure/localization/#language
   // and also see langs files under public/tinymce/langs folder
 
-
-
   get tinymceContent() {
     return this.value
   }
@@ -121,7 +119,7 @@ export default class extends Vue {
       menubar: this.menubar,
       plugins: plugins,
       language: 'zh_CN',
-      language_url:  `${process.env.BASE_URL}tinymce/langs/zh_CN.js`,
+      language_url: `${process.env.BASE_URL}tinymce/langs/zh_CN.js`,
       skin_url: `${process.env.BASE_URL}tinymce/skins/`,
       emoticons_database_url: `${process.env.BASE_URL}tinymce/emojis.min.js`,
       end_container_on_empty_block: true,
@@ -155,8 +153,6 @@ export default class extends Vue {
       }
     }
   }
-
-
 
   private imageSuccessCBK(arr: IUploadObject[]) {
     const tinymce = (window as any).tinymce.get(this.id)

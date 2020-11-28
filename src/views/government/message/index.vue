@@ -23,40 +23,42 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import messageItem from "./components/messageItem.vue";
-import vlChar from "@/components/vlChar/index.vue";
-import tabs from "@/components/common/tabs.vue";
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import messageItem from './components/messageItem.vue'
+import vlChar from '@/components/vlChar/index.vue'
+import tabs from '@/components/common/tabs.vue'
 @Component({
-  name: "message",
+  name: 'message',
   components: {
     messageItem,
     tabs,
-    vlChar,
-  },
+    vlChar
+  }
 })
 export default class extends Vue {
-  private tabsActive = "0";
-  private isComponent = "messageItem";
-  private appKey = "45c6af3c98409b18a84451215d0bdd6e";
-  private account = "greatcs4";
-  private token = "e10adc3949ba59abbe56e057f20f883e";
+  private tabsActive = '0';
+  private isComponent = 'messageItem';
+  private appKey = '45c6af3c98409b18a84451215d0bdd6e';
+  private account = 'greatcs4';
+  private token = 'e10adc3949ba59abbe56e057f20f883e';
   private hackReset = true;
   private tabsData = [
     {
-      label: "通知消息",
-      name: "0",
-      path: "messageItem",
+      label: '通知消息',
+      name: '0',
+      path: 'messageItem'
     },
     {
-      label: "聊天消息",
-      name: "1",
-      path: "vlChar",
-    },
+      label: '聊天消息',
+      name: '1',
+      path: 'vlChar'
+    }
   ];
+
   getPath(e: any) {
-    this.isComponent = e;
+    this.isComponent = e
   }
+
   created() {}
 }
 </script>

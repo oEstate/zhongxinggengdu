@@ -17,16 +17,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import tabs from "@/components/common/tabs.vue";
-import basic from "./components/basic.vue";
-import basicAlter from "./components/basicAlter.vue";
-import certification from "./components/certification.vue";
-import binding from "./components/binding.vue";
-import bindingPhone from "./components/bindingPhone.vue";
-import bindingPhoneValidation from "./components/bindingPhoneValidation.vue";
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import tabs from '@/components/common/tabs.vue'
+import basic from './components/basic.vue'
+import basicAlter from './components/basicAlter.vue'
+import certification from './components/certification.vue'
+import binding from './components/binding.vue'
+import bindingPhone from './components/bindingPhone.vue'
+import bindingPhoneValidation from './components/bindingPhoneValidation.vue'
 @Component({
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
     tabs,
     basic,
@@ -35,37 +35,39 @@ import bindingPhoneValidation from "./components/bindingPhoneValidation.vue";
     binding,
     bindingPhone,
     bindingPhoneValidation
-  },
+  }
 })
 export default class extends Vue {
-  private tabsActive = "0";
-  private isComponent = "basic";
+  private tabsActive = '0';
+  private isComponent = 'basic';
   private tabsData = [
     {
-      label: "基本信息",
-      name: "0",
-      path: "basic",
+      label: '基本信息',
+      name: '0',
+      path: 'basic'
     },
     {
-      label: "实名认证",
-      name: "1",
-      path: "certification",
+      label: '实名认证',
+      name: '1',
+      path: 'certification'
     },
     {
-      label: "账号绑定",
-      name: "2",
-      path: "binding",
-    },
+      label: '账号绑定',
+      name: '2',
+      path: 'binding'
+    }
   ];
+
   created() {}
 
   getPath(e: any) {
     // alert(2)
-    console.log(e);
-    this.isComponent = e;
+    console.log(e)
+    this.isComponent = e
   }
+
   changeShop(e: any) {
-    this.isComponent = e;
+    this.isComponent = e
   }
 }
 </script>

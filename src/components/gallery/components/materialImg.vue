@@ -49,9 +49,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 @Component({
-  name: "materialImg",
+  name: 'materialImg'
 })
 export default class extends Vue {
   @Prop() limitType!: Boolean;
@@ -60,77 +60,77 @@ export default class extends Vue {
 
   private selectedOptions = [
     {
-      coversUrl: "",
-      duration: "",
+      coversUrl: '',
+      duration: '',
       galleryId: 0,
-      height: "750",
+      height: '750',
       id: 1471,
-      imageName: "3",
+      imageName: '3',
       imageUrl:
-        "https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586401837385_3.png",
+        'https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586401837385_3.png',
       type: 0,
-      width: "750",
+      width: '750'
     },
     {
-      coversUrl: "",
-      duration: "",
+      coversUrl: '',
+      duration: '',
       galleryId: 0,
-      height: "500",
+      height: '500',
       id: 1472,
-      imageName: "筷赚Logo",
+      imageName: '筷赚Logo',
       imageUrl:
-        "https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586402391932_筷赚Logo.png",
+        'https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586402391932_筷赚Logo.png',
       type: 0,
-      width: "500",
+      width: '500'
     },
     {
-      coversUrl: "",
-      duration: "",
+      coversUrl: '',
+      duration: '',
       galleryId: 0,
-      height: "739",
+      height: '739',
       id: 1485,
-      imageName: "1",
+      imageName: '1',
       imageUrl:
-        "https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405121007_1.png",
+        'https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405121007_1.png',
       type: 0,
-      width: "750",
+      width: '750'
     },
     {
-      coversUrl: "",
-      duration: "",
+      coversUrl: '',
+      duration: '',
       galleryId: 0,
-      height: "151",
+      height: '151',
       id: 1486,
-      imageName: "2",
+      imageName: '2',
       imageUrl:
-        "https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405133745_2.png",
+        'https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405133745_2.png',
       type: 0,
-      width: "750",
+      width: '750'
     },
     {
-      coversUrl: "",
-      duration: "",
+      coversUrl: '',
+      duration: '',
       galleryId: 0,
-      height: "624",
+      height: '624',
       id: 1487,
-      imageName: "4",
+      imageName: '4',
       imageUrl:
-        "https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405145458_4.png",
+        'https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405145458_4.png',
       type: 0,
-      width: "750",
+      width: '750'
     },
     {
-      coversUrl: "",
-      duration: "",
+      coversUrl: '',
+      duration: '',
       galleryId: 0,
-      height: "655",
+      height: '655',
       id: 1488,
-      imageName: "5",
+      imageName: '5',
       imageUrl:
-        "https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405156231_5.png",
+        'https://kzmall.oss-cn-beijing.aliyuncs.com/prod/material/image/20/1586405156231_5.png',
       type: 0,
-      width: "750",
-    },
+      width: '750'
+    }
   ];
 
   private selectImgArr: Array<any> = []; // 选中的图片
@@ -143,31 +143,33 @@ export default class extends Vue {
         this.totalNum - this.selectNum - this.selectImgArr.length <= 0
       ) {
         this.$message({
-          message: "已超过添加最大图片数量",
-          type: "warning",
-        });
-        return;
+          message: '已超过添加最大图片数量',
+          type: 'warning'
+        })
+        return
       }
-      this.selectImgArr.push(e);
+      this.selectImgArr.push(e)
     } else {
       this.selectImgArr.splice(
         this.selectImgArr.findIndex((item: any) => item.id === e.id),
         1
-      );
+      )
     }
-    this.$emit("getArr", this.selectImgArr);
+    this.$emit('getArr', this.selectImgArr)
   }
+
   // 点击图片判断是否显示遮罩层
   isLayer(e: any) {
     if (this.selectImgArr.findIndex((item) => item.id == e.id) === -1) {
-      return false;
+      return false
     } else {
-      return true;
+      return true
     }
   }
+
   // 点击图片判断是否显示遮罩层上的数字
   selectNumber(e: any) {
-    return this.selectImgArr.findIndex((item) => item.id == e.id) + 1;
+    return this.selectImgArr.findIndex((item) => item.id == e.id) + 1
   }
 }
 </script>

@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+import '@babel/polyfill'
 import Vue from 'vue'
 
 import 'normalize.css'
@@ -13,8 +13,8 @@ import store from '@/store'
 import router from '@/router'
 import '@/icons/components'
 import '@/permission'
-const QRCode = require('qrcodejs2');
-Vue.prototype.QRCode = QRCode;
+const QRCode = require('qrcodejs2')
+Vue.prototype.QRCode = QRCode
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {
   tagName: 'svg-icon',

@@ -40,14 +40,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component({
-  name: "evaluationList",
+  name: 'evaluationList',
   components: {
-  },
+  }
 })
 export default class extends Vue {
-  private url = "http://dwz.date/dp5k";
+  private url = 'http://dwz.date/dp5k';
   private value = 3.5;
   private tableData = [
     1,
@@ -69,11 +69,12 @@ export default class extends Vue {
     1,
     1,
     1,
-    1,
+    1
   ];
+
   created() {}
   addColumn() {
-    this.$router.push({ path: "/views/addColumn" });
+    this.$router.push({ path: '/views/addColumn' })
   }
 }
 </script>

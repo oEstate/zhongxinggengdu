@@ -66,26 +66,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import back from "@/components/header/back.vue";
-import Tinymce from "@/components/Tinymce/index.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import back from '@/components/header/back.vue'
+import Tinymce from '@/components/Tinymce/index.vue'
 
 @Component({
-  name: "matterAdd",
+  name: 'matterAdd',
   components: {
     back,
-    Tinymce,
-  },
+    Tinymce
+  }
 })
 export default class extends Vue {
-  private icon = require("@/assets/header-icon/order.png");
-  private content = ``;
-  private shopName = "";
+  private icon = require('@/assets/header-icon/order.png');
+  private content = '';
+  private shopName = '';
   changeShop() {
-    this.$emit("changeShop", "binding");
+    this.$emit('changeShop', 'binding')
   }
+
   next() {
-    this.$emit("changeShop", "bindingPhone");
+    this.$emit('changeShop', 'bindingPhone')
   }
 }
 </script>

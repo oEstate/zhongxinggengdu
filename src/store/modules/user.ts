@@ -24,9 +24,10 @@ class User extends VuexModule implements IUserState {
 
   @Mutation
   public ToggleActive(active: any) {
-    this.active = active;
+    this.active = active
     setActive(active)
   }
+
   @Mutation
   private SET_TOKEN(token: string) {
     this.token = token
@@ -51,6 +52,7 @@ class User extends VuexModule implements IUserState {
   private SET_ROLES(roles: string[]) {
     this.roles = roles
   }
+
   @Mutation
   private SET_USERTYPE(userType: any) {
     this.userType = userType

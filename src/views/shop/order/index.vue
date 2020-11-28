@@ -17,46 +17,47 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import tabs from "@/components/common/tabs.vue";
-import orderList from "./components/orderList.vue";
-import saleList from "./components/saleList.vue";
-import evaluationList from "./components/evaluationList.vue";
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import tabs from '@/components/common/tabs.vue'
+import orderList from './components/orderList.vue'
+import saleList from './components/saleList.vue'
+import evaluationList from './components/evaluationList.vue'
 @Component({
-  name: "order",
+  name: 'order',
   components: {
     tabs,
     orderList,
     saleList,
-    evaluationList,
-  },
+    evaluationList
+  }
 })
 export default class extends Vue {
-  private tabsActive = "0";
-  private isComponent = "orderList";
+  private tabsActive = '0';
+  private isComponent = 'orderList';
   private tabsData = [
     {
-      label: "订单列表",
-      name: "0",
-      path: "orderList",
+      label: '订单列表',
+      name: '0',
+      path: 'orderList'
     },
     {
-      label: "退款售后",
-      name: "1",
-      path: "saleList",
+      label: '退款售后',
+      name: '1',
+      path: 'saleList'
     },
     {
-      label: "评价中心",
-      name: "2",
-      path: "evaluationList",
-    },
+      label: '评价中心',
+      name: '2',
+      path: 'evaluationList'
+    }
   ];
+
   created() {}
 
   getPath(e: any) {
     // alert(2)
     // console.log(e)
-    this.isComponent = e;
+    this.isComponent = e
   }
 }
 </script>

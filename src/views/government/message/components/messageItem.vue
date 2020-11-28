@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-row class="ul" :style="{height:clientHeight-380+'px'}">
+    <el-row class="ul" :style="{height: clientHeight-380+'px'}">
       <el-scrollbar style="height: 100%">
         <div
           class="li u_f_ac"
@@ -26,17 +26,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import ResizeMixin1 from "@/layout/mixin/resize1";
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
+import ResizeMixin1 from '@/layout/mixin/resize1'
 @Component({
-  name: "messageItem",
+  name: 'messageItem'
 })
 export default class extends mixins(ResizeMixin1) {
   private tableData = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1];
   created() {}
   jump() {
-    this.$router.push({ path: "/message/info" });
+    this.$router.push({ path: '/message/info' })
   }
 }
 </script>

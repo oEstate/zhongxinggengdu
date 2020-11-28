@@ -37,22 +37,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import grayHeader from "@/components/header/index.vue";
-import grayFooter from "@/components/footer/gray.vue";
-import steps from "@/components/common/steps.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import grayHeader from '@/components/header/index.vue'
+import grayFooter from '@/components/footer/gray.vue'
+import steps from '@/components/common/steps.vue'
 @Component({
-  name: "auditCertification",
+  name: 'auditCertification',
   components: {
     grayHeader,
     grayFooter,
-    steps,
-  },
+    steps
+  }
 })
 export default class extends Vue {
   private active = 3;
   jump() {
-    this.$router.push({ path: "/certification" });
+    this.$router.push({ path: '/certification' })
   }
 }
 </script>

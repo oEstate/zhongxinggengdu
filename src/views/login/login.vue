@@ -89,86 +89,88 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import pageFooter from "@/components/footer/index.vue";
-import { Dictionary } from "vue-router/types/router";
-import { UserModule } from "@/store/modules/user";
-import { Form as ElForm, Input } from "element-ui";
+import { Component, Vue } from 'vue-property-decorator'
+import pageFooter from '@/components/footer/index.vue'
+import { Dictionary } from 'vue-router/types/router'
+import { UserModule } from '@/store/modules/user'
+import { Form as ElForm, Input } from 'element-ui'
 @Component({
-  name: "Login",
+  name: 'Login',
   components: {
-    pageFooter,
+    pageFooter
   },
   data() {
     return {
-      activeName: "second",
-    };
+      activeName: 'second'
+    }
   },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
-    },
-  },
+      console.log(tab, event)
+    }
+  }
 })
 export default class extends Vue {
   private QRCode: any;
   private validatePhone = (rule: any, value: string, callback: Function) => {
     if (value.length < 11) {
-      callback(new Error("请输入正确的手机号"));
+      callback(new Error('请输入正确的手机号'))
     } else {
-      callback();
+      callback()
     }
   };
 
   private validatePassword = (rule: any, value: string, callback: Function) => {
     if (value.length < 6) {
-      callback(new Error("验证码不能少于6位数字"));
+      callback(new Error('验证码不能少于6位数字'))
     } else {
-      callback();
+      callback()
     }
   };
 
   private loginForm = {
-    phone: "merchants",
-    code: "111111",
+    phone: 'merchants',
+    code: '111111'
   };
-  private activeName = "second";
+
+  private activeName = 'second';
 
   private loginRules = {
-    phone: [{ validator: this.validatePhone, trigger: "blur" }],
-    code: [{ validator: this.validatePassword, trigger: "blur" }],
+    phone: [{ validator: this.validatePhone, trigger: 'blur' }],
+    code: [{ validator: this.validatePassword, trigger: 'blur' }]
   };
 
-  private codeType = "code";
+  private codeType = 'code';
   private loading = false;
   private showDialog = false;
   private capsTooltip = false;
   private redirect?: string;
   private otherQuery: Dictionary<string> = {};
   mounted() {
-    if (this.loginForm.phone === "") {
-      (this.$refs.username as Input).focus();
-    } else if (this.loginForm.code === "") {
-      (this.$refs.code as Input).focus();
+    if (this.loginForm.phone === '') {
+      (this.$refs.username as Input).focus()
+    } else if (this.loginForm.code === '') {
+      (this.$refs.code as Input).focus()
     }
 
     new this.QRCode(this.$refs.qrCodeDiv, {
-      text: "https://www.baidu.com",
+      text: 'https://www.baidu.com',
       width: 180,
       height: 180,
-      colorDark: "#000", //二维码颜色
-      colorLight: "#fff", //二维码背景色
-      correctLevel: this.QRCode.CorrectLevel.L, //容错率，L/M/H
-    });
+      colorDark: '#000', // 二维码颜色
+      colorLight: '#fff', // 二维码背景色
+      correctLevel: this.QRCode.CorrectLevel.L // 容错率，L/M/H
+    })
   }
+
   async handleLogin() {
-    await UserModule.Login(this.loginForm);
+    await UserModule.Login(this.loginForm)
     // 当没认证跳转到认证页
-    //认证成功跳转到首页
+    // 认证成功跳转到首页
     // this.$router.push({ path: "/certification" });
-    this.$router.push({ path: "/" }).catch((err) => {
-      console.warn(err);
-    });
+    this.$router.push({ path: '/' }).catch((err) => {
+      console.warn(err)
+    })
     // (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
     //   if (valid) {
     //     this.loading = true
@@ -188,11 +190,13 @@ export default class extends Vue {
     //   }
     // })
   }
+
   home() {
-    this.$router.push({ path: "/index" });
+    this.$router.push({ path: '/index' })
   }
+
   certification() {
-    this.$router.push({ path: "/certification" });
+    this.$router.push({ path: '/certification' })
   }
 }
 </script>

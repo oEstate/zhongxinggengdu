@@ -38,14 +38,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 @Component({
-  name: "headindex",
+  name: 'headindex'
 })
 export default class extends Vue {
   created() {}
   home() {
-    this.$router.push({ path: "/index" });
+    this.$router.push({ path: '/index' })
   }
 }
 </script>

@@ -73,7 +73,7 @@
               1,
               1,
               1,
-              1,
+              1
             ]"
             :key="index"
           >
@@ -90,17 +90,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator'
 @Component({
-  name: "materialVr",
+  name: 'materialVr'
 })
 export default class extends Vue {
   private active = 2;
-  private shopName = "";
+  private shopName = '';
   private selectedOptions = [];
-  private imageUrl = "";
+  private imageUrl = '';
   changeShop() {
-    this.$emit("changeShop", "basicAlter");
+    this.$emit('changeShop', 'basicAlter')
   }
 }
 </script>

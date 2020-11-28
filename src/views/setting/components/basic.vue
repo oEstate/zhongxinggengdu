@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <el-scrollbar :style="{height:clientHeight-370+'px'}">
+      <el-scrollbar :style="{height: clientHeight-370+'px'}">
         <ul class="from">
           <li class="ag">
             <div class="from-itrm-l">店铺头像</div>
@@ -40,19 +40,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import ResizeMixin1 from "@/layout/mixin/resize1";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
+import ResizeMixin1 from '@/layout/mixin/resize1'
 @Component({
-  name: "basic",
+  name: 'basic'
 })
 export default class extends mixins(ResizeMixin1) {
   private active = 2;
-  private shopName = "";
+  private shopName = '';
   private selectedOptions = [];
-  private imageUrl = "";
+  private imageUrl = '';
   changeShop() {
-    this.$emit("changeShop", "basicAlter");
+    this.$emit('changeShop', 'basicAlter')
   }
 }
 </script>

@@ -29,63 +29,66 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import grayHeader from "@/components/header/index.vue";
-import grayFooter from "@/components/footer/gray.vue";
-import steps from "@/components/common/steps.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import grayHeader from '@/components/header/index.vue'
+import grayFooter from '@/components/footer/gray.vue'
+import steps from '@/components/common/steps.vue'
 @Component({
-  name: "certification",
+  name: 'certification',
   components: {
     grayHeader,
     grayFooter,
-    steps,
-  },
+    steps
+  }
 })
 export default class extends Vue {
   private active = 1;
   private defaultActive = 0;
   private authenticationData = [
     {
-      typeName: "商家",
-      typeTitle: "商家",
-      typeInfo: "商家身份主要 编辑商品，查看订单 商品发货等需求",
+      typeName: '商家',
+      typeTitle: '商家',
+      typeInfo: '商家身份主要 编辑商品，查看订单 商品发货等需求'
     },
     {
-      typeName: "村/居",
-      typeTitle: "村委居委",
-      typeInfo: "村委居委云平台管理 编辑村委居委概况 发布本地资讯等",
+      typeName: '村/居',
+      typeTitle: '村委居委',
+      typeInfo: '村委居委云平台管理 编辑村委居委概况 发布本地资讯等'
     },
     {
-      typeName: "乡镇街道",
-      typeTitle: "乡镇街道",
-      typeInfo: "乡镇街道云平台管理 编辑乡镇街道概况 发布本地资讯等",
+      typeName: '乡镇街道',
+      typeTitle: '乡镇街道',
+      typeInfo: '乡镇街道云平台管理 编辑乡镇街道概况 发布本地资讯等'
     },
     {
-      typeName: "区县",
-      typeTitle: "区县",
-      typeInfo: "区县平台管理 编辑区县概况 发布本地资讯等",
-    },
+      typeName: '区县',
+      typeTitle: '区县',
+      typeInfo: '区县平台管理 编辑区县概况 发布本地资讯等'
+    }
   ];
+
   jump() {
-    this.$router.push({ path: "/login" });
+    this.$router.push({ path: '/login' })
   }
+
   // next() {
   //   (this.$refs.steps as any).next();
   // }
   next() {
     switch (this.defaultActive) {
       case 0:
-        this.$router.push({ path: "/storesCertification" });
+        this.$router.push({ path: '/storesCertification' })
       case 1:
-        this.$router.push({ path: "/govCertification" });
+        this.$router.push({ path: '/govCertification' })
       case 2:
-        this.$router.push({ path: "/govCertification" });
+        this.$router.push({ path: '/govCertification' })
       case 2:
-        this.$router.push({ path: "/govCertification" });
+        this.$router.push({ path: '/govCertification' })
     }
   }
+
   selectUserType(index: any) {
-    this.defaultActive = index;
+    this.defaultActive = index
   }
 }
 </script>

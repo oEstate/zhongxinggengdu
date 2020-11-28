@@ -10,15 +10,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 @Component({
-  name: "steps",
+  name: 'steps'
 })
 export default class extends Vue {
   @Prop({ default: 1 }) activeNumber!: number;
   @Prop({ default: '4、审核结果' }) lastName!: string;
   next() {
-    if (this.activeNumber++ > 3) this.activeNumber = 0;
+    if (this.activeNumber++ > 3) this.activeNumber = 0
   }
 }
 </script>

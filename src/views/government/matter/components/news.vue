@@ -30,12 +30,12 @@
       :header-cell-style="{
         background: '#E8EFEC',
         color: '#333',
-        textAlign: 'center',
+        textAlign: 'center'
       }"
       :cell-style="{
         background: '#F3F6F5',
         color: '#333',
-        textAlign: 'center',
+        textAlign: 'center'
       }"
     >
       <el-table-column
@@ -115,175 +115,177 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component({
-  name: "news",
+  name: 'news'
 })
 export default class extends Vue {
   private dialogVisible = false;
   private tableData = [
     {
-      date: "2016-05-02",
-      name: "张三1",
-      address: "上海市普陀区金沙江路 1518 弄",
+      date: '2016-05-02',
+      name: '张三1',
+      address: '上海市普陀区金沙江路 1518 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
-    },
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
+    }
   ];
+
   created() {}
   addColumn() {
-    this.$router.push({ path: "/views/addColumn" });
+    this.$router.push({ path: '/views/addColumn' })
   }
+
   addContent() {
-    this.$router.push({ path: "/views/addContent" });
+    this.$router.push({ path: '/views/addContent' })
   }
 }
 </script>

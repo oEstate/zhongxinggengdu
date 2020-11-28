@@ -8,7 +8,7 @@
       />
       <span>{{titleTxt}}</span>
     </div>
-    <div class="back" :style="{marginBottom:bt}">
+    <div class="back" :style="{marginBottom: bt}">
       <el-button type="text" icon="el-icon-back" @click="back"
         >{{backTxt}}</el-button
       >
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
 @Component({
-  name: "backs",
+  name: 'backs'
 })
 export default class extends Vue {
   @Prop() icon!: any;
@@ -27,7 +27,7 @@ export default class extends Vue {
   @Prop() backTxt!: any;
   @Prop({ default: 52 }) bt!: any;
   back() {
-    this.$router.go(-1);
+    this.$router.go(-1)
   }
 }
 </script>

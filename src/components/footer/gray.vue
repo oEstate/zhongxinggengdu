@@ -1,9 +1,9 @@
 <template>
   <div class="footer">
     <div class="footer-top">
-      <el-link :underline="false" class="nav-button">关于我们</el-link> | 
-      <el-link :underline="false" class="nav-button">联系我们</el-link> | 
-      <el-link :underline="false" class="nav-button">International</el-link> | 
+      <el-link :underline="false" class="nav-button">关于我们</el-link> |
+      <el-link :underline="false" class="nav-button">联系我们</el-link> |
+      <el-link :underline="false" class="nav-button">International</el-link> |
       <el-link :underline="false" class="nav-button">About Alipay</el-link>
     </div>
     <div class="icp">ICP证：沪B2-20150087</div>
@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 @Component({
-  name: "gray",
+  name: 'gray'
 })
 export default class extends Vue {
   created() {}

@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
-import goodList from "./components/info.vue";
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import goodList from './components/info.vue'
 @Component({
-  name: "carousel",
+  name: 'carousel',
   components: {
-    goodList,
-  },
+    goodList
+  }
 })
 export default class extends Vue {
   created() {}

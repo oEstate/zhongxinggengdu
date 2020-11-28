@@ -8,19 +8,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import back from "@/components/header/back.vue";
-import Tinymce from "@/components/Tinymce/index.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import back from '@/components/header/back.vue'
+import Tinymce from '@/components/Tinymce/index.vue'
 
 @Component({
-  name: "matterAdd",
+  name: 'matterAdd',
   components: {
     back,
-    Tinymce,
-  },
+    Tinymce
+  }
 })
 export default class extends Vue {
-    private icon = require("@/assets/header-icon/message.png");
+    private icon = require('@/assets/header-icon/message.png');
   private info = `<div>
 	窑货店，顾名思义，凡窑里烧出来的东西，除了秦砖汉瓦什么都卖。</div>`
 }
