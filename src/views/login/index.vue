@@ -21,17 +21,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import pageFooter from "@/components/footer/index.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import pageFooter from '@/components/footer/index.vue'
 @Component({
-  name: "LoginHome",
+  name: 'LoginHome',
   components: {
-    pageFooter,
-  },
+    pageFooter
+  }
 })
 export default class extends Vue {
-  jump(){
-     this.$router.push({path:'/login'})
+  jump() {
+    this.$router.push({ path: '/login' })
   }
 }
 </script>

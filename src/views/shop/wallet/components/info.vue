@@ -65,12 +65,12 @@
         :header-cell-style="{
           background: '#E8EFEC',
           color: '#333',
-          textAlign: 'center',
+          textAlign: 'center'
         }"
         :cell-style="{
           background: '#F3F6F5',
           color: '#333',
-          textAlign: 'center',
+          textAlign: 'center'
         }"
         @selection-change="handleSelectionChange"
       >
@@ -163,69 +163,71 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component({
-  name: "walletInfo",
+  name: 'walletInfo'
 })
 export default class extends Vue {
-  private value = "";
+  private value = '';
   private value1 = undefined;
   private multipleSelection = [];
 
   private dialogVisible = false;
   private tableData = [
     {
-      date: "2016-05-02",
-      name: "张三1",
-      address: "上海市普陀区金沙江路 1518 弄",
+      date: '2016-05-02',
+      name: '张三1',
+      address: '上海市普陀区金沙江路 1518 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
     },
     {
-      date: "2016-05-02",
-      name: "张三1",
-      address: "上海市普陀区金沙江路 1518 弄",
+      date: '2016-05-02',
+      name: '张三1',
+      address: '上海市普陀区金沙江路 1518 弄'
     },
     {
-      date: "2016-05-04",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1517 弄",
+      date: '2016-05-04',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1517 弄'
     },
     {
-      date: "2016-05-01",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1519 弄",
+      date: '2016-05-01',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1519 弄'
     },
     {
-      date: "2016-05-03",
-      name: "张三",
-      address: "上海市普陀区金沙江路 1516 弄",
-    },
+      date: '2016-05-03',
+      name: '张三',
+      address: '上海市普陀区金沙江路 1516 弄'
+    }
   ];
+
   created() {}
   addCard() {
-    this.$router.push({ path: "/wallet/addCard" });
+    this.$router.push({ path: '/wallet/addCard' })
   }
 
   handleSelectionChange(val: any) {
-    this.multipleSelection = val;
+    this.multipleSelection = val
   }
+
   submit() {
-    this.dialogVisible = false;
-    this.$router.push({ path: "/wallet/results" });
+    this.dialogVisible = false
+    this.$router.push({ path: '/wallet/results' })
   }
 }
 </script>

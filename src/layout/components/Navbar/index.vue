@@ -29,38 +29,36 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 import { UserModule } from '@/store/modules/user'
 @Component({
-  name: "SideBar",
-  components: {},
+  name: 'SideBar',
+  components: {}
 })
 export default class extends Vue {
-
-
   get routes() {
-    return (this.$router as any).options.routes;
+    return (this.$router as any).options.routes
   }
 
   get activeMenu() {
-    const route = this.$route;
-    const { meta, path } = route;
+    const route = this.$route
+    const { meta, path } = route
     if (meta.activeMenu) {
-      return meta.activeMenu;
+      return meta.activeMenu
     }
-    return path;
+    return path
   }
+
   private async logout() {
-    await UserModule.LogOut();
+    await UserModule.LogOut()
     this.$router
       .push(`/login?redirect=${this.$route.fullPath}`)
       .catch((err) => {
-        console.warn(err);
-      });
+        console.warn(err)
+      })
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .header {

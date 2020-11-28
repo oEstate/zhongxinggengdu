@@ -9,18 +9,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 @Component({
-  name: "AppMain",
-  components: {},
+  name: 'AppMain',
+  components: {}
 })
 export default class extends Vue {
   created() {
     // console.log(this.nowroute);
     // console.log(this.routes);
   }
-  get routes() {
 
+  get routes() {
     // let routes: any = {
     //   children: (this.$router as any).options.routes
     // };
@@ -33,10 +33,11 @@ export default class extends Vue {
     // return routes.children;
     return (this.$router as any).options.routes
   }
-  get nowroute() {
-    let route: any = this.$route;
 
-    return route;
+  get nowroute() {
+    const route: any = this.$route
+
+    return route
   }
 }
 </script>

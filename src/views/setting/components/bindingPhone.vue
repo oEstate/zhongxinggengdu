@@ -23,13 +23,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator'
 @Component({
-  name: "bindingPhone",
+  name: 'bindingPhone'
 })
 export default class extends Vue {
   changeShop() {
-    this.$emit("changeShop", "binding");
+    this.$emit('changeShop', 'binding')
   }
 }
 </script>

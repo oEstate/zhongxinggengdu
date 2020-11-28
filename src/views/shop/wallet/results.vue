@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
 @Component({
-  name: "results",
+  name: 'results'
 })
 export default class extends Vue {
   created() {}
   back() {
-    this.$router.go(-1);
+    this.$router.go(-1)
   }
 }
 </script>

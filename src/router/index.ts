@@ -4,7 +4,6 @@ import VueRouter, { RouteConfig } from 'vue-router'
 /* Layout */
 import Layout from '@/layout/index.vue'
 
-
 Vue.use(VueRouter)
 
 /*
@@ -40,43 +39,43 @@ export const constantRoutes: RouteConfig[] = [
     name: 'index',
     path: '/index',
     component: () => import('@/views/login/index.vue'),
-    meta: { hidden: true, title: '首页' },
+    meta: { hidden: true, title: '首页' }
   },
   {
     name: 'login',
     path: '/login',
     component: () => import('@/views/login/login.vue'),
-    meta: { hidden: true, title: '登陆' },
+    meta: { hidden: true, title: '登陆' }
   },
   {
     name: 'certification',
     path: '/certification',
     component: () => import('@/views/certification/index.vue'),
-    meta: { hidden: true, title: '选择身份' },
+    meta: { hidden: true, title: '选择身份' }
   },
   {
     name: 'storesCertification',
     path: '/storesCertification',
     component: () => import('@/views/certification/storesCertification.vue'),
-    meta: { hidden: true, title: '提交认证' },
+    meta: { hidden: true, title: '提交认证' }
   },
   {
     name: 'govCertification',
     path: '/govCertification',
     component: () => import('@/views/certification/govCertification.vue'),
-    meta: { hidden: true, title: '提交认证' },
+    meta: { hidden: true, title: '提交认证' }
   },
   {
     name: 'auditCertification',
     path: '/auditCertification',
     component: () => import('@/views/certification/auditCertification.vue'),
-    meta: { hidden: true, title: '平台审核' },
+    meta: { hidden: true, title: '平台审核' }
   },
   {
     path: '/404',
     component: () => import('@/views/404.vue'),
     meta: { hidden: true, title: '404' }
-  },
+  }
 ]
 
 /**
@@ -124,7 +123,7 @@ export const asyncRoutes: RouteConfig[] = [
   //     }
   //   ]
   // },
-  //政府
+  // 政府
   {
     path: '/',
     name: 'dashboard',
@@ -137,8 +136,8 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/government/dashboard/index.vue'),
         meta: {
           title: '首页',
-          icon: 'dashboard'
-          , roles: ['county', 'township', 'village']
+          icon: 'dashboard',
+          roles: ['county', 'township', 'village']
         }
       }
     ]
@@ -186,8 +185,8 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/government/carousel/index.vue'),
         meta: {
           title: '轮播管理',
-          icon: 'form'
-          , roles: ['county', 'township', 'village']
+          icon: 'form',
+          roles: ['county', 'township', 'village']
         }
       },
       {
@@ -195,10 +194,10 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/government/carousel/addCarousel.vue'),
         meta: {
           title: '新增轮播',
-          icon: 'form'
-          , roles: ['county', 'township', 'village']
+          icon: 'form',
+          roles: ['county', 'township', 'village']
         }
-      },
+      }
     ]
   },
   {
@@ -233,7 +232,7 @@ export const asyncRoutes: RouteConfig[] = [
     ]
   },
 
-  //商家后台
+  // 商家后台
   {
     path: '/',
     name: 'dashboard',
@@ -246,7 +245,8 @@ export const asyncRoutes: RouteConfig[] = [
         component: () => import('@/views/shop/dashboard/index.vue'),
         meta: {
           title: '首页',
-          icon: 'dashboard', roles: ['merchants']
+          icon: 'dashboard',
+          roles: ['merchants']
         }
       }
     ]
@@ -266,7 +266,7 @@ export const asyncRoutes: RouteConfig[] = [
         path: 'add',
         component: () => import('@/views/shop/goods/addGoods.vue'),
         meta: { title: '商品发布', roles: ['merchants'] }
-      },
+      }
     ]
   },
   {
@@ -358,7 +358,7 @@ export const asyncRoutes: RouteConfig[] = [
     path: '*',
     redirect: '/404',
     meta: { hidden: true }
-  },
+  }
 ]
 
 const createRouter = () => new VueRouter({

@@ -18,17 +18,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch } from 'vue-property-decorator'
 @Component({
-  name: "certification",
+  name: 'certification'
 })
 export default class extends Vue {
   private active = 2;
-  private shopName = "";
+  private shopName = '';
   private selectedOptions = [];
-  private imageUrl = "";
+  private imageUrl = '';
   changeShop() {
-    this.$emit("changeShop", "bindingPhoneValidation");
+    this.$emit('changeShop', 'bindingPhoneValidation')
   }
 }
 </script>

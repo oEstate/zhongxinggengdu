@@ -49,72 +49,77 @@
   </el-dialog>
 </template>
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
-import tabs from "@/components/common/tabs.vue";
-import materialImg from "./components/materialImg.vue";
-import materialVideo from "./components/materialVideo.vue";
-import materialVr from "./components/materialVr.vue";
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+import tabs from '@/components/common/tabs.vue'
+import materialImg from './components/materialImg.vue'
+import materialVideo from './components/materialVideo.vue'
+import materialVr from './components/materialVr.vue'
 @Component({
-  name: "gallery",
+  name: 'gallery',
   components: {
     tabs,
     materialImg,
     materialVideo,
-    materialVr,
-  },
+    materialVr
+  }
 })
 export default class extends Vue {
   @Prop({ default: false }) dialogVisible!: Boolean;
-  @Prop({ default: true }) limitType!: Boolean; //是否限制了上传数量 true支持  false不支持
-  @Prop({ default: false }) multiple!: Boolean; //本地上传是否支持多选  true支持  false不支持
-  @Prop({ default: 5 }) totalNum!: any; //可选择的总数
-  @Prop({ default: 0 }) selectNum!: any; //已选择数量
-  private tabsActive = "0";
-  private isComponent = "materialImg";
+  @Prop({ default: true }) limitType!: Boolean; // 是否限制了上传数量 true支持  false不支持
+  @Prop({ default: false }) multiple!: Boolean; // 本地上传是否支持多选  true支持  false不支持
+  @Prop({ default: 5 }) totalNum!: any; // 可选择的总数
+  @Prop({ default: 0 }) selectNum!: any; // 已选择数量
+  private tabsActive = '0';
+  private isComponent = 'materialImg';
   private selectImgArr: Array<any> = []; // 选中的图片
   private tabsData = [
     {
-      label: "图片库",
-      name: "0",
-      path: "materialImg",
+      label: '图片库',
+      name: '0',
+      path: 'materialImg'
     },
     {
-      label: "视频库",
-      name: "1",
-      path: "materialVideo",
+      label: '视频库',
+      name: '1',
+      path: 'materialVideo'
     },
     {
-      label: "VR库",
-      name: "2",
-      path: "materialVr",
-    },
+      label: 'VR库',
+      name: '2',
+      path: 'materialVr'
+    }
   ];
+
   created() {}
   handleClose() {
-    this.$emit("onlyclose", true);
+    this.$emit('onlyclose', true)
   }
+
   getPath(e: any) {
     // alert(2)
-    console.log(e);
-    this.isComponent = e;
+    console.log(e)
+    this.isComponent = e
   }
+
   changeShop(e: any) {
-    this.isComponent = e;
+    this.isComponent = e
   }
+
   getArr(e: any) {
-    console.log(e);
-    this.selectImgArr = e;
+    console.log(e)
+    this.selectImgArr = e
   }
+
   beforeAvatarUpload(file: any) {
-    const isJPG = file.type === "image/jpeg";
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isJPG = file.type === 'image/jpeg'
+    const isLt2M = file.size / 1024 / 1024 < 2
     if (!isJPG) {
-      this.$message.error("上传头像图片只能是 JPG 格式!");
+      this.$message.error('上传头像图片只能是 JPG 格式!')
     }
     if (!isLt2M) {
-      this.$message.error("上传头像图片大小不能超过 2MB!");
+      this.$message.error('上传头像图片大小不能超过 2MB!')
     }
-    return isJPG && isLt2M;
+    return isJPG && isLt2M
   }
 }
 </script>

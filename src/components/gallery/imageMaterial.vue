@@ -13,7 +13,7 @@
 
       :limitType="true"  *是否限制了上传数量  Boolean  true支持  false不支持
       :multiple="true"   *是否支持多选  Boolean  true支持  false不支持
-      :totalNum="1"      *可选择的总数  Number  
+      :totalNum="1"      *可选择的总数  Number
       :selectNum="1"     *已选择数量  Number
   子：
 
@@ -21,9 +21,9 @@
 <template>
   <!-- 图片库 -->
   <el-dialog
-    class="imgDia" 
-    title="图片库" 
-    :visible.sync="showImgMaterial" 
+    class="imgDia"
+    title="图片库"
+    :visible.sync="showImgMaterial"
     width="70%"
     append-to-body
     :before-close="handleClose">
@@ -111,16 +111,16 @@
     <el-dialog class="imgDia1" title="上传图片" :visible.sync="uploadImg" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false" append-to-body width="65%">
       <el-form :model="uploadImgForm" ref="editGalleryForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="本地图片">
-          <el-upload ref="upload" 
-            :class="{hide:hideUpload}"
-            :action="action" 
-            name="files" 
+          <el-upload ref="upload"
+            :class="{hide: hideUpload}"
+            :action="action"
+            name="files"
             :multiple="multiple"
-            list-type="picture-card" 
-            :on-success="imgUp" 
-            :on-remove="imgRemove" 
-            :on-exceed="handleExceed" 
-            :limit="limitType ? totalNum-selectNum : 9999" 
+            list-type="picture-card"
+            :on-success="imgUp"
+            :on-remove="imgRemove"
+            :on-exceed="handleExceed"
+            :limit="limitType ? totalNum-selectNum : 9999"
             :before-upload="beforeAvatarUpload">
             <i class="el-icon-plus"></i>
             <div slot="tip" class="el-upload__tip" v-if="limitType">单次最多上传{{this.totalNum - this.selectNum}}张图片，仅支持 gif、 jpeg、 png、 bmp 4种格式, 大小不超过3.0 MB</div>
@@ -142,51 +142,51 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { 
-  getGalleryByShopId ,
-  getGalleryImageByGroup ,
-  addGalleryImage ,
+import {
+  getGalleryByShopId,
+  getGalleryImageByGroup,
+  addGalleryImage
 } from '@/api/shop/shopMaterial'
 export default {
-  props: ["showImgMaterial","limitType","multiple","totalNum","selectNum"],
-  watch:{
-    showImgMaterial(newvalue,oldValue){
-      if(newvalue){
+  props: ['showImgMaterial', 'limitType', 'multiple', 'totalNum', 'selectNum'],
+  watch: {
+    showImgMaterial(newvalue, oldValue) {
+      if (newvalue) {
         console.log('执行了')
         this.selectImgArr = []
         this.getGaller()
-        this.hideUpload = this.totalNum-this.selectNum-this.selectImgArr.length == 0
+        this.hideUpload = this.totalNum - this.selectNum - this.selectImgArr.length == 0
       }
     }
   },
-  data(){
-    return{
-      selectImgArr:[],                    // 选中的图片
+  data() {
+    return {
+      selectImgArr: [], // 选中的图片
       hideUpload: false,
-      imageClassTags:[],                  // 分组按钮
-      getGalleryForm:{},                  // 获取分组数据
-      getImgsForm:{                       // 分组下的图片数据
-        pageSize:30,
-        pageNum:1
+      imageClassTags: [], // 分组按钮
+      getGalleryForm: {}, // 获取分组数据
+      getImgsForm: { // 分组下的图片数据
+        pageSize: 30,
+        pageNum: 1
       },
-      imgs:[],
-      imgsTotal:0,
+      imgs: [],
+      imgsTotal: 0,
 
-      uploadImg:false,                    // 上传图片弹出框
-      uploadImgLoading:false,             // 上传图片loading
-      uploadImgForm:{                     // 上传图片数据
-        galleryId:0
-      },                   
-      galleryList:[],                     // 准备上传的图片数据
-      activeClassName:'',                 // 默认选中的分组名称
+      uploadImg: false, // 上传图片弹出框
+      uploadImgLoading: false, // 上传图片loading
+      uploadImgForm: { // 上传图片数据
+        galleryId: 0
+      },
+      galleryList: [], // 准备上传的图片数据
+      activeClassName: '', // 默认选中的分组名称
 
-      updateClassArr:[],
-      ImageBoxHeight:0,             // 默认数据 - 图片区域高度
-      OperationHeight:0,            // 默认数据 - 操作区域高度
-      action:''                     // 默认数据 - 上传图片地址
+      updateClassArr: [],
+      ImageBoxHeight: 0, // 默认数据 - 图片区域高度
+      OperationHeight: 0, // 默认数据 - 操作区域高度
+      action: '' // 默认数据 - 上传图片地址
     }
   },
-  created(){
+  created() {
     // 分组默认数据
     this.getGalleryForm.shopId = this.shop.shopId
     this.getGalleryForm.type = 1
@@ -199,66 +199,66 @@ export default {
   mounted() {
     console.log('执行了mounted')
     this.$nextTick(function() {
-      this.OperationHeight = window.innerHeight - 282;
-      this.ImageBoxHeight = window.innerHeight - 400;
+      this.OperationHeight = window.innerHeight - 282
+      this.ImageBoxHeight = window.innerHeight - 400
     })
     window.onresize = () => {
       return (() => {
-        this.OperationHeight = window.innerHeight - 282;
-        this.ImageBoxHeight = window.innerHeight - 400;
-      })();
-    };
+        this.OperationHeight = window.innerHeight - 282
+        this.ImageBoxHeight = window.innerHeight - 400
+      })()
+    }
   },
-  methods:{
-    handleClose(){
-      this.$emit('onlyclose',true)
+  methods: {
+    handleClose() {
+      this.$emit('onlyclose', true)
     },
     // 图片判断是否展示不展示
-    showPos(e){
-      if(this.selectImgArr.findIndex(item=>item.id == e.id) === -1){
-        return false;
-      }else{
-        return true;
+    showPos(e) {
+      if (this.selectImgArr.findIndex(item => item.id == e.id) === -1) {
+        return false
+      } else {
+        return true
       }
     },
-    showNum(e){
-      return (this.selectImgArr.findIndex(item=>item.id == e.id)) + 1;
+    showNum(e) {
+      return (this.selectImgArr.findIndex(item => item.id == e.id)) + 1
     },
     // 点击图片
-    clickItem(e){
-      if(this.selectImgArr.findIndex(item=>item.id == e.id) === -1){
-        if(this.limitType && (this.totalNum - this.selectNum - this.selectImgArr.length <= 0 )){
-          this.$message.error('已超过添加最大图片数量');
-          return;
+    clickItem(e) {
+      if (this.selectImgArr.findIndex(item => item.id == e.id) === -1) {
+        if (this.limitType && (this.totalNum - this.selectNum - this.selectImgArr.length <= 0)) {
+          this.$message.error('已超过添加最大图片数量')
+          return
         }
         this.selectImgArr.push(e)
-      }else{
+      } else {
         this.selectImgArr.splice(this.selectImgArr.findIndex(item => item.id === e.id), 1)
       }
     },
     // 父 - 确定
-    subMit(){
-      console.log('this.selectImgArr',this.selectImgArr)
-      if(this.selectImgArr.length == 0){
-        this.$message.error('请先选择图片');
-        return;
+    subMit() {
+      console.log('this.selectImgArr', this.selectImgArr)
+      if (this.selectImgArr.length == 0) {
+        this.$message.error('请先选择图片')
+        return
       }
-      this.$emit('subMit',this.selectImgArr);
+      this.$emit('subMit', this.selectImgArr)
     },
     // 图片 - 获取分组下图片列表
-    getImgs(){
-      getGalleryImageByGroup(this.getImgsForm).then(res=>{
-        console.log('获取分类下图片',res)
-        let data = res.data.list;
-        data.forEach(e=>e.checked = false)
-        this.imgs = data;
-        this.imgsTotal = res.data.total;
+    getImgs() {
+      getGalleryImageByGroup(this.getImgsForm).then(res => {
+        console.log('获取分类下图片', res)
+        const data = res.data.list
+        data.forEach(e => e.checked = false)
+        this.imgs = data
+        this.imgsTotal = res.data.total
       })
     },
     // 图片 - 上传
-    imgUp(file, fileList){
-      console.log(file, fileList);
-      let obj = {};
+    imgUp(file, fileList) {
+      console.log(file, fileList)
+      const obj = {}
       obj.imageName = file.data[0].orginName
       obj.imageSize = file.data[0].size
       obj.imageUrl = file.data[0].name
@@ -267,15 +267,15 @@ export default {
       obj.uid = file.data[0].uid
       this.galleryList.push(obj)
       this.selectImgArr.push(obj)
-      this.hideUpload = this.totalNum-this.selectNum-this.selectImgArr.length == 0
+      this.hideUpload = this.totalNum - this.selectNum - this.selectImgArr.length == 0
     },
     // 图片 - 删除
-    imgRemove(file, fileList){
-      console.log('图片删除',file, fileList);
-      if(file.response){
-        this.galleryList = [];
-        fileList.forEach(e=>{
-          let gObj = {};
+    imgRemove(file, fileList) {
+      console.log('图片删除', file, fileList)
+      if (file.response) {
+        this.galleryList = []
+        fileList.forEach(e => {
+          const gObj = {}
           gObj.imageName = e.response.data[0].orginName
           gObj.imageSize = e.response.data[0].size
           gObj.imageUrl = e.response.data[0].name
@@ -283,130 +283,130 @@ export default {
           gObj.height = e.response.data[0].height
           this.galleryList.push(gObj)
         })
-        let uid = file.response.data[0].uid
+        const uid = file.response.data[0].uid
         this.selectImgArr.splice(this.selectImgArr.findIndex(item => (item.uid && item.uid) === uid), 1)
-        this.hideUpload = this.totalNum-this.selectNum-this.selectImgArr.length == 0
-        console.log('删除后的已选择',this.selectImgArr)
+        this.hideUpload = this.totalNum - this.selectNum - this.selectImgArr.length == 0
+        console.log('删除后的已选择', this.selectImgArr)
       }
     },
     // 图片 上传请求
-    uploadImgFun(){
-      this.uploadImgForm.type = 1 
-      this.uploadImgForm.shopId = this.shop.shopId 
-      if(this.galleryList.length == 0){
-        this.$message.error('请先上传图片');
-        return;
+    uploadImgFun() {
+      this.uploadImgForm.type = 1
+      this.uploadImgForm.shopId = this.shop.shopId
+      if (this.galleryList.length == 0) {
+        this.$message.error('请先上传图片')
+        return
       }
-      this.uploadImgLoading = true;
-      this.uploadImgForm.galleryList = this.galleryList;
-      addGalleryImage(this.uploadImgForm).then(res=>{
-        console.log('上传图片保存',res)
-        if(res.code == 200){
+      this.uploadImgLoading = true
+      this.uploadImgForm.galleryList = this.galleryList
+      addGalleryImage(this.uploadImgForm).then(res => {
+        console.log('上传图片保存', res)
+        if (res.code == 200) {
           this.$message({
             message: '恭喜，上传成功',
             type: 'success'
-          });
-          this.uploadImg = false;
+          })
+          this.uploadImg = false
           this.uploadImgForm.galleryId = 0
           this.galleryList = []
-          this.$refs['upload'].clearFiles()
+          this.$refs.upload.clearFiles()
           this.subMit()
-          setTimeout(()=>{
-            this.uploadImgLoading = false;
-          },1000)
-        }else{
-          this.uploadImgLoading = false;
-          this.$message.error(res.message);
+          setTimeout(() => {
+            this.uploadImgLoading = false
+          }, 1000)
+        } else {
+          this.uploadImgLoading = false
+          this.$message.error(res.message)
         }
       })
     },
-    showUploadImg(){
-      if(this.limitType && (this.totalNum - this.selectNum - this.selectImgArr.length <= 0) ){
-        this.$message.error('已超过添加最大图片数量');
-        return;
+    showUploadImg() {
+      if (this.limitType && (this.totalNum - this.selectNum - this.selectImgArr.length <= 0)) {
+        this.$message.error('已超过添加最大图片数量')
+        return
       }
-      this.uploadImg = true;
+      this.uploadImg = true
     },
     // 图片 - 弹出框关闭
-    uploadImgClose(done){
+    uploadImgClose(done) {
       this.$confirm('确认关闭？').then(_ => {
-        console.log('执行了',this.galleryList)
+        console.log('执行了', this.galleryList)
         this.galleryList = []
         this.selectImgArr = []
         this.uploadImg = false
-        this.hideUpload = this.totalNum-this.selectNum-this.selectImgArr.length == 0
+        this.hideUpload = this.totalNum - this.selectNum - this.selectImgArr.length == 0
         this.$refs.upload.clearFiles()
-        done();
-      }).catch(_ => {});
+        done()
+      }).catch(_ => {})
     },
     // 图片 - 数量限制
     handleExceed(files, fileList) {
-      this.$message.warning(`单次最多上传${this.totalNum-this.selectNum-this.selectImgArr.length}张图片，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(`单次最多上传${this.totalNum - this.selectNum - this.selectImgArr.length}张图片，共选择了 ${files.length + fileList.length} 个文件`)
     },
     // 图片 - 格式检测
     beforeAvatarUpload(file) {
-      console.log('file',file)
-      const isJPG = file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png' || file.type === 'image/bmp';
+      console.log('file', file)
+      const isJPG = file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png' || file.type === 'image/bmp'
       console.log(isJPG)
-      const isLt3M = file.size / 1024 / 1024 < 3;
+      const isLt3M = file.size / 1024 / 1024 < 3
 
       if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
+        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
       if (!isLt3M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return isJPG && isLt3M;
+      return isJPG && isLt3M
     },
     // 分类 - 获取图片库分类
-    getGaller(){
-      console.log('请求分类的数据',this.getGalleryForm)
-      getGalleryByShopId(this.getGalleryForm).then(res=>{
-        console.log('获取图片库分组',res)
-        let data = res.data;
-        data.forEach(e=>{ e.type = 'info' })
-        if(this.activeClassName == ''){
+    getGaller() {
+      console.log('请求分类的数据', this.getGalleryForm)
+      getGalleryByShopId(this.getGalleryForm).then(res => {
+        console.log('获取图片库分组', res)
+        const data = res.data
+        data.forEach(e => { e.type = 'info' })
+        if (this.activeClassName == '') {
           this.activeClassName = data[0].galleryName
           data[0].type = ''
-          this.getImgsForm.galleryId = data[0].id;
-        }else{
-          let index = data.findIndex(item => item.galleryName == this.activeClassName);
+          this.getImgsForm.galleryId = data[0].id
+        } else {
+          const index = data.findIndex(item => item.galleryName == this.activeClassName)
           data[index].type = ''
-          this.getImgsForm.galleryId = data[index].id;
+          this.getImgsForm.galleryId = data[index].id
         }
-        let arr = []
-        for(var i=1;i<data.length;i++){
+        const arr = []
+        for (var i = 1; i < data.length; i++) {
           arr.push(data[i])
         }
-        this.updateClassArr = arr;
-        this.changeClassArr = arr;
-        console.log('arr',arr)
+        this.updateClassArr = arr
+        this.changeClassArr = arr
+        console.log('arr', arr)
         this.getImgs()
         this.imageClassTags = data
       })
     },
     // 分类 - 选择当前组
-    activeClass(e){
+    activeClass(e) {
       console.log('点击了分组按钮')
       this.imageClassTags.forEach(el => el.type = 'info')
-      e.type  = ''
-      this.allChecked = false;
+      e.type = ''
+      this.allChecked = false
       this.getImgsForm.galleryId = e.id
-      this.activeClassName = e.galleryName;
+      this.activeClassName = e.galleryName
       this.getImgs()
     },
     // 图片 - 分页
     handleSizeChange(val) {
-      this.getImgsForm.pageSize = val;
+      this.getImgsForm.pageSize = val
       this.getImgs()
     },
     // 图片 - 分页
     handleCurrentChange(val) {
-      this.getImgsForm.pageNum = val;
+      this.getImgsForm.pageNum = val
       this.getImgs()
     },
     // 文本框输入
-    change(e){
+    change(e) {
       this.$forceUpdate()
     }
   },
@@ -415,7 +415,7 @@ export default {
       'user',
       'shop'
     ])
-  },
+  }
 }
 </script>
 <style>

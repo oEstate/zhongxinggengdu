@@ -12,21 +12,21 @@
 </template>
 
 <script lang="ts">
-import { Component } from "vue-property-decorator";
-import { mixins } from "vue-class-component";
-import { DeviceType, AppModule } from "@/store/modules/app";
-import { AppMain, Navbar, Sidebar } from "./components";
-import grayFooter from "@/components/footer/graySeter.vue";
-import ResizeMixin from "./mixin/resize";
+import { Component } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
+import { DeviceType, AppModule } from '@/store/modules/app'
+import { AppMain, Navbar, Sidebar } from './components'
+import grayFooter from '@/components/footer/graySeter.vue'
+import ResizeMixin from './mixin/resize'
 
 @Component({
-  name: "Layout",
+  name: 'Layout',
   components: {
     AppMain,
     Navbar,
     Sidebar,
-    grayFooter,
-  },
+    grayFooter
+  }
 })
 export default class extends mixins(ResizeMixin) {
   get classObj() {
@@ -34,12 +34,12 @@ export default class extends mixins(ResizeMixin) {
       hideSidebar: !this.sidebar.opened,
       openSidebar: this.sidebar.opened,
       withoutAnimation: this.sidebar.withoutAnimation,
-      mobile: this.device === DeviceType.Mobile,
-    };
+      mobile: this.device === DeviceType.Mobile
+    }
   }
 
   private handleClickOutside() {
-    AppModule.CloseSideBar(false);
+    AppModule.CloseSideBar(false)
   }
 }
 </script>

@@ -56,34 +56,34 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import back from "@/components/header/back.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import back from '@/components/header/back.vue'
 
 @Component({
-  name: "matterAdd",
+  name: 'matterAdd',
   components: {
-    back,
-  },
+    back
+  }
 })
 export default class extends Vue {
-  private icon = require("@/assets/header-icon/message.png");
+  private icon = require('@/assets/header-icon/message.png');
   private options = [
     {
-      value: "0",
-      label: "店铺",
+      value: '0',
+      label: '店铺'
     },
     {
-      value: "1",
-      label: "链接",
+      value: '1',
+      label: '链接'
     },
     {
-      value: "2",
-      label: "内容",
+      value: '2',
+      label: '内容'
     },
     {
-      value: "3",
-      label: "云平台",
-    },
+      value: '3',
+      label: '云平台'
+    }
   ];
 }
 </script>
@@ -97,7 +97,7 @@ export default class extends Vue {
     margin-bottom: 20px;
     .phone,.el-select{
       width: 270px;
-      
+
     }
     &:last-child {
       margin-top: 50px;

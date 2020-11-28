@@ -14,7 +14,7 @@
         下载详细报表
       </div>
     </div>
-    <el-scrollbar :style="{ height: clientHeight - 194 + 'px' }">
+    <el-scrollbar :style="{height: clientHeight - 194 + 'px'}">
       <div class="dashboard-container">
         <div class="u_f_ajs report">
           <div class="u_f_ac">
@@ -26,7 +26,7 @@
             <i class="el-icon-arrow-right ic"></i>
           </div>
         </div>
-        <ul class="statistical u_f_ajsv">
+        <ul class="statistical u_f_ajsv1">
           <li>
             <div class="statistical-n">
               <count-to
@@ -173,37 +173,38 @@
         </ul>
       </div>
 
-
     </el-scrollbar>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import { UserModule } from "@/store/modules/user";
-import PieChart from "./components/PieChart.vue";
-import { mixins } from "vue-class-component";
-import ResizeMixin1 from "@/layout/mixin/resize1";
-import CountTo from "vue-count-to";
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { UserModule } from '@/store/modules/user'
+import PieChart from './components/PieChart.vue'
+import { mixins } from 'vue-class-component'
+import ResizeMixin1 from '@/layout/mixin/resize1'
+import CountTo from 'vue-count-to'
 
 @Component({
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
     PieChart,
     CountTo
-  },
+  }
 })
 export default class extends mixins(ResizeMixin1) {
   @Prop() routes!: any;
   created() {
-    console.log(this.routes);
-    console.log(this.clientHeight);
+    console.log(this.routes)
+    console.log(this.clientHeight)
   }
+
   get name() {
-    return UserModule.name;
+    return UserModule.name
   }
+
   get roles() {
-    return UserModule.roles;
+    return UserModule.roles
   }
 }
 </script>

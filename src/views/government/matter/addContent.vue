@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back :icon="icon" titleTxt="内容管理" backTxt="新增内容" />
-    <el-scrollbar :style="{height:clientHeight-310+'px'}">
+    <el-scrollbar :style="{height: clientHeight-310+'px'}">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">栏目标题</div>
@@ -42,28 +42,29 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import back from "@/components/header/back.vue";
-import Tinymce from "@/components/Tinymce/index.vue";
-import { mixins } from "vue-class-component";
-import ResizeMixin1 from "@/layout/mixin/resize1";
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import back from '@/components/header/back.vue'
+import Tinymce from '@/components/Tinymce/index.vue'
+import { mixins } from 'vue-class-component'
+import ResizeMixin1 from '@/layout/mixin/resize1'
 
 @Component({
-  name: "matterAdd",
+  name: 'matterAdd',
   components: {
     back,
-    Tinymce,
-  },
+    Tinymce
+  }
 })
 export default class extends mixins(ResizeMixin1) {
-    private icon = require("@/assets/header-icon/matter.png");
-  private content = ``;
-  private shopName = "";
+    private icon = require('@/assets/header-icon/matter.png');
+  private content = '';
+  private shopName = '';
   changeShop() {
-    this.$emit("changeShop", "binding");
+    this.$emit('changeShop', 'binding')
   }
+
   next() {
-    this.$emit("changeShop", "bindingPhone");
+    this.$emit('changeShop', 'bindingPhone')
   }
 }
 </script>

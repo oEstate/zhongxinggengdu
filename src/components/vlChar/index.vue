@@ -11,7 +11,7 @@
             <div
               :class="{
                 vs_char_user_list: true,
-                vs_char_user_list_bgc: 'showBgc' in item && item.showBgc,
+                vs_char_user_list_bgc: 'showBgc' in item && item.showBgc
               }"
               v-if="'sessions' in dataList && item.scene !== 'team'"
             >
@@ -220,200 +220,200 @@
 </template>
 
 <script>
-import NIM from "./NIM_Web_NIM_v8.1.0.js"; // 修改为你的路径
+import NIM from './NIM_Web_NIM_v8.1.0.js' // 修改为你的路径
 export default {
-  name: "vlChar",
+  name: 'vlChar',
   props: {
     appKey: {
       type: String,
-      default: "",
-      required: true,
+      default: '',
+      required: true
     },
     account: {
       type: String,
-      default: "",
-      required: true,
+      default: '',
+      required: true
     },
     token: {
       type: String,
-      default: "",
-      required: true,
-    },
+      default: '',
+      required: true
+    }
   },
   data() {
     return {
       loading: false,
-      avatar: require("@/assets/common/avatar.png"),
+      avatar: require('@/assets/common/avatar.png'),
       loginError: false,
       dataList: {}, // 初始化信息
       sessionsList: [], // 聊天信息
-      scene: "p2p", // 聊天模式 单聊模式p2p
-      text: "", // 发送的文字信息
-      toUserImg: "",
-      toUserName: "",
-      toAccount: "", // 给发送的人id
-      errMsg: "", // 不能为空消息
+      scene: 'p2p', // 聊天模式 单聊模式p2p
+      text: '', // 发送的文字信息
+      toUserImg: '',
+      toUserName: '',
+      toAccount: '', // 给发送的人id
+      errMsg: '', // 不能为空消息
       showErrMsg: false, // 发送错误信息模板
-      nim: {}, // 网银云信初始化实例
-    };
+      nim: {} // 网银云信初始化实例
+    }
   },
   watch: {
-    appKey: function (val) {
-      if (this.appKey === "" || this.account === "" || this.token === "") {
-        return;
+    appKey: function(val) {
+      if (this.appKey === '' || this.account === '' || this.token === '') {
+        return
       }
-      this.init();
+      this.init()
     },
-    account: function (val) {
-      if (this.appKey === "" || this.account === "" || this.token === "") {
-        return;
+    account: function(val) {
+      if (this.appKey === '' || this.account === '' || this.token === '') {
+        return
       }
-      this.init();
+      this.init()
     },
-    token: function (val) {
-      if (this.appKey === "" || this.account === "" || this.token === "") {
-        return;
+    token: function(val) {
+      if (this.appKey === '' || this.account === '' || this.token === '') {
+        return
       }
-      this.init();
-    },
+      this.init()
+    }
   },
   created() {
-    var _self = this;
-    document.onkeydown = function (e) {
-      var key = window.event.keyCode;
-      if (key == 13 && _self.toAccount !== "") {
-        _self.send();
+    var _self = this
+    document.onkeydown = function(e) {
+      var key = window.event.keyCode
+      if (key == 13 && _self.toAccount !== '') {
+        _self.send()
       }
-    };
+    }
   },
   mounted() {
-    this.init();
+    this.init()
   },
   updated() {
-    let that = this;
-    this.$nextTick(function () {
-      if (that.toAccount !== "") {
-        var msg_end = document.getElementById("vs_char_view");
+    const that = this
+    this.$nextTick(function() {
+      if (that.toAccount !== '') {
+        var msg_end = document.getElementById('vs_char_view')
         // msg_end.scrollTop = msg_end.scrollHeight+100;
-        msg_end.scrollTop = msg_end.scrollHeight;
+        msg_end.scrollTop = msg_end.scrollHeight
       }
-    });
+    })
   },
   methods: {
     formatTime(m) {
-      let time = new Date(m);
-      var hour = time.getHours() < 10 ? "0" + time.getHours() : time.getHours();
+      const time = new Date(m)
+      var hour = time.getHours() < 10 ? '0' + time.getHours() : time.getHours()
       var minute =
-        time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
-      let now = hour + ":" + minute;
-      return now;
+        time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes()
+      const now = hour + ':' + minute
+      return now
     },
     readLocalFile() {
-      var localFile = document.getElementById("uploadFile").files[0];
+      var localFile = document.getElementById('uploadFile').files[0]
       this.nim.sendFile({
         scene: this.scene,
         to: this.toAccount,
-        type: "image",
+        type: 'image',
         fileInput: uploadFile,
-        uploadprogress: function (obj) {
-          console.log("文件总大小: " + obj.total + "bytes");
-          console.log("已经上传的大小: " + obj.loaded + "bytes");
-          console.log("上传进度: " + obj.percentage);
-          console.log("上传进度文本: " + obj.percentageText);
+        uploadprogress: function(obj) {
+          console.log('文件总大小: ' + obj.total + 'bytes')
+          console.log('已经上传的大小: ' + obj.loaded + 'bytes')
+          console.log('上传进度: ' + obj.percentage)
+          console.log('上传进度文本: ' + obj.percentageText)
         },
-        uploaddone: function (error, file) {
-          console.log("上传" + (!error ? "成功" : "失败"), error, file);
+        uploaddone: function(error, file) {
+          console.log('上传' + (!error ? '成功' : '失败'), error, file)
         },
-        beforesend: function (msg) {
-          console.log("正在发送p2p image消息, id=" + msg.idClient);
+        beforesend: function(msg) {
+          console.log('正在发送p2p image消息, id=' + msg.idClient)
           // pushMsg(msg);
         },
-        done: this.sendMsgDone,
-      });
+        done: this.sendMsgDone
+      })
     },
     sendMsgDone(error, msg) {
-      console.log(1);
-      this.sessionsList.push(msg);
-      this.scrollBottom();
-      this.$forceUpdate();
+      console.log(1)
+      this.sessionsList.push(msg)
+      this.scrollBottom()
+      this.$forceUpdate()
     },
     send() {
-      console.log(this.text);
-      if (this.text === "") {
-        this.errMsg = "发送内容不能为空";
-        this.showErrMsg = true;
-        let that = this;
-        setTimeout(function () {
-          that.showErrMsg = false;
-        }, 1000);
-        return;
+      console.log(this.text)
+      if (this.text === '') {
+        this.errMsg = '发送内容不能为空'
+        this.showErrMsg = true
+        const that = this
+        setTimeout(function() {
+          that.showErrMsg = false
+        }, 1000)
+        return
       }
       var msg = this.nim.sendText({
         scene: this.scene,
         to: this.toAccount,
         text: this.text,
-        done: this.sendMsgDone,
-      });
-      this.text = "";
-      console.log("正在发送p2p text消息, id=" + msg.idClient);
+        done: this.sendMsgDone
+      })
+      this.text = ''
+      console.log('正在发送p2p text消息, id=' + msg.idClient)
     },
     sendMsgDone(error, msg) {
       console.log(
-        "发送" +
+        '发送' +
           msg.scene +
-          " " +
+          ' ' +
           msg.type +
-          "消息" +
-          (!error ? "成功" : "失败") +
-          ", id=" +
+          '消息' +
+          (!error ? '成功' : '失败') +
+          ', id=' +
           msg.idClient,
         error,
         msg
-      );
-      this.sessionsList.push(msg);
-      this.scrollBottom();
+      )
+      this.sessionsList.push(msg)
+      this.scrollBottom()
     },
     switchUserDialogue(m) {
-      this.sessionsList = [];
-      this.scene = m.scene;
-      this.toAccount = m.to;
-      this.toUserImg = m.avatar;
-      this.toUserName = m.nick;
+      this.sessionsList = []
+      this.scene = m.scene
+      this.toAccount = m.to
+      this.toUserImg = m.avatar
+      this.toUserName = m.nick
       for (let i = 0; i < this.dataList.sessions.length; i++) {
         if (this.dataList.sessions[i].to === m.to) {
-          this.dataList.sessions[i].showBgc = true;
+          this.dataList.sessions[i].showBgc = true
         } else {
-          this.dataList.sessions[i].showBgc = false;
+          this.dataList.sessions[i].showBgc = false
         }
       }
-      this.nim.resetSessionUnread(m.id);
+      this.nim.resetSessionUnread(m.id)
       this.nim.getHistoryMsgs({
         scene: this.scene,
         to: this.toAccount,
         asc: true,
-        done: this.getHistoryMsgsDone,
-      });
+        done: this.getHistoryMsgsDone
+      })
     },
     getHistoryMsgsDone(error, obj) {
-      console.log("获取云端历史记录" + (!error ? "成功" : "失败"), error, obj);
+      console.log('获取云端历史记录' + (!error ? '成功' : '失败'), error, obj)
       if (!error) {
         for (let i = 0; i < this.dataList.users.length; i++) {
           if (this.dataList.users[i].account === this.toAccount) {
             for (let j = 0; j < obj.msgs.length; j++) {
-              obj.msgs[j].avatar = this.dataList.users[i].avatar;
+              obj.msgs[j].avatar = this.dataList.users[i].avatar
             }
           }
         }
-        this.sessionsList = obj.msgs;
-        console.log(this.sessionsList);
-        this.setMsgTime();
-        this.scrollBottom();
+        this.sessionsList = obj.msgs
+        console.log(this.sessionsList)
+        this.setMsgTime()
+        this.scrollBottom()
       }
     },
     scrollBottom() {
-      if (this.toAccount !== "") {
-        var vs_char_view = document.getElementById("vs_char_view");
-        vs_char_view.scrollTop = vs_char_view.scrollHeight;
+      if (this.toAccount !== '') {
+        var vs_char_view = document.getElementById('vs_char_view')
+        vs_char_view.scrollTop = vs_char_view.scrollHeight
       }
     },
     setMsgTime() {
@@ -421,7 +421,7 @@ export default {
         if (i === 0) {
           this.sessionsList[i].printTime = this.formatTime(
             this.sessionsList[i].time
-          );
+          )
         } else {
           if (
             this.sessionsList[i].time - 120000 >
@@ -429,31 +429,31 @@ export default {
           ) {
             this.sessionsList[i].printTime = this.formatTime(
               this.sessionsList[i].time
-            );
+            )
           }
         }
       }
-      console.log(this.sessionsList);
+      console.log(this.sessionsList)
     },
     addUserNameAvatar() {
       for (let i = 0; i < this.dataList.users.length; i++) {
         for (let j = 0; j < this.dataList.sessions.length; j++) {
           if (this.dataList.users[i].account === this.dataList.sessions[j].to) {
-            this.dataList.sessions[j].avatar = this.dataList.users[i].avatar;
-            this.dataList.sessions[j].nick = this.dataList.users[i].nick;
+            this.dataList.sessions[j].avatar = this.dataList.users[i].avatar
+            this.dataList.sessions[j].nick = this.dataList.users[i].nick
             this.dataList.sessions[j].updateTimeHour = this.formatTime(
               this.dataList.sessions[j].updateTime
-            );
+            )
           }
         }
       }
     },
     init() {
       // alert(1)
-      let that = this;
-      that.loading = true;
-      if (this.appKey === "" || this.account === "" || this.token === "") {
-        return;
+      const that = this
+      that.loading = true
+      if (this.appKey === '' || this.account === '' || this.token === '') {
+        return
       }
       var nim = new NIM({
         // 初始化SDK
@@ -510,284 +510,284 @@ export default {
         onofflinecustomsysmsgs: this.onOfflineCustomSysMsgs,
         oncustomsysmsg: this.onCustomSysMsg,
         // 同步完成
-        onsyncdone: this.onSyncDone,
-      });
+        onsyncdone: this.onSyncDone
+      })
 
-      this.dataList = this.dataList;
-      this.nim = nim;
+      this.dataList = this.dataList
+      this.nim = nim
       // this.addUserNameAvatar()
-      console.log(this.dataList);
-      this.$forceUpdate();
+      console.log(this.dataList)
+      this.$forceUpdate()
     },
     onConnect() {
       // alert(2)
-      console.log("连接成功");
+      console.log('连接成功')
     },
     onWillReconnect(obj) {
       // 此时说明 `SDK` 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
-      console.log("即将重连", obj);
+      console.log('即将重连', obj)
     },
     onDisconnect(error) {
       // 此时说明 `SDK` 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面
-      console.log("连接断开", error);
+      console.log('连接断开', error)
       if (error) {
         switch (error.code) {
           // 账号或者密码错误, 请跳转到登录页面并提示错误
           case 302:
-            this.loginError = true;
-            break;
+            this.loginError = true
+            break
           // 重复登录, 已经在其它端登录了, 请跳转到登录页面并提示错误
           case 417:
-            break;
+            break
           // 被踢, 请提示错误后跳转到登录页面
-          case "kicked":
-            break;
+          case 'kicked':
+            break
           default:
-            break;
+            break
         }
       }
     },
     onError(error, obj) {
-      console.log("发生错误", error, obj);
+      console.log('发生错误', error, obj)
     },
     onLoginPortsChange(loginPorts) {
-      console.log("当前登录帐号在其它端的状态发生改变了", loginPorts);
+      console.log('当前登录帐号在其它端的状态发生改变了', loginPorts)
     },
     onBlacklist(blacklist) {
-      console.log("收到黑名单", blacklist);
+      console.log('收到黑名单', blacklist)
       this.dataList.blacklist = this.nim.mergeRelations(
         this.dataList.blacklist,
         blacklist
-      );
+      )
       this.dataList.blacklist = this.nim.cutRelations(
         this.dataList.blacklist,
         blacklist.invalid
-      );
-      this.refreshBlacklistUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshBlacklistUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onMarkInBlacklist(obj) {
       console.log(
-        obj.account + "被你" + (obj.isAdd ? "加入" : "移除") + "黑名单",
+        obj.account + '被你' + (obj.isAdd ? '加入' : '移除') + '黑名单',
         obj
-      );
+      )
       if (obj.isAdd) {
-        this.addToBlacklist(obj);
+        this.addToBlacklist(obj)
       } else {
-        this.removeFromBlacklist(obj);
+        this.removeFromBlacklist(obj)
       }
     },
     addToBlacklist(obj) {
       this.dataList.blacklist = this.nim.mergeRelations(
         this.dataList.blacklist,
         obj.record
-      );
-      this.refreshBlacklistUI();
+      )
+      this.refreshBlacklistUI()
     },
     removeFromBlacklist(obj) {
       this.dataList.blacklist = this.nim.cutRelations(
         this.dataList.blacklist,
         obj.record
-      );
-      this.refreshBlacklistUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshBlacklistUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     refreshBlacklistUI() {
       // 刷新界面
     },
     onMutelist(mutelist) {
-      console.log("收到静音列表", mutelist);
+      console.log('收到静音列表', mutelist)
       this.dataList.mutelist = this.nim.mergeRelations(
         this.dataList.mutelist,
         mutelist
-      );
+      )
       this.dataList.mutelist = this.nim.cutRelations(
         this.dataList.mutelist,
         mutelist.invalid
-      );
-      this.refreshMutelistUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshMutelistUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onMarkInMutelist(obj) {
       console.log(
-        obj.account + "被你" + (obj.isAdd ? "加入" : "移除") + "静音列表",
+        obj.account + '被你' + (obj.isAdd ? '加入' : '移除') + '静音列表',
         obj
-      );
+      )
       if (obj.isAdd) {
-        this.addToMutelist(obj);
+        this.addToMutelist(obj)
       } else {
-        this.removeFromMutelist(obj);
+        this.removeFromMutelist(obj)
       }
     },
     addToMutelist(obj) {
       this.dataList.mutelist = this.nim.mergeRelations(
         this.dataList.mutelist,
         obj.record
-      );
-      this.refreshMutelistUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshMutelistUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     removeFromMutelist(obj) {
       this.dataList.mutelist = this.nim.cutRelations(
         this.dataList.mutelist,
         obj.record
-      );
-      this.refreshMutelistUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshMutelistUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     refreshMutelistUI() {
       // 刷新界面
     },
     onFriends(friends) {
-      console.log("收到好友列表", friends);
+      console.log('收到好友列表', friends)
       this.dataList.friends = this.nim.mergeFriends(
         this.dataList.friends,
         friends
-      );
+      )
       this.dataList.friends = this.nim.cutFriends(
         this.dataList.friends,
         friends.invalid
-      );
-      this.refreshFriendsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshFriendsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onSyncFriendAction(obj) {
-      console.log("收到好友操作", obj);
+      console.log('收到好友操作', obj)
       switch (obj.type) {
-        case "addFriend":
-          console.log("你在其它端直接加了一个好友" + obj);
-          this.onAddFriend(obj.friend);
-          break;
-        case "applyFriend":
-          console.log("你在其它端申请加了一个好友" + obj);
-          break;
-        case "passFriendApply":
-          console.log("你在其它端通过了一个好友申请" + obj);
-          this.onAddFriend(obj.friend);
-          break;
-        case "rejectFriendApply":
-          console.log("你在其它端拒绝了一个好友申请" + obj);
-          break;
-        case "deleteFriend":
-          console.log("你在其它端删了一个好友" + obj);
-          this.onDeleteFriend(obj.account);
-          break;
-        case "updateFriend":
-          console.log("你在其它端更新了一个好友", obj);
-          this.onUpdateFriend(obj.friend);
-          break;
+        case 'addFriend':
+          console.log('你在其它端直接加了一个好友' + obj)
+          this.onAddFriend(obj.friend)
+          break
+        case 'applyFriend':
+          console.log('你在其它端申请加了一个好友' + obj)
+          break
+        case 'passFriendApply':
+          console.log('你在其它端通过了一个好友申请' + obj)
+          this.onAddFriend(obj.friend)
+          break
+        case 'rejectFriendApply':
+          console.log('你在其它端拒绝了一个好友申请' + obj)
+          break
+        case 'deleteFriend':
+          console.log('你在其它端删了一个好友' + obj)
+          this.onDeleteFriend(obj.account)
+          break
+        case 'updateFriend':
+          console.log('你在其它端更新了一个好友', obj)
+          this.onUpdateFriend(obj.friend)
+          break
       }
     },
     onAddFriend(friend) {
       this.dataList.friends = this.nim.mergeFriends(
         this.dataList.friends,
         friend
-      );
-      this.refreshFriendsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshFriendsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onDeleteFriend(account) {
       this.dataList.friends = this.nim.cutFriendsByAccounts(
         this.dataList.friends,
         account
-      );
-      this.refreshFriendsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshFriendsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onUpdateFriend(friend) {
       this.dataList.friends = this.nim.mergeFriends(
         this.dataList.friends,
         friend
-      );
-      refreshFriendsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      refreshFriendsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     refreshFriendsUI() {
       // 刷新界面
     },
     onMyInfo(user) {
-      console.log("收到我的名片", user);
-      this.dataList.myInfo = user;
-      this.updateMyInfoUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('收到我的名片', user)
+      this.dataList.myInfo = user
+      this.updateMyInfoUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onUpdateMyInfo(user) {
-      console.log("我的名片更新了", user);
-      this.dataList.myInfo = NIM.util.merge(this.dataList.myInfo, user);
-      this.updateMyInfoUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('我的名片更新了', user)
+      this.dataList.myInfo = NIM.util.merge(this.dataList.myInfo, user)
+      this.updateMyInfoUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     updateMyInfoUI() {
       // 刷新界面
     },
     onUsers(users) {
-      console.log("收到用户名片列表", users);
-      this.dataList.users = this.nim.mergeUsers(this.dataList.users, users);
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('收到用户名片列表', users)
+      this.dataList.users = this.nim.mergeUsers(this.dataList.users, users)
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onUpdateUser(user) {
-      console.log("用户名片更新了", user);
-      this.dataList.users = this.nim.mergeUsers(this.dataList.users, user);
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('用户名片更新了', user)
+      this.dataList.users = this.nim.mergeUsers(this.dataList.users, user)
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onSuperTeams(superTeams) {
-      console.log("收到超大群列表", superTeams);
+      console.log('收到超大群列表', superTeams)
       this.dataList.superTeams = this.nim.mergeTeams(
         this.dataList.superTeams,
         superTeams
-      );
-      this.onInvalidSuperTeams(superTeams.invalid);
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.onInvalidSuperTeams(superTeams.invalid)
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onInvalidSuperTeams(teams) {
       this.dataList.superTeams = this.nim.cutTeams(
         this.dataList.superTeams,
         teams
-      );
+      )
       this.dataList.invalidSuperTeams = this.nim.mergeTeams(
         this.dataList.invalidSuperTeams,
         teams
-      );
-      this.refreshSuperTeamsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshSuperTeamsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onSyncCreateSuperTeam(team, owner) {
-      console.log("创建了一个超大群 onSyncCreateSuperTeam ", team, owner);
+      console.log('创建了一个超大群 onSyncCreateSuperTeam ', team, owner)
       this.dataList.superTeams = this.nim.mergeTeams(
         this.dataList.superTeams,
         team
-      );
-      this.refreshSuperTeamsUI();
+      )
+      this.refreshSuperTeamsUI()
       onSuperTeamMembers({
         teamId: team.teamId,
-        members: owner,
-      });
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+        members: owner
+      })
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onAddSuperTeamMembers(team, accounts, members) {
-      console.log("添加群成员 onAddSuperTeamMembers ", team, accounts, members);
+      console.log('添加群成员 onAddSuperTeamMembers ', team, accounts, members)
       if (!accounts && !members) {
-        accounts = team.accounts || [];
-        members = team.members || [];
-        team = team.team || {};
+        accounts = team.accounts || []
+        members = team.members || []
+        team = team.team || {}
       }
-      var teamId = team.teamId;
+      var teamId = team.teamId
 
       // 如果是别人被拉进来了，那么拼接群成员列表
       // 如果是自己被拉进来了，那么同步一次群成员列表
@@ -795,44 +795,44 @@ export default {
       if (accounts.indexOf(this.dataList.account) === -1) {
         onSuperTeamMembers({
           teamId: teamId,
-          members: members,
-        });
+          members: members
+        })
       } else {
         // ...
       }
-      this.onSuperTeams(team);
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      this.onSuperTeams(team)
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onDismissSuperTeam(obj) {
-      console.log("解散超大群 onDismissSuperTeam", obj);
-      var teamId = obj.teamId;
-      this.removeAllSuperTeamMembers(teamId);
+      console.log('解散超大群 onDismissSuperTeam', obj)
+      var teamId = obj.teamId
+      this.removeAllSuperTeamMembers(teamId)
       this.dataList.superTeams = this.nim.cutTeams(
         this.dataList.superTeams,
         obj
-      );
-      this.refreshSuperTeamsUI();
-      this.refreshSuperTeamMembersUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshSuperTeamsUI()
+      this.refreshSuperTeamMembersUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onRemoveSuperTeamMembers(obj) {
-      console.log("移除了群成员 onRemoveSuperTeamMembers ", obj.accounts, obj);
-      var teamId = obj.team.teamId;
-      var accounts = obj.accounts;
-      var team;
+      console.log('移除了群成员 onRemoveSuperTeamMembers ', obj.accounts, obj)
+      var teamId = obj.team.teamId
+      var accounts = obj.accounts
+      var team
       if (!teamId && !accounts) {
-        accounts = obj.accounts || [];
+        accounts = obj.accounts || []
       }
       // 如果是别人被踢了，那么移除群成员
       // 如果是自己被踢了，那么离开该群
       if (accounts.indexOf(this.dataList.account) === -1) {
         if (team) {
-          this.onSuperTeams(team);
+          this.onSuperTeams(team)
         }
         if (!this.dataList.superTeamMembers) {
-          this.dataList.superTeamMembers = {};
+          this.dataList.superTeamMembers = {}
         }
         this.dataList.superTeamMembers[
           teamId
@@ -840,125 +840,125 @@ export default {
           this.dataList.superTeamMembers[teamId],
           teamId,
           accounts
-        );
-        this.refreshSuperTeamMembersUI();
+        )
+        this.refreshSuperTeamMembersUI()
       } else {
-        this.leaveSuperTeam(teamId);
+        this.leaveSuperTeam(teamId)
       }
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onUpdateSuperTeam(err, msg) {
-      console.log("更新了超大群 teamId", err, msg);
+      console.log('更新了超大群 teamId', err, msg)
     },
     onUpdateSuperTeamMember(member) {
-      console.log("群成员信息更新了", member);
+      console.log('群成员信息更新了', member)
     },
     leaveSuperTeam(teamId) {
       this.onInvalidSuperTeams({
-        teamId: teamId,
-      });
-      this.removeAllSuperTeamMembers(teamId);
+        teamId: teamId
+      })
+      this.removeAllSuperTeamMembers(teamId)
     },
     refreshSuperTeamsUI() {},
     refreshSuperTeamMembersUI() {},
     removeAllSuperTeamMembers() {},
     onTeams(teams) {
-      console.log("群列表", teams);
-      this.dataList.teams = this.nim.mergeTeams(this.dataList.teams, teams);
-      this.onInvalidTeams(teams.invalid);
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('群列表', teams)
+      this.dataList.teams = this.nim.mergeTeams(this.dataList.teams, teams)
+      this.onInvalidTeams(teams.invalid)
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onInvalidTeams(teams) {
-      this.dataList.teams = this.nim.cutTeams(this.dataList.teams, teams);
+      this.dataList.teams = this.nim.cutTeams(this.dataList.teams, teams)
       this.dataList.invalidTeams = this.nim.mergeTeams(
         this.dataList.invalidTeams,
         teams
-      );
-      this.refreshTeamsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshTeamsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onCreateTeam(team) {
-      console.log("你创建了一个群", team);
-      this.dataList.teams = this.nim.mergeTeams(this.dataList.teams, team);
-      this.refreshTeamsUI();
+      console.log('你创建了一个群', team)
+      this.dataList.teams = this.nim.mergeTeams(this.dataList.teams, team)
+      this.refreshTeamsUI()
       this.onTeamMembers({
         teamId: team.teamId,
-        members: owner,
-      });
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+        members: owner
+      })
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     refreshTeamsUI() {
       // 刷新界面
     },
     onTeamMembers(obj) {
-      console.log("收到群成员", obj);
-      var teamId = obj.teamId;
-      var members = obj.members;
-      this.dataList.teamMembers = this.dataList.teamMembers || {};
+      console.log('收到群成员', obj)
+      var teamId = obj.teamId
+      var members = obj.members
+      this.dataList.teamMembers = this.dataList.teamMembers || {}
       this.dataList.teamMembers[teamId] = this.nim.mergeTeamMembers(
         this.dataList.teamMembers[teamId],
         members
-      );
+      )
       this.dataList.teamMembers[teamId] = this.nim.cutTeamMembers(
         this.dataList.teamMembers[teamId],
         members.invalid
-      );
-      this.refreshTeamMembersUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshTeamMembersUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onSyncTeamMembersDone() {
-      console.log("同步群列表完成");
+      console.log('同步群列表完成')
     },
     onUpdateTeamMember(teamMember) {
-      console.log("群成员信息更新了", teamMember);
+      console.log('群成员信息更新了', teamMember)
       this.onTeamMembers({
         teamId: teamMember.teamId,
-        members: teamMember,
-      });
+        members: teamMember
+      })
     },
     refreshTeamMembersUI() {
       // 刷新界面
     },
     onSessions(sessions) {
-      console.log("收到会话列表", sessions);
+      console.log('收到会话列表', sessions)
       this.dataList.sessions = this.nim.mergeSessions(
         this.dataList.sessions,
         sessions
-      );
-      this.addUserNameAvatar();
-      this.updateSessionsUI();
+      )
+      this.addUserNameAvatar()
+      this.updateSessionsUI()
     },
     onUpdateSession(session) {
-      console.log("会话更新了", session);
+      console.log('会话更新了', session)
       this.dataList.sessions = this.nim.mergeSessions(
         this.dataList.sessions,
         session
-      );
-      this.updateSessionsUI();
-      this.dataList = this.dataList;
-      this.addUserNameAvatar();
-      this.$forceUpdate();
+      )
+      this.updateSessionsUI()
+      this.dataList = this.dataList
+      this.addUserNameAvatar()
+      this.$forceUpdate()
     },
     updateSessionsUI() {
       // 刷新界面
     },
     onRoamingMsgs(obj) {
-      console.log("漫游消息", obj);
-      this.pushMsg(obj.msgs);
+      console.log('漫游消息', obj)
+      this.pushMsg(obj.msgs)
     },
     onOfflineMsgs(obj) {
-      console.log("离线消息", obj);
-      this.pushMsg(obj.msgs);
+      console.log('离线消息', obj)
+      this.pushMsg(obj.msgs)
     },
     onMsg(msg) {
-      console.log("收到消息", msg.scene, msg.type, msg);
-      this.sessionsList.push(msg);
-      this.scrollBottom();
+      console.log('收到消息', msg.scene, msg.type, msg)
+      this.sessionsList.push(msg)
+      this.scrollBottom()
       for (let i = 0; i < this.dataList.users.length; i++) {
         if (
           this.dataList.users[i].account ===
@@ -966,74 +966,74 @@ export default {
         ) {
           this.sessionsList[
             this.sessionsList.length - 1
-          ].avatar = this.dataList.users[i].avatar;
+          ].avatar = this.dataList.users[i].avatar
         }
       }
-      this.$forceUpdate();
-      this.pushMsg(msg);
+      this.$forceUpdate()
+      this.pushMsg(msg)
     },
     pushMsg(msgs) {
       if (!Array.isArray(msgs)) {
-        msgs = [msgs];
+        msgs = [msgs]
       }
-      var sessionId = msgs[0].sessionId;
-      this.dataList.msgs = this.dataList.msgs || {};
+      var sessionId = msgs[0].sessionId
+      this.dataList.msgs = this.dataList.msgs || {}
       this.dataList.msgs[sessionId] = this.nim.mergeMsgs(
         this.dataList.msgs[sessionId],
         msgs
-      );
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onOfflineSysMsgs(sysMsgs) {
-      console.log("收到离线系统通知", sysMsgs);
-      this.pushSysMsgs(sysMsgs);
+      console.log('收到离线系统通知', sysMsgs)
+      this.pushSysMsgs(sysMsgs)
     },
     onSysMsg(sysMsg) {
-      console.log("收到系统通知", sysMsg);
-      this.pushSysMsgs(sysMsg);
+      console.log('收到系统通知', sysMsg)
+      this.pushSysMsgs(sysMsg)
     },
     onUpdateSysMsg(sysMsg) {
-      this.pushSysMsgs(sysMsg);
+      this.pushSysMsgs(sysMsg)
     },
     pushSysMsgs(sysMsgs) {
       this.dataList.sysMsgs = this.nim.mergeSysMsgs(
         this.dataList.sysMsgs,
         sysMsgs
-      );
-      this.refreshSysMsgsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      )
+      this.refreshSysMsgsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onSysMsgUnread(obj) {
-      console.log("收到系统通知未读数", obj);
-      this.dataList.sysMsgUnread = obj;
-      this.refreshSysMsgsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('收到系统通知未读数', obj)
+      this.dataList.sysMsgUnread = obj
+      this.refreshSysMsgsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     onUpdateSysMsgUnread(obj) {
-      console.log("系统通知未读数更新了", obj);
-      this.dataList.sysMsgUnread = obj;
-      this.refreshSysMsgsUI();
-      this.dataList = this.dataList;
-      this.$forceUpdate();
+      console.log('系统通知未读数更新了', obj)
+      this.dataList.sysMsgUnread = obj
+      this.refreshSysMsgsUI()
+      this.dataList = this.dataList
+      this.$forceUpdate()
     },
     refreshSysMsgsUI() {
       // 刷新界面
     },
     onOfflineCustomSysMsgs(sysMsgs) {
-      console.log("收到离线自定义系统通知", sysMsgs);
+      console.log('收到离线自定义系统通知', sysMsgs)
     },
     onCustomSysMsg(sysMsg) {
-      console.log("收到自定义系统通知", sysMsg);
+      console.log('收到自定义系统通知', sysMsg)
     },
     onSyncDone() {
-      console.log("同步完成");
-      this.loading = false;
-    },
-  },
-};
+      console.log('同步完成')
+      this.loading = false
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -1052,7 +1052,7 @@ export default {
 }
 .vs_char_user {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding: 20px 10px 20px 10px;
   background-color: #2c3e50;
@@ -1111,7 +1111,7 @@ export default {
 .vs_char_user_list {
   height: 76px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding: 0 18px;
   cursor: pointer;
@@ -1191,7 +1191,7 @@ export default {
 
 .vs_char_view_info_wraper {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: 100%;
   padding: 18px;
   align-items: center;
