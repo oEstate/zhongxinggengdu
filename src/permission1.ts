@@ -37,10 +37,15 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
           // 获取用户信息，包括角色
           await UserModule.GetUserInfo()
           // 设置replace: true，这样导航将不会留下历史记录
+
+          const roles = UserModule.roles
+          console.log(roles)
           // 根据角色生成可访问路线图
-          PermissionModule.GetMenus()
+          PermissionModule.GenerateRoutes(roles)
           // 动态添加可访问路由
           router.addRoutes(PermissionModule.dynamicRoutes)
+          console.log(PermissionModule.dynamicRoutes)
+          console.log(router)
           next({ ...to, replace: true })
         } catch (err) {
           // 删除令牌并重定向到登录页面

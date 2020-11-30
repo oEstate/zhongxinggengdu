@@ -1,30 +1,31 @@
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
 import { RouteConfig } from 'vue-router'
-import { asyncRoutes, constantRoutes } from '@/router'
+import { constantRoutes } from '@/router'
+import { getUserRole } from '@/api/users'
 import store from '@/store'
+import Layout from '@/layout/index.vue'
 
-const hasPermission = (roles: string[], route: RouteConfig) => {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
-  } else {
-    return true
-  }
-}
 
-export const filterAsyncRoutes = (routes: RouteConfig[], roles: string[]) => {
-  const res: RouteConfig[] = []
-  routes.forEach(route => {
-    const r = { ...route }
-    if (hasPermission(roles, r)) {
-      if (r.children) {
-        r.children = filterAsyncRoutes(r.children, roles)
+export const filterAsyncRoutes = (routes: any) => {
+  console.log(routes)
+  routes.filter((router: any) => {
+    if (router.component) {
+      if (router.component === 'Layout') {
+        router.component = Layout
+      } else {
+        const component = router.component
+        router.component = loadView(component)
       }
-      res.push(r)
+    }
+    if (router.children && router.children.length) {
+      router.children = filterAsyncRoutes(router.children)
     }
   })
-  return res
+  return routes
 }
-
+export const loadView = (view: any) => {
+  return () => import(`@/views/${view}`)
+}
 export interface IPermissionState {
   routes: RouteConfig[]
   dynamicRoutes: RouteConfig[]
@@ -38,16 +39,22 @@ class Permission extends VuexModule implements IPermissionState {
   @Mutation
   private SET_ROUTES(routes: RouteConfig[]) {
     this.routes = constantRoutes.concat(routes)
+    this.routes.push({
+      path: '*',
+      redirect: '/404',
+      meta: { hidden: true }
+    })
     this.dynamicRoutes = routes
     // console.log(this.dynamicRoutes)
   }
 
-  @Action
-  public GenerateRoutes(roles: string[]) {
+  //请求接口获取用户路由
+  @Action({rawError: true})
+  public async GetMenus() {
     let accessedRoutes
-    // console.log(asyncRoutes)
-    accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-    // console.log(accessedRoutes)
+    const { data } = await getUserRole();
+    console.log(data)
+    accessedRoutes = filterAsyncRoutes(data);
     this.SET_ROUTES(accessedRoutes)
   }
 }
