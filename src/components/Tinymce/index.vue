@@ -1,14 +1,10 @@
 <template>
   <div
-    :class="{fullscreen: fullscreen}"
+    :class="{ fullscreen: fullscreen }"
     class="tinymce-container"
-    :style="{width: containerWidth}"
+    :style="{ width: containerWidth }"
   >
-    <tinymce-editor
-      :id="id"
-      v-model="tinymceContent"
-      :init="initOptions"
-    />
+    <tinymce-editor :id="id" v-model="tinymceContent" :init="initOptions" />
     <div class="editor-custom-btn-container">
       <editor-image-upload
         class="editor-upload-btn"
@@ -21,115 +17,122 @@
 <script lang="ts">
 // Docs: https://www.tiny.cloud/docs/advanced/usage-with-module-loaders/
 // Import TinyMCE
-import 'tinymce/tinymce'
+import "tinymce/tinymce";
 // Default icons are required for TinyMCE 5.3 or above
-import 'tinymce/icons/default'
+import "tinymce/icons/default";
 // Import themes
-import 'tinymce/themes/silver'
-import 'tinymce/themes/mobile'
+import "tinymce/themes/silver";
+import "tinymce/themes/mobile";
 // Any plugins you want to use has to be imported
-import 'tinymce/plugins/advlist'
-import 'tinymce/plugins/anchor'
-import 'tinymce/plugins/autoresize'
-import 'tinymce/plugins/autolink'
-import 'tinymce/plugins/autosave'
-import 'tinymce/plugins/charmap'
-import 'tinymce/plugins/code'
-import 'tinymce/plugins/codesample'
-import 'tinymce/plugins/directionality'
-import 'tinymce/plugins/emoticons'
-import 'tinymce/plugins/fullpage'
-import 'tinymce/plugins/fullscreen'
+import "tinymce/plugins/advlist";
+import "tinymce/plugins/anchor";
+import "tinymce/plugins/autoresize";
+import "tinymce/plugins/autolink";
+import "tinymce/plugins/autosave";
+import "tinymce/plugins/charmap";
+import "tinymce/plugins/code";
+import "tinymce/plugins/codesample";
+import "tinymce/plugins/directionality";
+import "tinymce/plugins/emoticons";
+import "tinymce/plugins/fullpage";
+import "tinymce/plugins/fullscreen";
 // import 'tinymce/plugins/help'
-import 'tinymce/plugins/hr'
-import 'tinymce/plugins/image'
-import 'tinymce/plugins/imagetools'
-import 'tinymce/plugins/insertdatetime'
-import 'tinymce/plugins/link'
-import 'tinymce/plugins/lists'
-import 'tinymce/plugins/media'
-import 'tinymce/plugins/nonbreaking'
-import 'tinymce/plugins/noneditable'
-import 'tinymce/plugins/pagebreak'
-import 'tinymce/plugins/paste'
-import 'tinymce/plugins/preview'
-import 'tinymce/plugins/print'
-import 'tinymce/plugins/save'
-import 'tinymce/plugins/searchreplace'
-import 'tinymce/plugins/spellchecker'
-import 'tinymce/plugins/tabfocus'
-import 'tinymce/plugins/table'
-import 'tinymce/plugins/template'
-import 'tinymce/plugins/textpattern'
-import 'tinymce/plugins/visualblocks'
-import 'tinymce/plugins/visualchars'
-import 'tinymce/plugins/wordcount'
-import TinymceEditor from '@tinymce/tinymce-vue' // TinyMCE vue wrapper
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import EditorImageUpload, { IUploadObject } from './components/EditorImage.vue'
-import { plugins, toolbar } from './config'
+import "tinymce/plugins/hr";
+import "tinymce/plugins/image";
+import "tinymce/plugins/imagetools";
+import "tinymce/plugins/insertdatetime";
+import "tinymce/plugins/link";
+import "tinymce/plugins/lists";
+import "tinymce/plugins/media";
+import "tinymce/plugins/nonbreaking";
+import "tinymce/plugins/noneditable";
+import "tinymce/plugins/pagebreak";
+import "tinymce/plugins/paste";
+import "tinymce/plugins/preview";
+import "tinymce/plugins/print";
+import "tinymce/plugins/save";
+import "tinymce/plugins/searchreplace";
+import "tinymce/plugins/spellchecker";
+import "tinymce/plugins/tabfocus";
+import "tinymce/plugins/table";
+import "tinymce/plugins/template";
+import "tinymce/plugins/textpattern";
+import "tinymce/plugins/visualblocks";
+import "tinymce/plugins/visualchars";
+import "tinymce/plugins/wordcount";
+import TinymceEditor from "@tinymce/tinymce-vue"; // TinyMCE vue wrapper
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import EditorImageUpload, { IUploadObject } from "./components/EditorImage.vue";
+import { plugins, toolbar } from "./config";
 
-const defaultId = () => 'vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
+const defaultId = () =>
+  "vue-tinymce-" + +new Date() + ((Math.random() * 1000).toFixed(0) + "");
 
 @Component({
-  name: 'Tinymce',
+  name: "Tinymce",
   components: {
     EditorImageUpload,
-    TinymceEditor
-  }
+    TinymceEditor,
+  },
 })
 export default class extends Vue {
-  @Prop({ required: true }) private value!: string
-  @Prop({ default: defaultId }) private id!: string
-  @Prop({ default: () => [] }) private toolbar!: string[]
-  @Prop({ default: 'file edit insert view format table' }) private menubar!: string
-  @Prop({ default: '360px' }) private height!: string | number
-  @Prop({ default: 'auto' }) private width!: string | number
+  @Prop({ required: true }) private value!: string;
+  @Prop({ default: defaultId }) private id!: string;
+  @Prop({ default: () => [] }) private toolbar!: string[];
+  @Prop({ default: "file edit insert view format table" })
+  private menubar!: string;
+  @Prop({ default: "360px" }) private height!: string | number;
+  @Prop({ default: "auto" }) private width!: string | number;
 
-  private hasChange = false
-  private hasInit = false
-  private fullscreen = false
+  private hasChange = false;
+  private hasInit = false;
+  private fullscreen = false;
   // https://www.tiny.cloud/docs/configure/localization/#language
   // and also see langs files under public/tinymce/langs folder
 
   get tinymceContent() {
-    return this.value
+    return this.value;
   }
 
   set tinymceContent(value) {
-    this.$emit('input', value)
+    this.$emit("input", value);
   }
 
   get containerWidth() {
-    const width = this.width
+    const width = this.width;
     // Test matches `100`, `'100'`
     if (/^[\d]+(\.[\d]+)?$/.test(width.toString())) {
-      return `${width}px`
+      return `${width}px`;
     }
-    return width
+    return width;
   }
 
   get initOptions() {
     return {
       selector: `#${this.id}`,
       height: this.height,
-      body_class: 'panel-body',
+      body_class: "panel-body",
       object_resizing: false,
       toolbar: this.toolbar.length > 0 ? this.toolbar : toolbar,
       menubar: this.menubar,
       plugins: plugins,
-      language: 'zh_CN',
+      font_formats:
+        "微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;",
+      fontsize_formats:
+        "12px 14px 16px 18px 20px 22px 24px 26px 28px 30px 32px 34px 36px 38px 40px 50px 60px 70px 80px 90px 100px 120px 140px 160px 180px 200px",
+
+      language: "zh_CN",
       language_url: `${process.env.BASE_URL}tinymce/langs/zh_CN.js`,
       skin_url: `${process.env.BASE_URL}tinymce/skins/`,
       emoticons_database_url: `${process.env.BASE_URL}tinymce/emojis.min.js`,
       end_container_on_empty_block: true,
-      powerpaste_word_import: 'clean',
+      powerpaste_word_import: "clean",
       code_dialog_height: 450,
       code_dialog_width: 1000,
-      advlist_bullet_styles: 'square',
-      advlist_number_styles: 'default',
-      imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
-      default_link_target: '_blank',
+      advlist_bullet_styles: "square",
+      advlist_number_styles: "default",
+      imagetools_cors_hosts: ["www.tinymce.com", "codepen.io"],
+      default_link_target: "_blank",
       link_title: false,
       // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
       nonbreaking_force_tab: true,
@@ -138,27 +141,27 @@ export default class extends Vue {
       convert_urls: false,
       init_instance_callback: (editor: any) => {
         if (this.value) {
-          editor.setContent(this.value)
+          editor.setContent(this.value);
         }
-        this.hasInit = true
-        editor.on('NodeChange Change KeyUp SetContent', () => {
-          this.hasChange = true
-          this.$emit('input', editor.getContent())
-        })
+        this.hasInit = true;
+        editor.on("NodeChange Change KeyUp SetContent", () => {
+          this.hasChange = true;
+          this.$emit("input", editor.getContent());
+        });
       },
       setup: (editor: any) => {
-        editor.on('FullscreenStateChanged', (e: any) => {
-          this.fullscreen = e.state
-        })
-      }
-    }
+        editor.on("FullscreenStateChanged", (e: any) => {
+          this.fullscreen = e.state;
+        });
+      },
+    };
   }
 
   private imageSuccessCBK(arr: IUploadObject[]) {
-    const tinymce = (window as any).tinymce.get(this.id)
-    arr.forEach(v => {
-      tinymce.insertContent(`<img class="wscnph" src="${v.url}" >`)
-    })
+    const tinymce = (window as any).tinymce.get(this.id);
+    arr.forEach((v) => {
+      tinymce.insertContent(`<img class="wscnph" src="${v.url}" >`);
+    });
   }
 }
 </script>

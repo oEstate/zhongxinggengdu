@@ -178,7 +178,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop } from 'vue-property-decorator'
 import { UserModule } from '@/store/modules/user'
 import PieChart from './components/PieChart.vue'
 import { mixins } from 'vue-class-component'

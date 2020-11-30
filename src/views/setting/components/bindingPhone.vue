@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="back">
-      <el-button type="text" icon="el-icon-back" @click="changeShop">更换手机号</el-button>
+      <el-button type="text" icon="el-icon-back" @click="changeShop"
+        >更换手机号</el-button
+      >
     </div>
     <ul class="from">
       <li class="ag">
@@ -14,22 +16,55 @@
         <div class="from-itrm-l">验证码</div>
         <div class="code u_f_ajc">
           <el-input v-model="shopName" placeholder="请输入验证码"></el-input>
-          <el-button type="success">获取验证码</el-button>
+          <el-button
+            type="success"
+            :disabled="codeObj.codeDisabled"
+            :loading="loading"
+            @click="getCode"
+            >{{ codeObj.codeMsg }}</el-button
+          >
         </div>
       </li>
-      <li class="ag"><el-button type="success" @click="changeShop">完成</el-button></li>
+      <li class="ag">
+        <el-button type="success" @click="changeShop">完成</el-button>
+      </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch } from "vue-property-decorator";
 @Component({
-  name: 'bindingPhone'
+  name: "bindingPhone",
 })
 export default class extends Vue {
+  private codeObj: any = {
+    codeDisabled: false,
+    codeMsg: "获取验证码",
+  };
+  private timer: any = null;
+  private count = 0;
+  private loading = false;
+  getCode() {
+    const TIME_COUNT = 60;
+    if (!this.timer) {
+      this.count = TIME_COUNT;
+      this.timer = setInterval(() => {
+        if (this.count > 0 && this.count <= TIME_COUNT) {
+          this.codeObj.codeDisabled = true;
+          this.count--;
+          this.codeObj.codeMsg = `${this.count}s后重新发送`;
+        } else {
+          clearInterval(this.timer);
+          this.timer = null;
+          this.codeObj.codeMsg = "获取验证码";
+          this.codeObj.codeDisabled = false;
+        }
+      }, 1000);
+    }
+  }
   changeShop() {
-    this.$emit('changeShop', 'binding')
+    this.$emit("changeShop", "binding");
   }
 }
 </script>
@@ -63,12 +98,12 @@ export default class extends Vue {
   font-size: 16px;
   color: #444444;
   padding: 0 0 10px 0;
-  border-bottom:2px solid #E8EFEC;
+  border-bottom: 2px solid #e8efec;
   margin-bottom: 52px;
   // .el-icon-back{
   //   margin-right: 8px;
   // }
-  .el-button{
+  .el-button {
     font-size: 16px;
   }
 }
@@ -78,7 +113,7 @@ export default class extends Vue {
     list-style: none;
     display: flex;
     margin-bottom: 20px;
-    &:last-child{
+    &:last-child {
       margin-top: 50px;
     }
     .from-itrm-l {
