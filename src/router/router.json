@@ -1,0 +1,103 @@
+[
+    {
+      "path": "/",
+      "name": "dashboard",
+      "component": "Layout",
+      "redirect": "/dashboard",
+      "meta": { "hidden": false, "title": "数据中心", "icon": "el-icon-data-line" },
+      "children": [
+        {
+          "path": "dashboard",
+          "component": "/government/dashboard/index.vue",
+          "meta": {
+            "title": "首页",
+            "icon": "dashboard"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/views",
+      "component": "Layout",
+      "redirect": "/views/matter",
+      "meta": { "hidden": false, "title": "内容管理", "icon": "el-icon-document" },
+      "children": [
+        {
+          "path": "matter",
+          "component": "/government/matter/index.vue",
+          "meta": {
+            "title": "内容管理"
+          }
+        },
+        {
+          "path": "addColumn",
+          "component": "/government/matter/addColumn.vue",
+          "meta": {
+            "title": "新增栏目"
+          }
+        },
+        {
+          "path": "addContent",
+          "component": "/government/matter/addContent.vue",
+          "meta": {
+            "title": "新增内容"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/carousel",
+      "component": "Layout",
+      "redirect": "/carousel/setter",
+      "meta": { "hidden": false, "title": "轮播管理", "icon": "el-icon-picture-outline" },
+      "children": [
+        {
+          "path": "setter",
+          "component": "/government/carousel/index.vue",
+          "meta": {
+            "title": "轮播管理",
+            "icon": "form"
+          }
+        },
+        {
+          "path": "addCarousel",
+          "component": "/government/carousel/addCarousel.vue",
+          "meta": {
+            "title": "新增轮播",
+            "icon": "form"
+          }
+        }
+      ]
+    },
+    {
+      "path": "/message",
+      "component": "Layout",
+      "redirect": "/message/list",
+      "meta": { "hidden": false, "title": "消息中心", "icon": "el-icon-chat-line-square" },
+      "children": [
+        {
+          "path": "list",
+          "component": "/government/message/index.vue",
+          "meta": { "title": "消息中心" }
+        },
+        {
+          "path": "info",
+          "component": "/government/message/info.vue",
+          "meta": { "title": "消息详情" }
+        }
+      ]
+    },
+    {
+      "path": "/setting",
+      "component": "Layout",
+      "redirect": "/setting/info",
+      "meta": { "hidden": false, "title": "账号设置", "icon": "el-icon-set-up" },
+      "children": [
+        {
+          "path": "info",
+          "component": "/setting/index.vue",
+          "meta": { "title": "账号设置" }
+        }
+      ]
+    }
+]

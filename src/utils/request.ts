@@ -32,7 +32,7 @@ service.interceptors.response.use(
     // code == 50005: 用户名或密码不正确
     // 您可以根据自己的使用更改此部分。
     const res = response.data
-    if (res.code !== 20000) {
+    if (res.code !== 20000 && res.code != undefined) {
       Message({
         message: res.message || 'Error',
         type: 'error',

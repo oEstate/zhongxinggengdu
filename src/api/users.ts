@@ -12,6 +12,19 @@ export const getUserInfo = (data: any) =>
 //     method: 'post',
 //     data
 //   })
+
+
+export const getUserRole = () =>
+  request({
+    url: '/shangjia',
+    method: 'get',
+  })
+// export const getUserRole = (data: any) =>
+//   request({
+//     url: '/zhengfu',
+//     method: 'get',
+//     data
+//   })
 export const login = (data: any) =>
   request({
     url: '/login',
