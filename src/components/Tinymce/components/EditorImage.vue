@@ -3,7 +3,7 @@
     <el-button
       icon="el-icon-upload"
       size="mini"
-      type="primary"
+      type="success"
       @click=" dialogVisible=true"
     >
       上传
@@ -25,16 +25,16 @@
       >
         <el-button
           size="small"
-          type="primary"
+          type="success"
         >
           点击上传
         </el-button>
       </el-upload>
-      <el-button @click="dialogVisible = false">
+      <el-button type="success" @click="dialogVisible = false" plain>
         取消
       </el-button>
       <el-button
-        type="primary"
+        type="success"
         @click="handleSubmit"
       >
         确定
@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { ElUploadInternalRawFile } from 'element-ui/types/upload'
 
 export interface IUploadObject {
@@ -130,5 +130,8 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .editor-slide-upload {
   margin-bottom: 20px;
+}
+::v-deep .el-dialog__header{
+  border:0
 }
 </style>
