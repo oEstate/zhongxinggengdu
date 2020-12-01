@@ -55,7 +55,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
     }
   } else {
     // 没有令牌token
-    // console.log(to.path)
+    console.log(to.path)
     if (whiteList.indexOf(to.path) !== -1) {
       // 在免费登录白名单中，直接访问
       next()
