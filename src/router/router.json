@@ -8,7 +8,7 @@
       "children": [
         {
           "path": "dashboard",
-          "component": "/government/dashboard/index.vue",
+          "component": "government/dashboard/index.vue",
           "meta": {
             "title": "首页",
             "icon": "dashboard"
@@ -24,21 +24,21 @@
       "children": [
         {
           "path": "matter",
-          "component": "/government/matter/index.vue",
+          "component": "government/matter/index.vue",
           "meta": {
             "title": "内容管理"
           }
         },
         {
           "path": "addColumn",
-          "component": "/government/matter/addColumn.vue",
+          "component": "government/matter/addColumn.vue",
           "meta": {
             "title": "新增栏目"
           }
         },
         {
           "path": "addContent",
-          "component": "/government/matter/addContent.vue",
+          "component": "government/matter/addContent.vue",
           "meta": {
             "title": "新增内容"
           }
@@ -53,7 +53,7 @@
       "children": [
         {
           "path": "setter",
-          "component": "/government/carousel/index.vue",
+          "component": "government/carousel/index.vue",
           "meta": {
             "title": "轮播管理",
             "icon": "form"
@@ -61,7 +61,7 @@
         },
         {
           "path": "addCarousel",
-          "component": "/government/carousel/addCarousel.vue",
+          "component": "government/carousel/addCarousel.vue",
           "meta": {
             "title": "新增轮播",
             "icon": "form"
@@ -77,12 +77,12 @@
       "children": [
         {
           "path": "list",
-          "component": "/government/message/index.vue",
+          "component": "government/message/index.vue",
           "meta": { "title": "消息中心" }
         },
         {
           "path": "info",
-          "component": "/government/message/info.vue",
+          "component": "government/message/info.vue",
           "meta": { "title": "消息详情" }
         }
       ]
@@ -95,7 +95,7 @@
       "children": [
         {
           "path": "info",
-          "component": "/setting/index.vue",
+          "component": "setting/index.vue",
           "meta": { "title": "账号设置" }
         }
       ]

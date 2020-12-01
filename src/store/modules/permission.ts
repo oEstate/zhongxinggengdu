@@ -7,7 +7,6 @@ import Layout from '@/layout/index.vue'
 
 
 export const filterAsyncRoutes = (routes: any) => {
-  console.log(routes)
   routes.filter((router: any) => {
     if (router.component) {
       if (router.component === 'Layout') {
@@ -24,7 +23,7 @@ export const filterAsyncRoutes = (routes: any) => {
   return routes
 }
 export const loadView = (view: any) => {
-  return () => import(`@/views/${view}`)
+  return (resolve:any) => require([`@/views/${view}`], resolve)
 }
 export interface IPermissionState {
   routes: RouteConfig[]
@@ -44,16 +43,15 @@ class Permission extends VuexModule implements IPermissionState {
       redirect: '/404',
       meta: { hidden: true }
     })
-    this.dynamicRoutes = routes
+    this.dynamicRoutes = this.routes
     // console.log(this.dynamicRoutes)
   }
 
   //请求接口获取用户路由
-  @Action({rawError: true})
+  @Action({ rawError: true })
   public async GetMenus() {
     let accessedRoutes
-    const { data } = await getUserRole();
-    console.log(data)
+    const data = await getUserRole();
     accessedRoutes = filterAsyncRoutes(data);
     this.SET_ROUTES(accessedRoutes)
   }

@@ -4,7 +4,7 @@ import 'nprogress/nprogress.css'
 import { Message } from 'element-ui'
 import { Route } from 'vue-router'
 import { UserModule } from '@/store/modules/user'
-import { PermissionModule } from '@/store/modules/permission'
+import { PermissionModule } from '@/store/modules/permission1'
 NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login', '/index', '/certification', '/storesCertification', '/govCertification', '/auditCertification']

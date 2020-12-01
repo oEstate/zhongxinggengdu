@@ -22,7 +22,6 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
   // console.log(UserModule.token)
   // console.log(to.path)
   // 确定用户是否已经登录并且 是否已经认证
-  console.log(PermissionModule.dynamicRoutes)
   if (UserModule.token) {
     if (to.path === '/login') {
       // 已经认证
@@ -38,8 +37,9 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
           await UserModule.GetUserInfo()
           // 设置replace: true，这样导航将不会留下历史记录
           // 根据角色生成可访问路线图
-          PermissionModule.GetMenus()
+          await PermissionModule.GetMenus()
           // 动态添加可访问路由
+          console.log(PermissionModule.dynamicRoutes)
           router.addRoutes(PermissionModule.dynamicRoutes)
           next({ ...to, replace: true })
         } catch (err) {
@@ -55,7 +55,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
     }
   } else {
     // 没有令牌token
-    console.log(to.path)
+    // console.log(to.path)
     if (whiteList.indexOf(to.path) !== -1) {
       // 在免费登录白名单中，直接访问
       next()

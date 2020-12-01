@@ -1,6 +1,6 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
 import { login, logout, getUserInfo } from '@/api/users'
-import { getToken, setToken, removeToken, removeActive, getActive, setActive } from '@/utils/cookies'
+import { getToken, setToken, removeToken } from '@/utils/cookies'
 import store from '@/store'
 
 export interface IUserState {
@@ -9,24 +9,16 @@ export interface IUserState {
   avatar: string
   introduction: string
   roles: string[]
-  active: any
 }
 
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule implements IUserState {
-  public active = getActive() || 7;
   public token = getToken() || ''
   public name = ''
   public avatar = ''
   public introduction = ''
   public userType = ''
   public roles: string[] = []
-
-  @Mutation
-  public ToggleActive(active: any) {
-    this.active = active
-    setActive(active)
-  }
 
   @Mutation
   private SET_TOKEN(token: string) {
@@ -71,7 +63,6 @@ class User extends VuexModule implements IUserState {
   @Action
   public ResetToken() {
     removeToken()
-    removeActive()
     this.SET_TOKEN('')
     this.SET_ROLES([])
   }
@@ -106,7 +97,6 @@ class User extends VuexModule implements IUserState {
     removeToken()
     this.SET_TOKEN('')
     this.SET_ROLES([])
-    this.ToggleActive(7)
   }
 }
 

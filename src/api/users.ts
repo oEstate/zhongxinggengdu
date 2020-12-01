@@ -19,11 +19,11 @@ export const getUserRole = () =>
     url: '/shangjia',
     method: 'get',
   })
-// export const getUserRole = (data: any) =>
+// export const getUserRole = (params: any) =>
 //   request({
 //     url: '/zhengfu',
 //     method: 'get',
-//     data
+// params
 //   })
 export const login = (data: any) =>
   request({

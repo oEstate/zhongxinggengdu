@@ -1,12 +1,12 @@
 <template>
   <div class="sidebar">
     <div class="menu u_f_ac">
-      <div v-for="(route, index) in routes" :key="route.path">
+      <div v-for="route in routes" :key="route.path">
         <div
           class="menu_item u_f_ajc"
-          :class="index == active ? 'router-link-active ' : ''"
+          :class="route.redirect == $route.path ? 'router-link-active ' : ''"
           v-if="!route.meta || !route.meta.hidden"
-          @click="menu_item(route.path, index)"
+          @click="menu_item(route.path)"
         >
           <i :class="route.meta.icon"></i>
           <span>{{ route.meta.title }}</span>
@@ -24,10 +24,7 @@ import { PermissionModule } from '@/store/modules/permission'
   name: 'SideBar'
 })
 export default class extends Vue {
-  private active = UserModule.active;
   created() {
-    // console.log(AppModule);
-    console.log(this.routes)
   }
 
   get routes() {
@@ -36,10 +33,7 @@ export default class extends Vue {
     return PermissionModule.routes
   }
 
-  menu_item(url: any, index: any) {
-    // console.log(index);
-    this.active = index
-    UserModule.ToggleActive(index)
+  menu_item(url: any) {
     this.$router.push(url)
   }
 }
