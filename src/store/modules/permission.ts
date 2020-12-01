@@ -4,8 +4,6 @@ import { constantRoutes } from '@/router'
 import { getUserRole } from '@/api/users'
 import store from '@/store'
 import Layout from '@/layout/index.vue'
-
-
 export const filterAsyncRoutes = (routes: any) => {
   routes.filter((router: any) => {
     if (router.component) {
@@ -33,7 +31,7 @@ export interface IPermissionState {
 @Module({ dynamic: true, store, name: 'permission' })
 class Permission extends VuexModule implements IPermissionState {
   public routes: RouteConfig[] = []
-  public dynamicRoutes: RouteConfig[] = []
+  public dynamicRoutes: RouteConfig[] =  []
 
   @Mutation
   private SET_ROUTES(routes: RouteConfig[]) {
@@ -43,11 +41,9 @@ class Permission extends VuexModule implements IPermissionState {
       redirect: '/404',
       meta: { hidden: true }
     })
-    this.dynamicRoutes = this.routes
-    // console.log(this.dynamicRoutes)
+    this.dynamicRoutes=this.routes
   }
 
-  //请求接口获取用户路由
   @Action({ rawError: true })
   public async GetMenus() {
     let accessedRoutes
