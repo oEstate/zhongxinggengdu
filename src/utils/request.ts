@@ -40,7 +40,7 @@ service.interceptors.response.use(
       })
       if (res.code === 401) {
         MessageBox.confirm(
-          '登录状态已过期，您可以继续留在该页面，或者重新登录',
+          '登录状态已过期，请重新登录',
           '系统提示',
           {
             confirmButtonText: '重新登录',
