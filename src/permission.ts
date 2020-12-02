@@ -31,10 +31,10 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
       NProgress.done()
     } else {
       // 检查用户是否已获得其权限角色
-      if (UserModule.roles.length === 0) {
+      if (PermissionModule.dynamicRoutes.length === 0) {
         try {
           // 获取用户信息，包括角色
-          await UserModule.GetUserInfo()
+          // await UserModule.GetUserInfo()
           // 设置replace: true，这样导航将不会留下历史记录
           // 根据角色生成可访问路线图
           await PermissionModule.GetMenus()

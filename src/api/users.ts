@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getUserInfo = (data: any) =>
   request({
-    url: '/permissions1',
+    url: '/czManagerUserController/phoneLogin',
     method: 'post',
     data
   })
@@ -16,7 +16,7 @@ export const getUserInfo = (data: any) =>
 
 export const getUserRole = () =>
   request({
-    url: '/shangjia',
+    url: '/czManagerUserController/getRole',
     method: 'get',
   })
 // export const getUserRole = (params: any) =>
@@ -27,13 +27,19 @@ export const getUserRole = () =>
 //   })
 export const login = (data: any) =>
   request({
-    url: '/login',
+    url: '/czManagerUserController/phoneLogin',
     method: 'post',
     data
   })
 
 export const logout = () =>
   request({
-    url: '/logout',
-    method: 'post'
+    url: '/czManagerUserController/signOut',
+    method: 'get'
+  })
+export const getUserPhoneCode = (params: any) =>
+  request({
+    url: '/verificationCode/getPhoneVerificationCode',
+    method: 'get',
+    params
   })

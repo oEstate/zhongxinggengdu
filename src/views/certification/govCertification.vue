@@ -8,7 +8,7 @@
           <div class="from-itrm-l">村居头像</div>
           <el-upload
             class="from-logo"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -116,52 +116,54 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch } from "vue-property-decorator";
 // import { regionData } from "element-china-area-data";
-import grayHeader from '@/components/header/index.vue'
-import grayFooter from '@/components/footer/gray.vue'
-import steps from '@/components/common/steps.vue'
+import grayHeader from "@/components/header/index.vue";
+import grayFooter from "@/components/footer/gray.vue";
+import steps from "@/components/common/steps.vue";
 @Component({
-  name: 'govCertification',
+  name: "govCertification",
   components: {
     grayHeader,
     grayFooter,
-    steps
-  }
+    steps,
+  },
 })
 export default class extends Vue {
   private active = 2;
-  private shopName = '';
+  private shopName = "";
   // private options = regionData;
   private selectedOptions = [];
-  private imageUrl = '';
+  private imageUrl = "";
+  private action = `${process.env.VUE_APP_BASE_API}/file/upload`;
+
   jump() {
-    this.$router.push({ path: '/login' })
+    this.$router.push({ path: "/login" });
   }
 
   submit() {
-    this.$router.push({ path: '/auditCertification' })
+    this.$router.push({ path: "/auditCertification" });
   }
 
   handleChange(value: any) {
-    console.log(value)
+    console.log(value);
   }
 
   handleAvatarSuccess(res: any, file: any) {
-    this.imageUrl = URL.createObjectURL(file.raw)
+    this.imageUrl = URL.createObjectURL(file.raw);
   }
 
   beforeAvatarUpload(file: any) {
-    const isJPG = file.type === 'image/jpeg'
-    const isLt2M = file.size / 1024 / 1024 < 2
+    const isJPG = file.type === "image/jpeg";
+    const isLt2M = file.size / 1024 / 1024 < 2;
 
     if (!isJPG) {
-      this.$message.error('上传头像图片只能是 JPG 格式!')
+      this.$message.error("上传头像图片只能是 JPG 格式!");
     }
     if (!isLt2M) {
-      this.$message.error('上传头像图片大小不能超过 2MB!')
+      this.$message.error("上传头像图片大小不能超过 2MB!");
     }
-    return isJPG && isLt2M
+    return isJPG && isLt2M;
   }
 }
 </script>
@@ -247,7 +249,7 @@ export default class extends Vue {
       justify-content: flex-end;
       display: flex;
       flex-direction: column;
-      .mt{
+      .mt {
         margin-bottom: 11px;
       }
     }

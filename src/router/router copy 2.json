@@ -1,0 +1,26 @@
+[
+  {
+    "name": "certification",
+    "path": "/certification",
+    "component": "certification/index.vue",
+    "meta": { "hidden": true, "title": "选择身份" }
+  },
+  {
+    "name": "storesCertification",
+    "path": "/storesCertification",
+    "component": "certification/storesCertification.vue",
+    "meta": { "hidden": true, "title": "提交认证" }
+  },
+  {
+    "name": "govCertification",
+    "path": "/govCertification",
+    "component": "certification/govCertification.vue",
+    "meta": { "hidden": true, "title": "提交认证" }
+  },
+  {
+    "name": "auditCertification",
+    "path": "/auditCertification",
+    "component": "certification/auditCertification.vue",
+    "meta": { "hidden": true, "title": "平台审核" }
+  }
+]
