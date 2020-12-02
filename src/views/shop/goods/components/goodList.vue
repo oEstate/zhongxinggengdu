@@ -125,6 +125,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { getUserRole } from '@/api/users'
 @Component({
   name: 'goodList'
 })
@@ -197,7 +198,9 @@ export default class extends Vue {
     }
   ];
 
-  created() {}
+  created() {
+    getUserRole()
+  }
   addGoods() {
     this.$router.push({ path: '/goods/add' })
   }

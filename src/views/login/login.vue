@@ -175,7 +175,7 @@ export default class extends Vue {
   }
   async getCode() {
     try {
-      const TIME_COUNT = 10;
+      const TIME_COUNT = 60;
       if (!this.timer) {
         this.loading1 = true;
         await getUserPhoneCode({ phone: this.loginForm.phone });
