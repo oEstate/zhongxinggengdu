@@ -12,7 +12,7 @@ service.interceptors.request.use(
   (config) => {
     // Add X-Access-Token header to every request, you can add other custom headers here
     if (UserModule.token) {
-      config.headers['X-Access-Token'] = UserModule.token
+      config.headers['token'] = UserModule.token
     }
     return config
   },
@@ -32,13 +32,13 @@ service.interceptors.response.use(
     // code == 50005: 用户名或密码不正确
     // 您可以根据自己的使用更改此部分。
     const res = response.data
-    if (res.code !== 20000 && res.code !== undefined) {
+    if (res.code !== 200 && res.code !== undefined) {
       Message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (res.code === 401) {
         MessageBox.confirm(
           '登录状态已过期，您可以继续留在该页面，或者重新登录',
           '系统提示',

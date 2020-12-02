@@ -43,11 +43,16 @@ class Permission extends VuexModule implements IPermissionState {
     })
     this.dynamicRoutes=this.routes
   }
-
+  @Mutation
+   REMOVE_ROUTES() {
+    this.routes=[]
+    this.dynamicRoutes=[]
+  }
   @Action({ rawError: true })
   public async GetMenus() {
     let accessedRoutes
-    const data = await getUserRole();
+    const {data} = await getUserRole();
+    console.log(data)
     accessedRoutes = filterAsyncRoutes(data);
     this.SET_ROUTES(accessedRoutes)
   }

@@ -680,7 +680,6 @@ export default class extends mixins(ResizeMixin1) {
             salePrice: undefined,
             inventory: undefined,
             unit: '件',
-            skuDescription: '',
             skuImageUrl: ''
           })
           console.log('添加一级规格值')
@@ -694,7 +693,7 @@ export default class extends mixins(ResizeMixin1) {
               salePrice: undefined,
               inventory: undefined,
               unit: '件',
-              skuDescription: '',
+
               skuImageUrl: ''
             })
           })
@@ -722,7 +721,7 @@ export default class extends mixins(ResizeMixin1) {
               salePrice: undefined,
               inventory: undefined,
               unit: '件',
-              skuDescription: '',
+
               skuImageUrl: ''
             })
           }

@@ -1,0 +1,48 @@
+[{
+  "specKey": "颜色",  //规格名
+  "specValue": "红",  //规格值
+  "children": [
+      {
+    "specKey": "尺寸", //规格名
+    "specValue": "s",  //规格值
+    "linePrice": 300,  //原价
+    "salePrice": 50,   //售价
+    "inventory": 999,  //库存
+    "unit": "件",      //单位
+    "skuImageUrl": ""  //图片
+  }, 
+  {
+    "specKey": "尺寸",
+    "specValue": "l",
+    "linePrice": 300,
+    "salePrice": 50,
+    "inventory": 999,
+    "unit": "件",
+    "skuDescription": "",
+    "skuImageUrl": ""
+  }
+]
+}, 
+{
+  "specKey": "颜色",
+  "specValue": "黄",
+  "children": [{
+    "specKey": "尺寸",
+    "specValue": "s",
+    "linePrice": 300,
+    "salePrice": 50,
+    "inventory": 999,
+    "unit": "件",
+    "skuDescription": "",
+    "skuImageUrl": ""
+  }, {
+    "specKey": "尺寸",
+    "specValue": "l",
+    "linePrice": 300,
+    "salePrice": 50,
+    "inventory": 999,
+    "unit": "件",
+    "skuDescription": "",
+    "skuImageUrl": ""
+  }]
+}]

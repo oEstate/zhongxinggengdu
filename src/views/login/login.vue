@@ -40,19 +40,21 @@
                   placeholder="请输入手机号"
                   name="phone"
                   type="text"
+                  maxlength="11"
                   tabindex="1"
                 />
               </el-form-item>
 
-              <el-form-item prop="code" label="验证码">
+              <el-form-item prop="verificode" label="验证码">
                 <div style="display: flex; align-items: center">
                   <el-input
                     :key="codeType"
-                    ref="code"
-                    v-model="loginForm.code"
+                    ref="verificode"
+                    v-model="loginForm.verificode"
                     :type="codeType"
                     placeholder="请输入验证码"
                     name="code"
+                    maxlength="8"
                     tabindex="2"
                     @keyup.native="checkCapslock"
                     @blur="capsTooltip = false"
@@ -94,21 +96,13 @@ import { Component, Vue } from "vue-property-decorator";
 import pageFooter from "@/components/footer/index.vue";
 import { Dictionary } from "vue-router/types/router";
 import { UserModule } from "@/store/modules/user";
+import { getUserPhoneCode } from "@/api/users";
 import { Form as ElForm, Input } from "element-ui";
+import { getToken } from "@/utils/cookies";
 @Component({
   name: "Login",
   components: {
     pageFooter,
-  },
-  data() {
-    return {
-      activeName: "second",
-    };
-  },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
   },
 })
 export default class extends Vue {
@@ -130,15 +124,15 @@ export default class extends Vue {
   };
 
   private loginForm = {
-    phone: "merchants",
-    code: "111111",
+    phone: "15000000000",
+    verificode: "111111",
   };
 
   private activeName = "second";
 
   private loginRules = {
     phone: [{ validator: this.validatePhone, trigger: "blur" }],
-    code: [{ validator: this.validatePassword, trigger: "blur" }],
+    verificode: [{ validator: this.validatePassword, trigger: "blur" }],
   };
 
   private codeObj: any = {
@@ -148,7 +142,7 @@ export default class extends Vue {
   private timer: any = null;
   private count = 0;
 
-  private codeType = "code";
+  private codeType = "verificode";
   private loading = false;
   private loading1 = false;
   private showDialog = false;
@@ -157,9 +151,9 @@ export default class extends Vue {
   private otherQuery: Dictionary<string> = {};
   mounted() {
     if (this.loginForm.phone === "") {
-      (this.$refs.username as Input).focus();
-    } else if (this.loginForm.code === "") {
-      (this.$refs.code as Input).focus();
+      (this.$refs.phone as Input).focus();
+    } else if (this.loginForm.verificode === "") {
+      (this.$refs.verificode as Input).focus();
     }
 
     new this.QRCode(this.$refs.qrCodeDiv, {
@@ -171,50 +165,73 @@ export default class extends Vue {
       correctLevel: this.QRCode.CorrectLevel.L, // 容错率，L/M/H
     });
   }
-  getCode() {
-    const TIME_COUNT = 60;
-    if (!this.timer) {
-      this.count = TIME_COUNT;
-      this.timer = setInterval(() => {
-        if (this.count > 0 && this.count <= TIME_COUNT) {
-          this.codeObj.codeDisabled = true;
-          this.count--;
-          this.codeObj.codeMsg = `${this.count}s后重新发送`;
-        } else {
-          clearInterval(this.timer);
-          this.timer = null;
-          this.codeObj.codeMsg = "获取验证码";
-          this.codeObj.codeDisabled = false;
-        }
-      }, 1000);
+  handleClick(tab: any, event: any) {
+    console.log(tab, event);
+  }
+  private checkCapslock(e: KeyboardEvent) {
+    const { key } = e;
+    this.capsTooltip =
+      key !== null && key.length === 1 && key >= "A" && key <= "Z";
+  }
+  async getCode() {
+    try {
+      const TIME_COUNT = 10;
+      if (!this.timer) {
+        this.loading1 = true;
+        await getUserPhoneCode({ phone: this.loginForm.phone });
+        this.loading1 = false;
+        this.count = TIME_COUNT;
+        this.codeObj.codeMsg = `${this.count}s后重新发送`;
+        this.codeObj.codeDisabled = true;
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.codeObj.codeMsg = `${this.count}s后重新发送`;
+            this.count--;
+          } else {
+            clearInterval(this.timer);
+            this.timer = null;
+            this.codeObj.codeMsg = "获取验证码";
+            this.codeObj.codeDisabled = false;
+          }
+        }, 1000);
+      }
+    } catch (err) {
+      this.loading1 = false;
     }
   }
   async handleLogin() {
-    await UserModule.Login(this.loginForm);
+    // await UserModule.Login(this.loginForm);
     // 当没认证跳转到认证页
     // 认证成功跳转到首页
     // this.$router.push({ path: "/certification" });
-    this.$router.push({ path: "/" }).catch((err) => {
-      console.warn(err);
+    // this.$router.push({ path: "/" }).catch((err) => {
+    //   console.warn(err);
+    // });
+    (this.$refs.loginForm as ElForm).validate(async (valid: boolean) => {
+      if (valid) {
+        this.loading = true;
+        try {
+          await UserModule.Login(this.loginForm);
+        } catch (err) {
+          this.loading = false;
+          return;
+        }
+        this.$router
+          .push({
+            path: this.redirect || "/",
+            query: this.otherQuery,
+          })
+          .catch((err) => {
+            console.warn(err);
+          });
+        // Just to simulate the time of the request
+        setTimeout(() => {
+          this.loading = false;
+        }, 0.5 * 1000);
+      } else {
+        return false;
+      }
     });
-    // (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
-    //   if (valid) {
-    //     this.loading = true
-    //     await UserModule.Login(this.loginForm)
-    //     this.$router.push({
-    //       path: this.redirect || '/',
-    //       query: this.otherQuery
-    //     }).catch(err => {
-    //       console.warn(err)
-    //     })
-    //     // Just to simulate the time of the request
-    //     setTimeout(() => {
-    //       this.loading = false
-    //     }, 0.5 * 1000)
-    //   } else {
-    //     return false
-    //   }
-    // })
   }
 
   home() {

@@ -11,4 +11,7 @@ export const getToken = () => Cookies.get(tokenKey)
 export const setToken = (token: string) => Cookies.set(tokenKey, token)
 export const removeToken = () => Cookies.remove(tokenKey)
 
-
+// UserType
+export const getUserType = () => Cookies.get('userType')
+export const setUserType = (userType: string) => Cookies.set('userType', userType)
+export const removeUserType = () => Cookies.remove('userType')
