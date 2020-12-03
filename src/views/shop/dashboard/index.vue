@@ -110,27 +110,28 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { UserModule } from '@/store/modules/user'
-import CountTo from 'vue-count-to'
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { UserModule } from "@/store/modules/user";
+import CountTo from "vue-count-to";
 @Component({
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
-    CountTo
-  }
+    CountTo,
+  },
 })
 export default class extends Vue {
   @Prop() routes!: any;
+  private loading = true;
   created() {
-    console.log(this.routes)
+    console.log(this.routes);
   }
 
   get name() {
-    return UserModule.name
+    return UserModule.name;
   }
 
   get roles() {
-    return UserModule.roles
+    return UserModule.roles;
   }
 }
 </script>

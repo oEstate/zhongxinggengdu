@@ -52,7 +52,7 @@ class Permission extends VuexModule implements IPermissionState {
   public async GetMenus() {
     let accessedRoutes
     const {data} = await getUserRole();
-    console.log(data)
+    // console.log(data)
     accessedRoutes = filterAsyncRoutes(data);
     this.SET_ROUTES(accessedRoutes)
   }

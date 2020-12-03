@@ -14,12 +14,12 @@
         下载详细报表
       </div>
     </div>
-    <el-scrollbar :style="{height: clientHeight - 194 + 'px'}">
+    <el-scrollbar :style="{ height: clientHeight - 194 + 'px' }">
       <div class="dashboard-container">
         <div class="u_f_ajs report">
           <div class="u_f_ac">
             <span class="icon-k"></span>
-            <span class="title">全县营收情况</span>
+            <span class="title">全{{userType=='2'?'村':''}}{{userType=='3'?'乡':''}}{{userType=='4'?'县':''}}营收情况</span>
           </div>
           <div>
             <span class="report-title">查看详细报表</span>
@@ -33,7 +33,7 @@
                 :start-val="0"
                 :end-val="1799"
                 :duration="2000"
-                separator=''
+                separator=""
                 class="card-panel-num"
               />
             </div>
@@ -46,7 +46,7 @@
                 :end-val="884.34"
                 :duration="2000"
                 :decimals="2"
-                separator=''
+                separator=""
                 class="card-panel-num"
               />
             </div>
@@ -59,7 +59,7 @@
                 :end-val="11345.12"
                 :duration="2000"
                 :decimals="2"
-                separator=''
+                separator=""
                 class="card-panel-num"
               />
             </div>
@@ -72,7 +72,7 @@
                 :end-val="45872.14"
                 :duration="2000"
                 :decimals="2"
-                separator=''
+                separator=""
                 class="card-panel-num"
               />
             </div>
@@ -82,7 +82,7 @@
         <div class="u_f_ajs report">
           <div class="u_f_ac">
             <span class="icon-k"></span>
-            <span class="title">全县营收情况</span>
+            <span class="title">分布管理</span>
           </div>
           <div>
             <span class="report-title">查看详细报表</span>
@@ -93,7 +93,7 @@
           <li class="dist-item">
             <div class="dist-item-title u_f_ac">
               <span class="dist-item-icon"></span>
-              <span class="dist-item-txt">全县店铺总量分布</span>
+              <span class="dist-item-txt">全{{userType=='2'?'村':''}}{{userType=='3'?'乡':''}}{{userType=='4'?'县':''}}店铺总量分布</span>
             </div>
             <div class="pie-chart">
               <pie-chart />
@@ -133,7 +133,7 @@
           <li class="dist-item">
             <div class="dist-item-title u_f_ac">
               <span class="dist-item-icon"></span>
-              <span class="dist-item-txt">全县商品总类分布</span>
+              <span class="dist-item-txt">全{{userType=='2'?'村':''}}{{userType=='3'?'乡':''}}{{userType=='4'?'县':''}}商品总类分布</span>
             </div>
             <div class="pie-chart">
               <pie-chart />
@@ -172,39 +172,41 @@
           </li>
         </ul>
       </div>
-
     </el-scrollbar>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop } from 'vue-property-decorator'
-import { UserModule } from '@/store/modules/user'
-import PieChart from './components/PieChart.vue'
-import { mixins } from 'vue-class-component'
-import ResizeMixin1 from '@/layout/mixin/resize1'
-import CountTo from 'vue-count-to'
-
+import { Component, Prop } from "vue-property-decorator";
+import { UserModule } from "@/store/modules/user";
+import PieChart from "./components/PieChart.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
+import CountTo from "vue-count-to";
+import { getUserType } from "@/utils/cookies";
 @Component({
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     PieChart,
-    CountTo
-  }
+    CountTo,
+  },
 })
 export default class extends mixins(ResizeMixin1) {
   @Prop() routes!: any;
   created() {
-    console.log(this.routes)
-    console.log(this.clientHeight)
+    console.log(this.routes);
+    console.log(this.clientHeight);
   }
 
   get name() {
-    return UserModule.name
+    return UserModule.name;
+  }
+  get userType() {
+    return getUserType();
   }
 
   get roles() {
-    return UserModule.roles
+    return UserModule.roles;
   }
 }
 </script>

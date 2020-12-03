@@ -27,7 +27,7 @@
           <div class="from-itrm-l">承 诺 书：</div>
           <el-upload
             class="promiseBook"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -61,7 +61,7 @@
           <div class="from-itrm-l">身份证（正面）：</div>
           <el-upload
             class="icard"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -75,7 +75,7 @@
           <div class="from-itrm-l">身份证（反面）：</div>
           <el-upload
             class="icard"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -89,7 +89,7 @@
           <div class="from-itrm-l">本人手持身份证：</div>
           <el-upload
             class="icard"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"

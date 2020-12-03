@@ -4,10 +4,12 @@
       <el-scrollbar :style="{ height: clientHeight - 370 + 'px' }">
         <ul class="from">
           <li class="ag">
-            <div class="from-itrm-l">店铺头像</div>
+            <div class="from-itrm-l">
+              {{ userType == "1" ? "店铺头像" : "平台头像" }}
+            </div>
             <el-upload
               class="from-logo"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              :action="action"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -17,20 +19,21 @@
             </el-upload>
           </li>
           <li class="ag">
-            <div class="from-itrm-l">店铺名称</div>
+            <div class="from-itrm-l">
+              {{ userType == "1" ? "店铺名称" : "平台名称" }}
+            </div>
             <div>
-              <el-input
-                v-model="shopName"
-                placeholder="请输入店铺名称"
-              ></el-input>
+              <el-input v-model="shopName" placeholder="请输入名称"></el-input>
             </div>
           </li>
           <li>
-            <div class="from-itrm-l">店铺简介</div>
+            <div class="from-itrm-l">
+              {{ userType == "1" ? "店铺简介" : "平台简介" }}
+            </div>
             <div style="width: 88%">
               <el-input
                 type="textarea"
-                placeholder="请输入店铺简介（限制500个字符）"
+                placeholder="请输入简介（限制500个字符）"
                 v-model="shopName"
                 class="textareaInfo"
                 maxlength="500"
@@ -40,14 +43,18 @@
             </div>
           </li>
           <li class="ag">
-            <div class="from-itrm-l">店铺地址</div>
+            <div class="from-itrm-l">
+              {{ userType == "1" ? "店铺地址" : "平台地址" }}
+            </div>
             <div><selectCity @getCity="getCity" /></div>
           </li>
           <li>
-            <div class="from-itrm-l">店铺图片</div>
+            <div class="from-itrm-l">
+              {{ userType == "1" ? "店铺图片" : "平台图片" }}
+            </div>
             <el-upload
               class="icard"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              :action="action"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -72,6 +79,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
 import selectCity from "@/components/common/selectCity.vue";
+import { getUserType } from "@/utils/cookies";
 @Component({
   name: "basicAlter",
   components: {
@@ -84,7 +92,11 @@ export default class extends mixins(ResizeMixin1) {
   private options = [];
   private imageUrl = "";
   private value = "";
+  private action = `${process.env.VUE_APP_BASE_API}/file/upload`;
   async created() {}
+  get userType() {
+    return getUserType();
+  }
   jump() {
     this.$router.push({ path: "/login" });
   }
@@ -96,8 +108,8 @@ export default class extends mixins(ResizeMixin1) {
   handleAvatarSuccess(res: any, file: any) {
     this.imageUrl = URL.createObjectURL(file.raw);
   }
-  getCity(city:any){
-    console.log(city)
+  getCity(city: any) {
+    console.log(city);
   }
   beforeAvatarUpload(file: any) {
     const isJPG = file.type === "image/jpeg";
