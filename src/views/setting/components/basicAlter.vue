@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <el-scrollbar :style="{height: clientHeight-370+'px'}">
+      <el-scrollbar :style="{ height: clientHeight - 370 + 'px' }">
         <ul class="from">
           <li class="ag">
             <div class="from-itrm-l">店铺头像</div>
@@ -41,16 +41,7 @@
           </li>
           <li class="ag">
             <div class="from-itrm-l">店铺地址</div>
-            <div>
-              <el-cascader
-                size="large"
-                :options="options"
-                v-model="selectedOptions"
-                @change="handleChange"
-                placeholder="请选择地址"
-              >
-              </el-cascader>
-            </div>
+            <div><selectCity @getCity="getCity" /></div>
           </li>
           <li>
             <div class="from-itrm-l">店铺图片</div>
@@ -76,46 +67,53 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue, Watch } from "vue-property-decorator";
 // import { regionData } from "element-china-area-data";
-import { mixins } from 'vue-class-component'
-import ResizeMixin1 from '@/layout/mixin/resize1'
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
+import selectCity from "@/components/common/selectCity.vue";
 @Component({
-  name: 'basicAlter'
+  name: "basicAlter",
+  components: {
+    selectCity,
+  },
 })
 export default class extends mixins(ResizeMixin1) {
   private active = 2;
-  private shopName = '';
-  // private options = regionData;
-  private selectedOptions = [];
-  private imageUrl = '';
+  private shopName = "";
+  private options = [];
+  private imageUrl = "";
+  private value = "";
+  async created() {}
   jump() {
-    this.$router.push({ path: '/login' })
+    this.$router.push({ path: "/login" });
   }
 
   handleChange(value: any) {
-    console.log(value)
+    console.log(value);
   }
 
   handleAvatarSuccess(res: any, file: any) {
-    this.imageUrl = URL.createObjectURL(file.raw)
+    this.imageUrl = URL.createObjectURL(file.raw);
   }
-
+  getCity(city:any){
+    console.log(city)
+  }
   beforeAvatarUpload(file: any) {
-    const isJPG = file.type === 'image/jpeg'
-    const isLt2M = file.size / 1024 / 1024 < 2
+    const isJPG = file.type === "image/jpeg";
+    const isLt2M = file.size / 1024 / 1024 < 2;
 
     if (!isJPG) {
-      this.$message.error('上传头像图片只能是 JPG 格式!')
+      this.$message.error("上传头像图片只能是 JPG 格式!");
     }
     if (!isLt2M) {
-      this.$message.error('上传头像图片大小不能超过 2MB!')
+      this.$message.error("上传头像图片大小不能超过 2MB!");
     }
-    return isJPG && isLt2M
+    return isJPG && isLt2M;
   }
 
   changeShop() {
-    this.$emit('changeShop', 'basic')
+    this.$emit("changeShop", "basic");
   }
 }
 </script>
