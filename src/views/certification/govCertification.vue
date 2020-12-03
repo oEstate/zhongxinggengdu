@@ -20,14 +20,7 @@
         <li class="ag">
           <div class="from-itrm-l">店铺地址：</div>
           <div>
-            <el-cascader
-              size="large"
-              :options="options"
-              v-model="selectedOptions"
-              @change="handleChange"
-              placeholder="请选择地址"
-            >
-            </el-cascader>
+            <selectCity @getCity="getCity" />
           </div>
         </li>
         <li>
@@ -121,12 +114,14 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import grayHeader from "@/components/header/index.vue";
 import grayFooter from "@/components/footer/gray.vue";
 import steps from "@/components/common/steps.vue";
+import selectCity from "@/components/common/selectCity.vue";
 @Component({
   name: "govCertification",
   components: {
     grayHeader,
     grayFooter,
     steps,
+    selectCity
   },
 })
 export default class extends Vue {
@@ -136,7 +131,9 @@ export default class extends Vue {
   private selectedOptions = [];
   private imageUrl = "";
   private action = `${process.env.VUE_APP_BASE_API}/file/upload`;
-
+  getCity(city:any){
+    console.log(city)
+  }
   jump() {
     this.$router.push({ path: "/login" });
   }

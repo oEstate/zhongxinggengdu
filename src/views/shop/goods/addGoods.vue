@@ -25,15 +25,7 @@
         <li class="ag">
           <div class="from-itrm-l">商品分类</div>
           <div class="phone">
-            <el-select class="select" v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-              </el-option>
-            </el-select>
+            <selectClassify @getClassify="getClassify" />
           </div>
         </li>
 
@@ -428,12 +420,14 @@ import Tinymce from '@/components/Tinymce/index.vue'
 import gallery from '@/components/gallery/index.vue'
 import { mixins } from 'vue-class-component'
 import ResizeMixin1 from '@/layout/mixin/resize1'
+import selectClassify from "@/components/common/selectClassify.vue";
 @Component({
   name: 'addGoods',
   components: {
     back,
     Tinymce,
-    gallery
+    gallery,
+    selectClassify
   }
 })
 export default class extends mixins(ResizeMixin1) {
@@ -526,7 +520,9 @@ export default class extends mixins(ResizeMixin1) {
   next() {
     this.$emit('changeShop', 'bindingPhone')
   }
-
+  getClassify(classify:any){
+    console.log(classify)
+  }
   /**
    *
    * 规格值操作
