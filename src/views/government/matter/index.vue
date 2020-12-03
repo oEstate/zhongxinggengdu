@@ -1,15 +1,11 @@
 <template>
   <div>
     <div class="header u_f_ac">
-      <img
-        class="header-icon"
-        src="@/assets/header-icon/matter.png"
-        alt=""
-      />
+      <img class="header-icon" src="@/assets/header-icon/matter.png" alt="" />
       <span>内容管理</span>
     </div>
     <div class="dashboard-container">
-      <tabs :tabsData="tabsData" :tabsActive="tabsActive" @getPath="getPath">
+      <tabs :tabsData="userType == '4'?tabsData:tabsData1" :tabsActive="tabsActive" @getPath="getPath">
         <component :is="isComponent"></component>
       </tabs>
     </div>
@@ -17,18 +13,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
-import PieChart from './components/PieChart.vue'
-import survey from './components/survey.vue'
-import news from './components/news.vue'
-import message from './components/message.vue'
-import construction from './components/construction.vue'
-import convenience from './components/convenience.vue'
-import customs from './components/customs.vue'
-import opengov from './components/opengov.vue'
-import tabs from '@/components/common/tabs.vue'
+import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import PieChart from "./components/PieChart.vue";
+import survey from "./components/survey.vue";
+import news from "./components/news.vue";
+import message from "./components/message.vue";
+import construction from "./components/construction.vue";
+import convenience from "./components/convenience.vue";
+import customs from "./components/customs.vue";
+import opengov from "./components/opengov.vue";
+import tabs from "@/components/common/tabs.vue";
+import { getUserType } from "@/utils/cookies";
 @Component({
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     PieChart,
     tabs,
@@ -38,56 +35,85 @@ import tabs from '@/components/common/tabs.vue'
     construction,
     convenience,
     customs,
-    opengov
-  }
+    opengov,
+  },
 })
 export default class extends Vue {
-  private tabsActive = '0';
-  private isComponent = 'survey';
+  private tabsActive = "0";
+  private isComponent = "survey";
   private tabsData = [
     {
-      label: '本地概况',
-      name: '0',
-      path: 'survey'
+      label: "本地概况",
+      name: "0",
+      path: "survey",
     },
     {
-      label: '本地资讯',
-      name: '1',
-      path: 'news'
+      label: "本地资讯",
+      name: "1",
+      path: "news",
     },
     {
-      label: '通知消息',
-      name: '2',
-      path: 'message'
+      label: "通知消息",
+      name: "2",
+      path: "message",
     },
     {
-      label: '党建',
-      name: '3',
-      path: 'construction'
+      label: "党建",
+      name: "3",
+      path: "construction",
     },
     {
-      label: '便民',
-      name: '4',
-      path: 'convenience'
+      label: "便民",
+      name: "4",
+      path: "convenience",
     },
     {
-      label: '民风民俗',
-      name: '5',
-      path: 'customs'
+      label: "民风民俗",
+      name: "5",
+      path: "customs",
     },
     {
-      label: '政务公开',
-      name: '6',
-      path: 'opengov'
-    }
+      label: "政务公开",
+      name: "6",
+      path: "opengov",
+    },
+  ];
+  private tabsData1 = [
+    {
+      label: "本地概况",
+      name: "0",
+      path: "survey",
+    },
+    {
+      label: "本地资讯",
+      name: "1",
+      path: "news",
+    },
+    {
+      label: "通知消息",
+      name: "2",
+      path: "message",
+    },
+    {
+      label: "党建",
+      name: "3",
+      path: "construction",
+    },
+    {
+      label: "便民",
+      name: "4",
+      path: "convenience",
+    },
   ];
 
   created() {}
-
-  getPath(e:any) {
+  get userType() {
+    return getUserType();
+  }
+  getPath(e: any) {
     // alert(2)
     // console.log(e)
-    this.isComponent = e
+    this.isComponent = e;
   }
 }
 </script>
@@ -95,7 +121,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .header {
   height: 70px;
-  background: #E8EFEC;
+  background: #e8efec;
   line-height: 70px;
   font-size: 18px;
   color: #444444;
@@ -110,25 +136,25 @@ export default class extends Vue {
   line-height: 61px;
 }
 ::v-deep .el-tabs__item.is-active {
-  color: #00B54D;
+  color: #00b54d;
 }
 ::v-deep .el-tabs__active-bar {
-  background-color: #00B54D;
+  background-color: #00b54d;
 }
 ::v-deep .el-tabs__item:hover {
-  color: #00B54D;
+  color: #00b54d;
 }
 .dashboard {
   &-container {
     margin: 18px 32px 0 32px;
     .report {
-      border-bottom: 2px solid #E8EFEC;
+      border-bottom: 2px solid #e8efec;
       box-sizing: border-box;
       padding: 26px 36px 18px 37px;
       .icon-k {
         width: 6px;
         height: 6px;
-        background: #00B54D;
+        background: #00b54d;
         margin-right: 14px;
         display: inline-block;
       }
@@ -142,7 +168,7 @@ export default class extends Vue {
         color: #777777;
       }
       .ic {
-        color: #00B54D;
+        color: #00b54d;
       }
     }
 
@@ -152,7 +178,7 @@ export default class extends Vue {
         height: 70px;
         font-size: 50px;
         font-weight: 600;
-        color: #00B54D;
+        color: #00b54d;
         line-height: 70px;
         letter-spacing: 1px;
         margin-bottom: 6px;

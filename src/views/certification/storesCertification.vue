@@ -8,7 +8,7 @@
           <div class="from-itrm-l">店铺头像</div>
           <el-upload
             class="from-logo"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -80,7 +80,7 @@
           <div class="from-itrm-l">身份证（正面）：</div>
           <el-upload
             class="icard"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -94,7 +94,7 @@
           <div class="from-itrm-l">身份证（反面）：</div>
           <el-upload
             class="icard"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -108,7 +108,7 @@
           <div class="from-itrm-l">本人手持身份证：</div>
           <el-upload
             class="icard"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="action"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -149,6 +149,7 @@ export default class extends Vue {
   // private options = regionData;
   private selectedOptions = [];
   private imageUrl = "";
+  private action = `${process.env.VUE_APP_BASE_API}/file/upload`;
   getCity(city: any) {
     console.log(city);
   }

@@ -1,33 +1,33 @@
 <template>
   <div>
     <div class="container">
-      <el-scrollbar :style="{height: clientHeight-370+'px'}">
+      <el-scrollbar :style="{ height: clientHeight - 370 + 'px' }">
         <ul class="from">
           <li class="ag">
-            <div class="from-itrm-l">店铺头像</div>
+            <div class="from-itrm-l">{{userType=='1'?'店铺头像':'平台头像'}}</div>
             <img src="http://dwz.date/drME" class="from-logo" />
           </li>
           <li class="ag">
-            <div class="from-itrm-l">店铺名称</div>
+            <div class="from-itrm-l">{{userType=='1'?'店铺名称':'平台名称'}}</div>
             <div>小杨家的超市</div>
           </li>
           <li>
-            <div class="from-itrm-l">店铺简介</div>
+            <div class="from-itrm-l">{{userType=='1'?'店铺简介':'平台简介'}}</div>
             <div>
               爱他美官方旗舰店，原装原罐进口，德国领先的高端奶粉品牌，是德国市场份额第一的奶粉，也是欧洲销量最好的奶粉之一，爱他美官方
               旗舰店，原装原罐进口，德国领先的高端奶粉品牌，是德国市场份额第一的奶粉，也是欧洲销量最好的奶粉之一
             </div>
           </li>
           <li class="ag">
-            <div class="from-itrm-l">店铺地址</div>
+            <div class="from-itrm-l">{{userType=='1'?'店铺地址':'平台地址'}}</div>
             <div>小杨家的超市</div>
           </li>
-          <li class="ag">
+          <li class="ag" v-if="userType=='1'">
             <div class="from-itrm-l">店铺行业</div>
             <div>制造业</div>
           </li>
           <li>
-            <div class="from-itrm-l">店铺图片</div>
+            <div class="from-itrm-l">{{userType=='1'?'店铺图片':'平台图片'}}</div>
             <img src="http://dwz.date/drMG" class="icard" />
           </li>
         </ul>
@@ -40,19 +40,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { mixins } from 'vue-class-component'
-import ResizeMixin1 from '@/layout/mixin/resize1'
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
+import { getUserType } from "@/utils/cookies";
 @Component({
-  name: 'basic'
+  name: "basic",
 })
 export default class extends mixins(ResizeMixin1) {
   private active = 2;
-  private shopName = '';
+  private shopName = "";
   private selectedOptions = [];
-  private imageUrl = '';
+  private imageUrl = "";
+  get userType() {
+    return getUserType();
+  }
   changeShop() {
-    this.$emit('changeShop', 'basicAlter')
+    this.$emit("changeShop", "basicAlter");
   }
 }
 </script>

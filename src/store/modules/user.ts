@@ -10,6 +10,7 @@ export interface IUserState {
   avatar: string
   introduction: string
   roles: string[]
+  userType: string
 }
 
 @Module({ dynamic: true, store, name: 'user' })

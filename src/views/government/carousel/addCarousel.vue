@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <back :icon="icon" titleTxt="轮播管理" backTxt="新增轮播" />
-    <el-scrollbar :style="{height: clientHeight-310+'px'}">
+    <el-scrollbar :style="{ height: clientHeight - 310 + 'px' }">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">轮播标题</div>
@@ -15,7 +15,12 @@
         <li class="ag">
           <div class="from-itrm-l">轮播类型</div>
           <div class="phone">
-            <el-select class="select" v-model="value" placeholder="请选择">
+            <el-select
+              class="select"
+              @change="change"
+              v-model="value"
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -27,7 +32,7 @@
           </div>
         </li>
 
-        <li class="ag">
+        <li class="ag" v-if="value=='0'">
           <div class="from-itrm-l">店铺</div>
           <div class="phone">
             <el-input
@@ -37,7 +42,7 @@
           </div>
         </li>
 
-        <li class="ag">
+        <li class="ag" v-if="value=='1'">
           <div class="from-itrm-l">链接地址</div>
           <div class="phone">
             <el-input
@@ -46,6 +51,7 @@
             ></el-input>
           </div>
         </li>
+        <!--
         <li class="ag">
           <div class="from-itrm-l">商品封面</div>
           <div class="phone">
@@ -61,7 +67,8 @@
             </el-upload>
           </div>
         </li>
-        <li class="ag">
+        -->
+        <li class="ag" v-if="value=='3'">
           <div class="from-itrm-l">云平台</div>
           <div class="phone">
             <el-select class="select" v-model="value" placeholder="选择云平台">
@@ -77,9 +84,7 @@
         </li>
 
         <li class="ag">
-          <!--
-          <div class="from-itrm-l">轮播图片</div>-->
-          <div class="from-itrm-l">上传图片</div>
+          <div class="from-itrm-l">轮播图片</div>
           <div class="phone">
             <el-upload
               class="uploads"
@@ -92,7 +97,7 @@
             </el-upload>
           </div>
         </li>
-        <li>
+        <li v-if="value=='2'">
           <div class="from-itrm-l">内容详情</div>
           <div>
             <tinymce v-model="content" :height="400" />
@@ -108,46 +113,48 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import back from '@/components/header/back.vue'
-import Tinymce from '@/components/Tinymce/index.vue'
-import { mixins } from 'vue-class-component'
-import ResizeMixin1 from '@/layout/mixin/resize1'
+import { Component, Vue, Watch } from "vue-property-decorator";
+import back from "@/components/header/back.vue";
+import Tinymce from "@/components/Tinymce/index.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 @Component({
-  name: 'matterAdd',
+  name: "matterAdd",
   components: {
     back,
-    Tinymce
-  }
+    Tinymce,
+  },
 })
 export default class extends mixins(ResizeMixin1) {
-  private icon = require('@/assets/header-icon/carousel.png');
+  private icon = require("@/assets/header-icon/carousel.png");
   private options = [
     {
-      value: '0',
-      label: '店铺'
+      value: "0",
+      label: "店铺",
     },
     {
-      value: '1',
-      label: '链接'
+      value: "1",
+      label: "链接",
     },
     {
-      value: '2',
-      label: '内容'
+      value: "2",
+      label: "内容",
     },
     {
-      value: '3',
-      label: '云平台'
-    }
+      value: "3",
+      label: "云平台",
+    },
   ];
 
-  private value = '';
+  private value = "0";
   changeShop() {
-    this.$emit('changeShop', 'binding')
+    this.$emit("changeShop", "binding");
   }
-
+  change(val:any) {
+    console.log(val)
+  }
   next() {
-    this.$emit('changeShop', 'bindingPhone')
+    this.$emit("changeShop", "bindingPhone");
   }
 }
 </script>
@@ -164,6 +171,9 @@ export default class extends mixins(ResizeMixin1) {
 }
 ::v-deep .el-input.is-disabled .el-input__inner {
   background-color: #f0f0f0;
+}
+::v-deep .el-upload{
+  text-align: left;
 }
 ::v-deep .el-input__inner {
   background-color: #f0f0f0;
