@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <back
-      :icon="icon"
-      titleTxt="商品管理"
-      backTxt="商品发布"
-      bt="30px"
-    />
-    <el-scrollbar :style="{height: clientHeight-288+'px'}">
+    <back :icon="icon" titleTxt="商品管理" backTxt="商品发布" bt="30px" />
+    <el-scrollbar :style="{ height: clientHeight - 288 + 'px' }">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">商品类型</div>
           <div class="phone">
-            <el-select class="select" v-model="value" placeholder="请选择">
+            <el-select
+              class="select"
+              @change="goodsType"
+              v-model="value"
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -65,35 +65,44 @@
             >添加图片</el-button
           >
         </li>
-        <li class="ag">
+        <li class="ag" v-if="value !== '0'">
           <div class="from-itrm-l">商品定金</div>
           <div class="phone">
-            <el-select class="select" v-model="value" placeholder="请选择">
+            <el-select v-if="value !== '1'" class="select" v-model="deposit" placeholder="请选择">
               <el-option
-                v-for="item in options"
+                v-for="item in value == depositRate "
                 :key="item.value"
-                :label="item.label"
+                :label="item.value"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+            <el-select v-if="value !== '2'" class="select" v-model="deposit1" placeholder="请选择">
+              <el-option
+                v-for="item in value == depositRate1"
+                :key="item.value"
+                :label="item.value"
                 :value="item.value"
               >
               </el-option>
             </el-select>
           </div>
         </li>
-        <li class="ag">
+        <li class="ag" v-if="value == '2'">
           <div class="from-itrm-l">预定截止</div>
           <div class="phone">
             <el-date-picker v-model="value" type="date" placeholder="选择日期">
             </el-date-picker>
           </div>
         </li>
-        <li class="ag">
+        <li class="ag" v-if="value == '1'">
           <div class="from-itrm-l">认领截止</div>
           <div class="phone">
             <el-date-picker v-model="value" type="date" placeholder="选择日期">
             </el-date-picker>
           </div>
         </li>
-        <li class="ag">
+        <li class="ag" v-if="value !== '0'">
           <div class="from-itrm-l">预计发货时间</div>
           <div class="phone">
             <el-date-picker v-model="value" type="date" placeholder="选择日期">
@@ -335,8 +344,8 @@
           </div>
         </li>
         <li class="ags">
-          <el-button type="success" plain @click="next">取消</el-button>
-          <el-button type="success" @click="next">发布</el-button>
+          <el-button type="success" plain>取消</el-button>
+          <el-button type="success">发布</el-button>
         </li>
       </ul>
     </el-scrollbar>
@@ -414,36 +423,85 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import back from '@/components/header/back.vue'
-import Tinymce from '@/components/Tinymce/index.vue'
-import gallery from '@/components/gallery/index.vue'
-import { mixins } from 'vue-class-component'
-import ResizeMixin1 from '@/layout/mixin/resize1'
+import { Component, Vue, Watch } from "vue-property-decorator";
+import back from "@/components/header/back.vue";
+import Tinymce from "@/components/Tinymce/index.vue";
+import gallery from "@/components/gallery/index.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
 import selectClassify from "@/components/common/selectClassify.vue";
 @Component({
-  name: 'addGoods',
+  name: "addGoods",
   components: {
     back,
     Tinymce,
     gallery,
-    selectClassify
-  }
+    selectClassify,
+  },
 })
 export default class extends mixins(ResizeMixin1) {
-  //
+  // 商品类型
+  private options = [
+    {
+      value: "0",
+      label: "普通商品",
+    },
+    {
+      value: "1",
+      label: "认领商品", //50-90
+    },
+    {
+      value: "2", //10-30
+      label: "预定商品",
+    },
+  ];
+  // 默认商品类型
+  private value = "0";
 
-  private shopName = '';
+  //定金比例 认领商品 50-90 预定商品 10-30
+  //认领商品
+  private depositRate = [
+    {
+      value: "50%",
+    },
+    {
+      value: "60%",
+    },
+    {
+      value: "70%",
+    },
+    {
+      value: "80%",
+    },
+    {
+      value: "90%",
+    },
+  ];
+  //预定商品
+  private depositRate1 = [
+    {
+      value: "10%",
+    },
+    {
+      value: "20%",
+    },
+    {
+      value: "30%",
+    },
+  ];
+  // 定金
+  private deposit = "50%";
+  private deposit1 = "10%";
+  /*********/
+  //商品标题
 
-  //
-
-  private icon = require('@/assets/header-icon/goods.png');
+  private icon = require("@/assets/header-icon/goods.png");
   private isShow = false;
   private specArr: Array<any> = [
     {
-      specName: '',
-      specList: []
-    }
+      specName: "",
+      specList: [],
+    },
   ]; // 规格名与规格值
 
   private specData: Array<any> = []; // 规格明细数据
@@ -451,52 +509,31 @@ export default class extends mixins(ResizeMixin1) {
   private specNameShow = false;
   private specNameForm: any = {
     fatherIndex: 0,
-    specName: ''
+    specName: "",
   };
-
-  private options = [
-    {
-      value: '0',
-      label: '店铺'
-    },
-    {
-      value: '1',
-      label: '链接'
-    },
-    {
-      value: '2',
-      label: '内容'
-    },
-    {
-      value: '3',
-      label: '云平台'
-    }
-  ];
-
-  private value = '';
   private specForm: any = {
     fatherIndex: 0,
     selfIndex: 0,
     spec2Index: 0, // ** 如果是0 代表没有2级规格值的子集  如果有了spec2Index++
-    specValue: '',
-    specKey: ''
+    specValue: "",
+    specKey: "",
   };
 
   private ruleForm: any = {
-    salesStatus: '0',
-    evaluate: '1',
-    isFreeShipping: '1',
-    showSales: '1',
-    freightTemplateId: '',
+    salesStatus: "0",
+    evaluate: "1",
+    isFreeShipping: "1",
+    showSales: "1",
+    freightTemplateId: "",
     isCompanyType: false,
     isSelffetchType: false,
-    skuType: '0'
+    skuType: "0",
   };
 
   private codeType = false;
   private goodsImg: Array<any> = [];
   private skuType0: any = {
-    unit: '件'
+    unit: "件",
   };
 
   private parameter: Array<any> = [];
@@ -504,24 +541,23 @@ export default class extends mixins(ResizeMixin1) {
   private limitType = false;
   private selectNum = 0;
 
-  private imgMaterialType: any = '';
+  private imgMaterialType: any = "";
   private showImgMaterial = false;
   private currentSpecIdx = 0;
   private currentSpecChildIdx = 0;
   private specShow = false;
+  //打开图片库
   openGallery() {
-    this.isShow = true
+    this.isShow = true;
   }
 
-  changeShop() {
-    this.$emit('changeShop', 'binding')
+  //获取选中的商品分类
+  getClassify(classify: any) {
+    console.log(classify);
   }
-
-  next() {
-    this.$emit('changeShop', 'bindingPhone')
-  }
-  getClassify(classify:any){
-    console.log(classify)
+  //获取商品类型
+  goodsType(e: any) {
+    console.log(e);
   }
   /**
    *
@@ -532,102 +568,102 @@ export default class extends mixins(ResizeMixin1) {
   addSpecRow() {
     // 新增规格行 = specArr
     const specArrObj = {
-      specName: '',
-      specList: []
-    }
-    this.specArr.push(specArrObj)
+      specName: "",
+      specList: [],
+    };
+    this.specArr.push(specArrObj);
   }
 
   deleteSpecRow() {
-    this.specArr.splice(1, 1)
+    this.specArr.splice(1, 1);
   }
 
   // 添加规格名 =弹出框
   specNameS(o: any, i: any, t: any) {
-    this.specNameForm.fatherIndex = i
-    this.specNameForm.type = t
-    if (t == 'edit') this.specNameForm.specName = o.specName
-    this.specNameShow = true
+    this.specNameForm.fatherIndex = i;
+    this.specNameForm.type = t;
+    if (t == "edit") this.specNameForm.specName = o.specName;
+    this.specNameShow = true;
   }
 
   // 关闭清空弹出框
   clearspecNameForm() {
-    this.specNameForm.specName = ''
-    this.specNameShow = false
+    this.specNameForm.specName = "";
+    this.specNameShow = false;
   }
 
   // 规格名弹出框 确定操作
   addSpecName() {
-    const i = this.specNameForm.fatherIndex
-    const n = this.specNameForm.specName
-    this.specArr[i].specName = n
+    const i = this.specNameForm.fatherIndex;
+    const n = this.specNameForm.specName;
+    this.specArr[i].specName = n;
     // 编辑
-    if (this.specNameForm.type == 'edit') {
-      console.log('this.specData[i]', this.specData[i])
+    if (this.specNameForm.type == "edit") {
+      console.log("this.specData[i]", this.specData[i]);
       if (this.specData[i]) {
-        console.log('存在')
+        console.log("存在");
         this.specData.forEach((e) => {
           if (i == 0) {
-            e.specKey = n
+            e.specKey = n;
           }
           if (i == 1) {
-            e.children.forEach((ei: { specKey: any }) => (ei.specKey = n))
+            e.children.forEach((ei: { specKey: any }) => (ei.specKey = n));
           }
-        })
+        });
       }
     }
-    this.specNameForm.specName = ''
-    this.specNameShow = false
+    this.specNameForm.specName = "";
+    this.specNameShow = false;
   }
 
   // 删除当前规格行
   deletRow(i: any) {
     // this.specArr.splice(index, 1);
     this.$confirm(
-      '此操作将重置规格明细中中所有已填写的数据，是否继续?',
-      '提示',
+      "此操作将重置规格明细中中所有已填写的数据，是否继续?",
+      "提示",
       {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       }
     )
       .then(() => {
         // 只有规格1时
         if (this.specArr.length == 1) {
-          console.log('只有规格1')
+          console.log("只有规格1");
           this.specArr = [
             {
-              specName: '',
-              specList: []
-            }
-          ]
-          this.specData = []
+              specName: "",
+              specList: [],
+            },
+          ];
+          this.specData = [];
         } else {
-          const specData: Array<any> = []
-          this.specArr.splice(i, 1)
+          const specData: Array<any> = [];
+          this.specArr.splice(i, 1);
           this.specArr[0].specList.forEach((e: { specValue: any }) => {
             const obj = {
               specKey: this.specArr[0].specName,
               specValue: e.specValue,
               children: [
                 {
-                  specKey: '',
-                  specValue: '',
+                  specKey: "",
+                  specValue: "",
                   linePrice: undefined,
                   salePrice: undefined,
                   inventory: undefined,
-                  unit: '件'
-                }
-              ]
-            }
-            specData.push(obj)
-          })
-          this.specData = specData
+                  unit: "件",
+                },
+              ],
+            };
+            specData.push(obj);
+          });
+          this.specData = specData;
         }
-        this.specForm.spec2Index = 0
+        this.specForm.spec2Index = 0;
       })
-      .catch(() => {})
+      .catch(() => {});
   }
 
   /**
@@ -638,47 +674,47 @@ export default class extends mixins(ResizeMixin1) {
    * t   => 状态  edit || new
    */
   showSpec(o1: any, i1: any, o2: any, i2: any, t: any) {
-    this.specForm.specKey = o1.specName
-    this.specForm.fatherIndex = i1
-    this.specForm.type = t
-    if (t == 'edit') {
-      this.specForm.specValue = o2.specValue
-      this.specForm.selfIndex = i2
+    this.specForm.specKey = o1.specName;
+    this.specForm.fatherIndex = i1;
+    this.specForm.type = t;
+    if (t == "edit") {
+      this.specForm.specValue = o2.specValue;
+      this.specForm.selfIndex = i2;
     }
-    this.specShow = true
+    this.specShow = true;
   }
 
   clearspecForm() {
-    this.specForm.specValue = ''
-    this.specShow = false
+    this.specForm.specValue = "";
+    this.specShow = false;
   }
 
   // 添加规格值弹出框的确定操作
   addSpecValue(o: any) {
-    const i = this.specForm.fatherIndex
+    const i = this.specForm.fatherIndex;
     // 新增
-    if (this.specForm.type == 'new') {
+    if (this.specForm.type == "new") {
       // specArr 数据整理
-      this.specArr[i].specList.push({ specValue: this.specForm.specValue })
+      this.specArr[i].specList.push({ specValue: this.specForm.specValue });
       // specData 数据整理
       // 规格名1中添加规格值
       if (i == 0) {
         // 新增属性条 = specData
         // 先判断2是否存在 存在的话循环生成新的children
-        const children = []
+        const children = [];
         if (this.specForm.spec2Index == 0) {
-          console.log('2')
+          console.log("2");
           // 没有2级时的添加1级规格值
           children.push({
-            specKey: '',
-            specValue: '',
+            specKey: "",
+            specValue: "",
             linePrice: undefined,
             salePrice: undefined,
             inventory: undefined,
-            unit: '件',
-            skuImageUrl: ''
-          })
-          console.log('添加一级规格值')
+            unit: "件",
+            skuImageUrl: "",
+          });
+          console.log("添加一级规格值");
         } else {
           // 有2级时的添加1级规格值
           this.specArr[1].specList.forEach((e: { specValue: any }) => {
@@ -688,26 +724,26 @@ export default class extends mixins(ResizeMixin1) {
               linePrice: undefined,
               salePrice: undefined,
               inventory: undefined,
-              unit: '件',
+              unit: "件",
 
-              skuImageUrl: ''
-            })
-          })
-          console.log('有2级时的添加1级规格值')
+              skuImageUrl: "",
+            });
+          });
+          console.log("有2级时的添加1级规格值");
         }
         this.specData.push({
           specKey: this.specForm.specKey,
           specValue: this.specForm.specValue,
-          children
-        })
+          children,
+        });
       }
       // 规格名2中添加规格值
       if (i == 1) {
         this.specData.forEach((e) => {
           if (this.specForm.spec2Index == 0) {
             // 第一次添加
-            e.children[0].specKey = this.specForm.specKey
-            e.children[0].specValue = this.specForm.specValue
+            e.children[0].specKey = this.specForm.specKey;
+            e.children[0].specValue = this.specForm.specValue;
           } else {
             // 非第一次添加
             e.children.push({
@@ -716,29 +752,29 @@ export default class extends mixins(ResizeMixin1) {
               linePrice: undefined,
               salePrice: undefined,
               inventory: undefined,
-              unit: '件',
+              unit: "件",
 
-              skuImageUrl: ''
-            })
+              skuImageUrl: "",
+            });
           }
-        })
-        this.specForm.spec2Index++
-        console.log('规格名2中添加规格值')
+        });
+        this.specForm.spec2Index++;
+        console.log("规格名2中添加规格值");
       }
     }
     // 编辑
-    if (this.specForm.type == 'edit') {
-      const i2 = this.specForm.selfIndex
-      this.specArr[i].specList[i2].specValue = this.specForm.specValue
-      if (i == 0) this.specData[i2].specValue = this.specForm.specValue
+    if (this.specForm.type == "edit") {
+      const i2 = this.specForm.selfIndex;
+      this.specArr[i].specList[i2].specValue = this.specForm.specValue;
+      if (i == 0) this.specData[i2].specValue = this.specForm.specValue;
       if (i == 1) {
         this.specData.forEach(
           (e) => (e.children[i2].specValue = this.specForm.specValue)
-        )
+        );
       }
     }
-    this.specForm.specValue = ''
-    this.specShow = false
+    this.specForm.specValue = "";
+    this.specShow = false;
   }
 
   // 删除规格值
@@ -747,231 +783,231 @@ export default class extends mixins(ResizeMixin1) {
     if (i1 == 0) {
       if (this.specData.length == 1) {
         this.$confirm(
-          '此操作将重置规格明细中中所有已填写的数据，是否继续?',
-          '提示',
+          "此操作将重置规格明细中中所有已填写的数据，是否继续?",
+          "提示",
           {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
           }
         )
           .then(() => {
-            this.specArr[i1].specList.splice(i2, 1)
-            this.specData.splice(i2, 1)
+            this.specArr[i1].specList.splice(i2, 1);
+            this.specData.splice(i2, 1);
           })
-          .catch(() => {})
+          .catch(() => {});
       } else {
-        this.specArr[i1].specList.splice(i2, 1)
-        this.specData.splice(i2, 1)
+        this.specArr[i1].specList.splice(i2, 1);
+        this.specData.splice(i2, 1);
       }
     }
     // 二级规格的删除
     if (i1 == 1) {
       this.specData.forEach((e) => {
         if (e.children.length == 1) {
-          e.children[i2].specValue = ''
+          e.children[i2].specValue = "";
         } else {
-          e.children.splice(i2, 1)
+          e.children.splice(i2, 1);
         }
-      })
-      this.specArr[i1].specList.splice(i2, 1)
-      this.specForm.spec2Index--
+      });
+      this.specArr[i1].specList.splice(i2, 1);
+      this.specForm.spec2Index--;
     }
   }
 
   submitForm(formName: any) {
-    console.log(this.ruleForm)
+    console.log(this.ruleForm);
     // 商品标题
     if (!this.ruleForm.name) {
-      this.$message.error('请填写商品标题')
-      return
+      this.$message.error("请填写商品标题");
+      return;
     }
     // 商品描述
     if (!this.ruleForm.abstracts) {
-      this.$message.error('请填写商品描述')
-      return
+      this.$message.error("请填写商品描述");
+      return;
     }
     // 分享描述
     if (!this.ruleForm.shareDescription) {
-      this.$message.error('请填写分享描述')
-      return
+      this.$message.error("请填写分享描述");
+      return;
     }
     // 商品编码
     if (!this.ruleForm.code) {
-      this.$message.error('请填写商品编码')
-      return
+      this.$message.error("请填写商品编码");
+      return;
     }
     if (!this.codeType) {
-      this.$message.error('商品编码重复，请重新输入')
-      return
+      this.$message.error("商品编码重复，请重新输入");
+      return;
     }
     // 分类
     if (
       !this.ruleForm.shopCategoryIdsArr ||
       this.ruleForm.shopCategoryIdsArr.length == 0
     ) {
-      this.$message.error('请选择商品分类')
-      return
+      this.$message.error("请选择商品分类");
+      return;
     } else {
-      const arr: { pid: any, id: any }[] = []
+      const arr: { pid: any; id: any }[] = [];
       this.ruleForm.shopCategoryIdsArr.forEach((e: any[]) => {
         const obj = {
           pid: e[0],
-          id: e[1]
-        }
-        arr.push(obj)
-      })
-      this.ruleForm.shopCategoryIds = arr
+          id: e[1],
+        };
+        arr.push(obj);
+      });
+      this.ruleForm.shopCategoryIds = arr;
     }
     // 商品图片
     if (this.goodsImg.length == 0) {
-      this.$message.error('请上传商品图片')
-      return
+      this.$message.error("请上传商品图片");
+      return;
     }
-    this.ruleForm.imageUrl = this.goodsImg[0].imageUrl
-    this.ruleForm.goodsImg = this.goodsImg
+    this.ruleForm.imageUrl = this.goodsImg[0].imageUrl;
+    this.ruleForm.goodsImg = this.goodsImg;
     // 商品规格
     if (this.ruleForm.skuType == 0) {
       if (!this.skuType0.salePrice) {
-        this.$message.error('请填写销售价')
-        return
+        this.$message.error("请填写销售价");
+        return;
       }
       if (
         this.skuType0.linePrice &&
         this.skuType0.linePrice <= this.skuType0.salePrice
       ) {
-        this.$message.error('划线价应大于销售价')
-        return
+        this.$message.error("划线价应大于销售价");
+        return;
       }
       if (this.skuType0.inventory == undefined) {
-        this.$message.error('请填写库存')
-        return
+        this.$message.error("请填写库存");
+        return;
       }
       if (this.skuType0.unit == undefined) {
-        this.$message.error('请填写单位')
-        return
+        this.$message.error("请填写单位");
+        return;
       }
-      const arr = []
-      arr.push(this.skuType0)
-      this.ruleForm.productSkuList = arr
+      const arr = [];
+      arr.push(this.skuType0);
+      this.ruleForm.productSkuList = arr;
     }
     if (this.ruleForm.skuType == 1) {
-      console.log('specArr', this.specArr)
-      console.log('specData', this.specData)
+      console.log("specArr", this.specArr);
+      console.log("specData", this.specData);
       if (this.specData.length == 0) {
-        this.$message.error('请添加商品规格')
-        return
+        this.$message.error("请添加商品规格");
+        return;
       }
       //
       for (let i = 0; i < this.specArr.length; i++) {
-        const o = this.specArr[i]
+        const o = this.specArr[i];
         if (!o.specName) {
-          this.$message.error('请填写正确的规格名')
-          return
+          this.$message.error("请填写正确的规格名");
+          return;
         }
         if (o.specList.length == 0) {
-          this.$message.error('请完善商品规格列表中的规格名')
-          return
+          this.$message.error("请完善商品规格列表中的规格名");
+          return;
         }
         for (let j = 0; j < o.specList.length; j++) {
           if (!o.specList[j].specValue) {
-            this.$message.error('请完善商品规格列表中的规格值')
-            return
+            this.$message.error("请完善商品规格列表中的规格值");
+            return;
           }
         }
       }
       // 验证列表中的数据
-      const sepcArrNew: any[] = []
+      const sepcArrNew: any[] = [];
       this.specData.forEach((e) => {
         e.children.forEach((item: any) => {
-          sepcArrNew.push(item)
-        })
-      })
+          sepcArrNew.push(item);
+        });
+      });
       const specErrArr = sepcArrNew.filter(
         (item) => item.inventory == undefined || !item.salePrice || !item.unit
-      )
+      );
       if (specErrArr.length > 0) {
-        this.$message.error('请完善商品规格中的必填值')
-        return
+        this.$message.error("请完善商品规格中的必填值");
+        return;
       }
       const specErrArr1 = sepcArrNew.filter(
         (item) => item.linePrice && item.linePrice <= item.salePrice
-      )
+      );
       if (specErrArr1.length > 0) {
-        this.$message.error('规格中的划线价应大于销售价')
-        return
+        this.$message.error("规格中的划线价应大于销售价");
+        return;
       }
-      this.ruleForm.productSkuList = this.specData
-      this.ruleForm.specArr = this.specArr
+      this.ruleForm.productSkuList = this.specData;
+      this.ruleForm.specArr = this.specArr;
     }
     // 参数
     if (this.parameter.length != 0) {
       const errArr = this.parameter.filter(
-        (e: { key: any, value: any }) => !e.key || !e.value
-      )
+        (e: { key: any; value: any }) => !e.key || !e.value
+      );
       if (errArr.length > 0) {
-        this.$message.error('请完善填写参数')
-        return
+        this.$message.error("请完善填写参数");
+        return;
       } else {
-        this.ruleForm.parameter = this.parameter
+        this.ruleForm.parameter = this.parameter;
       }
     }
     // 富文本
 
     // 物流信息
     if (!this.ruleForm.isCompanyType && !this.ruleForm.isSelffetchType) {
-      this.$message.error('请选择物流信息')
-      return
+      this.$message.error("请选择物流信息");
+      return;
     }
-    this.ruleForm.isCompany = this.ruleForm.isCompanyType ? '1' : '0'
-    this.ruleForm.isSelffetch = this.ruleForm.isSelffetchType ? '1' : '0'
+    this.ruleForm.isCompany = this.ruleForm.isCompanyType ? "1" : "0";
+    this.ruleForm.isSelffetch = this.ruleForm.isSelffetchType ? "1" : "0";
     if (this.ruleForm.isCompanyType) {
       if (
         this.ruleForm.isFreeShipping == 0 &&
         !this.ruleForm.freightTemplateId
       ) {
-        this.$message.error('请选择运费模板')
-        return
+        this.$message.error("请选择运费模板");
+        return;
       }
     }
-    this.subLoading = true
-    const params = JSON.stringify(this.ruleForm)
+    this.subLoading = true;
+    const params = JSON.stringify(this.ruleForm);
   }
 
   // 点击添加参数
   addParameter() {
-    this.parameter.push({ key: '', val: '' })
+    this.parameter.push({ key: "", val: "" });
   }
 
   // 删除参数
   deleteParameter(i: any) {
-    this.parameter.splice(i, 1)
+    this.parameter.splice(i, 1);
   }
 
   // 删除图片
   deleteImg(i: any) {
-    this.goodsImg.splice(i, 1)
+    this.goodsImg.splice(i, 1);
   }
 
   showImgMaterialDia() {
-    this.limitType = true
-    this.selectNum = this.goodsImg.length
-    this.imgMaterialType = 'goodsImg'
-    this.showImgMaterial = true
+    this.limitType = true;
+    this.selectNum = this.goodsImg.length;
+    this.imgMaterialType = "goodsImg";
+    this.showImgMaterial = true;
   }
 
   // 规格值处调取图片库
   showSpecImgMaterialDia(index: any, imgIdx: any) {
-    this.imgMaterialType = 'specImg'
-    this.showImgMaterial = true
-    this.currentSpecIdx = index
-    this.currentSpecChildIdx = imgIdx
-    console.log(this.currentSpecIdx, this.currentSpecChildIdx)
+    this.imgMaterialType = "specImg";
+    this.showImgMaterial = true;
+    this.currentSpecIdx = index;
+    this.currentSpecChildIdx = imgIdx;
+    console.log(this.currentSpecIdx, this.currentSpecChildIdx);
   }
 
   // 删除规格对应的商品图片
   deletSkuImg(index: any, imgIdx: any) {
-    this.specData[index].children[imgIdx].skuImageUrl = ''
+    this.specData[index].children[imgIdx].skuImageUrl = "";
   }
 }
 </script>
