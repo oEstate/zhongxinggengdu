@@ -3,12 +3,17 @@
     <ul class="u_f info">
       <li>
         <div class="u_f_ajs">
-          <div>
+          <div class="u_f_ac">
             <span class="icon-k"></span>
             <span class="title">店铺余额</span>
           </div>
           <p class="withdrawal">您有1条提现进行中</p>
         </div>
+        <div class="check u_f">
+          <el-button type="text" @click="submit">查看账户全部余额</el-button>
+          <i class="el-icon-arrow-right"></i>
+        </div>
+
         <div class="money u_f_ac">
           <div class="money_txt">1799.00</div>
           <el-button type="success" plain @click="dialogVisible = true"
@@ -65,12 +70,12 @@
         :header-cell-style="{
           background: '#E8EFEC',
           color: '#333',
-          textAlign: 'center'
+          textAlign: 'center',
         }"
         :cell-style="{
           background: '#F3F6F5',
           color: '#333',
-          textAlign: 'center'
+          textAlign: 'center',
         }"
         @selection-change="handleSelectionChange"
       >
@@ -163,71 +168,71 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop } from "vue-property-decorator";
 @Component({
-  name: 'walletInfo'
+  name: "walletInfo",
 })
 export default class extends Vue {
-  private value = '';
+  private value = "";
   private value1 = undefined;
   private multipleSelection = [];
 
   private dialogVisible = false;
   private tableData = [
     {
-      date: '2016-05-02',
-      name: '张三1',
-      address: '上海市普陀区金沙江路 1518 弄'
+      date: "2016-05-02",
+      name: "张三1",
+      address: "上海市普陀区金沙江路 1518 弄",
     },
     {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
+      date: "2016-05-04",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1517 弄",
     },
     {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
+      date: "2016-05-01",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1519 弄",
     },
     {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
+      date: "2016-05-03",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1516 弄",
     },
     {
-      date: '2016-05-02',
-      name: '张三1',
-      address: '上海市普陀区金沙江路 1518 弄'
+      date: "2016-05-02",
+      name: "张三1",
+      address: "上海市普陀区金沙江路 1518 弄",
     },
     {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
+      date: "2016-05-04",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1517 弄",
     },
     {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
+      date: "2016-05-01",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1519 弄",
     },
     {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    }
+      date: "2016-05-03",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
   ];
 
   created() {}
   addCard() {
-    this.$router.push({ path: '/wallet/addCard' })
+    this.$router.push({ path: "/wallet/addCard" });
   }
 
   handleSelectionChange(val: any) {
-    this.multipleSelection = val
+    this.multipleSelection = val;
   }
 
   submit() {
-    this.dialogVisible = false
-    this.$router.push({ path: '/wallet/results' })
+    this.dialogVisible = false;
+    this.$router.push({ path: "/wallet/results" });
   }
 }
 </script>
@@ -266,6 +271,14 @@ export default class extends Vue {
     &:last-child {
       margin-left: 43px;
     }
+    .check {
+      margin-top: 16px;
+      color: #00b54d;
+      align-items: center;
+      .el-button{
+        font-size: 16px;
+      }
+    }
     .money {
       height: 81px;
       font-size: 58px;
@@ -273,7 +286,7 @@ export default class extends Vue {
       color: #00b54d;
       line-height: 81px;
       letter-spacing: 2px;
-      margin-top: 47px;
+      margin-top: 6px;
       margin-bottom: 14px;
       .money_txt {
         margin-right: 110px;

@@ -3,7 +3,7 @@
     <div class="header u_f_ac">
       <img
         class="header-icon"
-        src="@/assets/header-icon/goods.png"
+        src="@/assets/header-icon/wallet.png"
         alt=""
       />
       <span>账户总览</span>
