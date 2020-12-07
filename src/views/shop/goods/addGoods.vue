@@ -54,30 +54,71 @@
         </li>
         <li class="ag">
           <div class="from-itrm-l">商品封面</div>
-          <el-button type="success" plain @click="openGallery"
+          <el-button
+            type="success"
+            v-if="goodsImg.length == 0"
+            plain
+            @click="showImgMaterialDia()"
             >添加图片</el-button
           >
+          <div class="pr">
+            <img
+              style="width: 100px; height: 100px"
+              v-if="goodsImg.length != 0"
+              :src="goodsImg[0].imgUrl"
+              alt=""
+              class="preview"
+            />
+            <div class="dec_" @click="deleteImg">
+              <i class="el-icon-delete"></i>
+            </div>
+          </div>
         </li>
 
         <li class="ag">
           <div class="from-itrm-l">商品轮播</div>
-          <el-button type="success" plain @click="openGallery"
+          <div class="pr" v-for="(item, index) in goodsImg1" :key="index">
+            <img
+              style="width: 100px; height: 100px; margin-right: 10px"
+              :src="item.imgUrl"
+              alt=""
+              class="preview"
+            />
+            <div class="dec_" @click="deleteImg1" style="margin-right: 10px">
+              <i class="el-icon-delete"></i>
+            </div>
+          </div>
+          <el-button
+            type="success"
+            v-if="goodsImg1.length < 5"
+            plain
+            @click="openGallery()"
             >添加图片</el-button
           >
         </li>
         <li class="ag" v-if="value !== '0'">
           <div class="from-itrm-l">商品定金</div>
           <div class="phone">
-            <el-select v-if="value !== '1'" class="select" v-model="deposit" placeholder="请选择">
+            <el-select
+              v-if="value !== '1'"
+              class="select"
+              v-model="deposit"
+              placeholder="请选择"
+            >
               <el-option
-                v-for="item in value == depositRate "
+                v-for="item in value == depositRate"
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
               >
               </el-option>
             </el-select>
-            <el-select v-if="value !== '2'" class="select" v-model="deposit1" placeholder="请选择">
+            <el-select
+              v-if="value !== '2'"
+              class="select"
+              v-model="deposit1"
+              placeholder="请选择"
+            >
               <el-option
                 v-for="item in value == depositRate1"
                 :key="item.value"
@@ -350,7 +391,14 @@
       </ul>
     </el-scrollbar>
 
-    <gallery @onlyclose="isShow = false" :dialogVisible="isShow" />
+    <materialImg
+      @onlyclose="isShow = false"
+      @subMit="subMit"
+      :multiple="true"
+      :totalNum="totalNum"
+      :showImgMaterial="isShow"
+      :selectNum="selectNum"
+    />
 
     <!-- 规格名 -->
     <el-dialog
@@ -426,7 +474,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
-import gallery from "@/components/gallery/index.vue";
+import materialImg from "@/components/gallery/materialImg.vue";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
 import selectClassify from "@/components/common/selectClassify.vue";
@@ -435,11 +483,12 @@ import selectClassify from "@/components/common/selectClassify.vue";
   components: {
     back,
     Tinymce,
-    gallery,
+    materialImg,
     selectClassify,
   },
 })
 export default class extends mixins(ResizeMixin1) {
+  private totalNum = 1;
   // 商品类型
   private options = [
     {
@@ -532,6 +581,7 @@ export default class extends mixins(ResizeMixin1) {
 
   private codeType = false;
   private goodsImg: Array<any> = [];
+  private goodsImg1: Array<any> = [];
   private skuType0: any = {
     unit: "件",
   };
@@ -546,10 +596,6 @@ export default class extends mixins(ResizeMixin1) {
   private currentSpecIdx = 0;
   private currentSpecChildIdx = 0;
   private specShow = false;
-  //打开图片库
-  openGallery() {
-    this.isShow = true;
-  }
 
   //获取选中的商品分类
   getClassify(classify: any) {
@@ -988,18 +1034,29 @@ export default class extends mixins(ResizeMixin1) {
   deleteImg(i: any) {
     this.goodsImg.splice(i, 1);
   }
-
-  showImgMaterialDia() {
-    this.limitType = true;
-    this.selectNum = this.goodsImg.length;
-    this.imgMaterialType = "goodsImg";
-    this.showImgMaterial = true;
+  // 删除图片
+  deleteImg1(i: any) {
+    this.goodsImg1.splice(i, 1);
   }
 
+  showImgMaterialDia() {
+    this.totalNum = 1;
+    this.imgMaterialType = "goodsImg";
+    this.selectNum = this.goodsImg.length;
+    this.isShow = true;
+  }
+  //打开图片库
+  openGallery() {
+    this.totalNum = 5;
+    this.imgMaterialType = "goodsImg1";
+    this.selectNum = this.goodsImg1.length;
+    this.isShow = true;
+  }
   // 规格值处调取图片库
   showSpecImgMaterialDia(index: any, imgIdx: any) {
+    this.totalNum = 1;
     this.imgMaterialType = "specImg";
-    this.showImgMaterial = true;
+    this.isShow = true;
     this.currentSpecIdx = index;
     this.currentSpecChildIdx = imgIdx;
     console.log(this.currentSpecIdx, this.currentSpecChildIdx);
@@ -1009,6 +1066,21 @@ export default class extends mixins(ResizeMixin1) {
   deletSkuImg(index: any, imgIdx: any) {
     this.specData[index].children[imgIdx].skuImageUrl = "";
   }
+  // 图片库确定
+  subMit(e: any) {
+    console.log(e);
+    this.isShow = false;
+    console.log(this.imgMaterialType);
+    if (this.imgMaterialType == "goodsImg")
+      e.forEach((item: any) => this.goodsImg.push(item));
+    if (this.imgMaterialType == "goodsImg1")
+      e.forEach((item: any) => this.goodsImg1.push(item));
+    if (this.imgMaterialType == "specImg")
+      this.specData[this.currentSpecIdx].children[
+        this.currentSpecChildIdx
+      ].skuImageUrl = e[0].imgUrl;
+    console.log(this.specData);
+  }
 }
 </script>
 
@@ -1017,6 +1089,9 @@ export default class extends mixins(ResizeMixin1) {
   align-items: flex-end;
 }
 .el-link.el-link--default:hover {
+  color: #06c654;
+}
+ul li .spec_con .spec_box .rows .td .product_img_box .el-icon-delete{
   color: #06c654;
 }
 .el-link.el-link--default {
@@ -1087,6 +1162,34 @@ export default class extends mixins(ResizeMixin1) {
     .el-button {
       margin-right: 10px;
     }
+  }
+}
+.pr {
+  height: 100px;
+  &:hover {
+    .dec_ {
+      display: block;
+      cursor: pointer;
+    }
+  }
+}
+
+.dec_ {
+  position: absolute;
+  display: none;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  .el-icon-delete {
+    font-size: 30px;
   }
 }
 

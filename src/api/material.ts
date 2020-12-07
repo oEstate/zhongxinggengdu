@@ -41,3 +41,21 @@ export const selectCzMaterialLibraryClassification = (data: any) =>
         method: 'post',
         data
     })
+
+//上传素材库图片
+export const upPhotos = (data: any) =>
+    request({
+        url: '/photoController/upPhotos',
+        method: 'post',
+        data
+    })
+
+//上传图片
+
+
+export const searchPhoto = (data: any) =>
+    request({
+        url: '/photoController/searchPhoto',
+        method: 'post',
+        data
+    })

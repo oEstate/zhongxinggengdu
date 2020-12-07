@@ -176,6 +176,11 @@ export default class extends Vue {
         font-size: 16px;
         color: #444444;
         margin-bottom: 4px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 124px;
+        margin: 0 auto;
       }
       .item-size {
         font-size: 13px;

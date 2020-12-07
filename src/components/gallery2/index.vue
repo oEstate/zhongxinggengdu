@@ -23,6 +23,7 @@
         class="tabs"
         :tabsData="tabsData"
         :tabsActive="tabsActive"
+        :isComponent="isComponent"
         @getPath="getPath"
       >
         <component
@@ -31,6 +32,7 @@
           :limitType="limitType"
           :totalNum="totalNum"
           :selectNum="selectNum"
+          :selectImgArr="selectImgArr"
         ></component>
       </tabs>
     </div>
@@ -43,7 +45,7 @@
       </p>
       <div>
         <el-button type="success" @click="handleClose" plain>取 消</el-button>
-        <el-button type="success" @click="handleClose">确 定</el-button>
+        <el-button type="success" @click="subMit">确 定</el-button>
       </div>
     </span>
   </el-dialog>
@@ -72,7 +74,9 @@ export default class extends Vue {
   private action = `${process.env.VUE_APP_BASE_API}/file/upload`;
   private tabsActive = "0";
   private isComponent = "materialImg";
+  private imageUrl = "";
   private selectImgArr: Array<any> = []; // 选中的图片
+
   private tabsData = [
     {
       label: "图片库",
@@ -93,9 +97,19 @@ export default class extends Vue {
 
   created() {}
   handleClose() {
+    this.selectImgArr=[]
     this.$emit("onlyclose", true);
   }
-
+  // 父 - 确定
+  subMit() {
+    console.log("this.selectImgArr", this.selectImgArr);
+    if (this.selectImgArr.length == 0) {
+      this.$message.error("请先选择图片");
+      return;
+    }
+    this.$emit("subMit", this.selectImgArr);
+    this.selectImgArr=[]
+  }
   getPath(e: any) {
     // alert(2)
     console.log(e);
@@ -110,7 +124,9 @@ export default class extends Vue {
     console.log(e);
     this.selectImgArr = e;
   }
-
+  handleAvatarSuccess(res: any, file: any) {
+    this.imageUrl = URL.createObjectURL(file.raw);
+  }
   beforeAvatarUpload(file: any) {
     const isJPG = file.type === "image/jpeg";
     const isLt2M = file.size / 1024 / 1024 < 2;
