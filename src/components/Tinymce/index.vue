@@ -188,7 +188,7 @@ export default class extends Vue {
     this.isShow = false;
     const tinymce = (window as any).tinymce.get(this.id);
     e.forEach((v: any) => {
-      tinymce.insertContent(`<img style="width:100%;display:block" class="wscnph" src="${v.imgUrl}" >`);
+      tinymce.insertContent(`<img style="max-width:100%" src="${v.imgUrl}" >`);
     });
   }
 }
