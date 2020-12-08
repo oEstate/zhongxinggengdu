@@ -84,7 +84,7 @@
               alt=""
               class="preview"
             />
-            <div class="dec_" @click="deleteImg1" style="margin-right: 10px">
+            <div class="dec_" @click="deleteImg1(index)" style="margin-right: 10px">
               <i class="el-icon-delete"></i>
             </div>
           </div>
