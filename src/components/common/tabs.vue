@@ -6,26 +6,27 @@
       :label="item.label"
       :name="item.name"
     >
-      <slot />
+      <slot v-if="item.path == isComponent" />
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator'
+import { Component, Vue, Prop, Emit, Watch } from "vue-property-decorator";
 
 @Component({
-  name: 'tabs'
+  name: "tabs",
 })
 export default class extends Vue {
   @Prop() tabsActive!: any;
   @Prop() tabsData!: any;
+  @Prop() isComponent!: any;
+  
   private active = this.tabsActive;
-
   created() {}
   handleClick(tab: any, event: any) {
-    const path = this.tabsData[tab.index].path
-    this.$emit('getPath', path)
+    const path = this.tabsData[tab.index].path;
+    this.$emit("getPath", path);
   }
 }
 </script>

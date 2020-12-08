@@ -1,22 +1,22 @@
 import request from '@/utils/request'
-//查询素材库
-export const selectCzMaterialLibrary = (data: any) =>
+//商品发布
+export const goodsPush = (data: any) =>
     request({
-        url: '/photoController/selectCzMaterialLibrary',
+        url: '/goodsController/goodsPush',
         method: 'post',
         data
     })
-//新增素材库
-export const addCzMaterialLibraryClassification = (data: any) =>
+//商品列表查询
+export const getGoodsList = (data: any) =>
     request({
-        url: '/photoController/addCzMaterialLibraryClassification',
+        url: '/goodsController/getGoodsList',
         method: 'post',
         data
     })
-//编辑素材库
-export const upCzMaterialLibraryClassification = (data: any) =>
+//上下架
+export const batchLoadingAndUnloading = (data: any) =>
     request({
-        url: '/photoController/upCzMaterialLibraryClassification',
+        url: '/goodsController/batchLoadingAndUnloading',
         method: 'post',
         data
     })

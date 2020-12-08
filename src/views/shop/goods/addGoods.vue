@@ -9,7 +9,7 @@
             <el-select
               class="select"
               @change="goodsType"
-              v-model="value"
+              v-model="goodsData.goodsType"
               placeholder="请选择"
             >
               <el-option
@@ -33,7 +33,7 @@
           <div class="from-itrm-l">商品标题</div>
           <div class="phone">
             <el-input
-              v-model="shopName"
+              v-model="goodsData.goodsTitle"
               placeholder="请输入商品标题"
             ></el-input>
           </div>
@@ -45,7 +45,7 @@
             <el-input
               type="textarea"
               placeholder="请输入商品简介（限制50个字）"
-              v-model="shopName"
+              v-model="goodsData.goodsDescribe"
               class="textareaInfo"
               maxlength="50"
             >
@@ -54,32 +54,73 @@
         </li>
         <li class="ag">
           <div class="from-itrm-l">商品封面</div>
-          <el-button type="success" plain @click="openGallery"
+          <el-button
+            type="success"
+            v-if="goodsImg.length == 0"
+            plain
+            @click="showImgMaterialDia()"
             >添加图片</el-button
           >
+          <div class="pr">
+            <img
+              style="width: 100px; height: 100px"
+              v-if="goodsImg.length != 0"
+              :src="goodsImg[0].imgUrl"
+              alt=""
+              class="preview"
+            />
+            <div class="dec_" @click="deleteImg">
+              <i class="el-icon-delete"></i>
+            </div>
+          </div>
         </li>
 
         <li class="ag">
           <div class="from-itrm-l">商品轮播</div>
-          <el-button type="success" plain @click="openGallery"
+          <div class="pr" v-for="(item, index) in goodsImg1" :key="index">
+            <img
+              style="width: 100px; height: 100px; margin-right: 10px"
+              :src="item.imgUrl"
+              alt=""
+              class="preview"
+            />
+            <div class="dec_" @click="deleteImg1" style="margin-right: 10px">
+              <i class="el-icon-delete"></i>
+            </div>
+          </div>
+          <el-button
+            type="success"
+            v-if="goodsImg1.length < 5"
+            plain
+            @click="openGallery()"
             >添加图片</el-button
           >
         </li>
-        <li class="ag" v-if="value !== '0'">
+        <li class="ag" v-if="goodsData.goodsType !== '0'">
           <div class="from-itrm-l">商品定金</div>
           <div class="phone">
-            <el-select v-if="value !== '1'" class="select" v-model="deposit" placeholder="请选择">
+            <el-select
+              v-if="goodsData.goodsType !== '1'"
+              class="select"
+              v-model="deposit"
+              placeholder="请选择"
+            >
               <el-option
-                v-for="item in value == depositRate "
+                v-for="item in depositRate"
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
               >
               </el-option>
             </el-select>
-            <el-select v-if="value !== '2'" class="select" v-model="deposit1" placeholder="请选择">
+            <el-select
+              v-if="goodsData.goodsType !== '2'"
+              class="select"
+              v-model="deposit1"
+              placeholder="请选择"
+            >
               <el-option
-                v-for="item in value == depositRate1"
+                v-for="item in depositRate1"
                 :key="item.value"
                 :label="item.value"
                 :value="item.value"
@@ -88,24 +129,36 @@
             </el-select>
           </div>
         </li>
-        <li class="ag" v-if="value == '2'">
+        <li class="ag" v-if="goodsData.goodsType == '2'">
           <div class="from-itrm-l">预定截止</div>
           <div class="phone">
-            <el-date-picker v-model="value" type="date" placeholder="选择日期">
+            <el-date-picker
+              v-model="goodsData.stopBooking"
+              type="date"
+              placeholder="选择日期"
+            >
             </el-date-picker>
           </div>
         </li>
-        <li class="ag" v-if="value == '1'">
+        <li class="ag" v-if="goodsData.goodsType == '1'">
           <div class="from-itrm-l">认领截止</div>
           <div class="phone">
-            <el-date-picker v-model="value" type="date" placeholder="选择日期">
+            <el-date-picker
+              v-model="goodsData.stopBooking"
+              type="date"
+              placeholder="选择日期"
+            >
             </el-date-picker>
           </div>
         </li>
-        <li class="ag" v-if="value !== '0'">
+        <li class="ag" v-if="goodsData.goodsType !== '0'">
           <div class="from-itrm-l">预计发货时间</div>
           <div class="phone">
-            <el-date-picker v-model="value" type="date" placeholder="选择日期">
+            <el-date-picker
+              v-model="goodsData.estimatedDelivery"
+              type="date"
+              placeholder="选择日期"
+            >
             </el-date-picker>
           </div>
         </li>
@@ -239,7 +292,7 @@
                   specArr[1].specName
                 }}</span>
 
-                <span class="sale_price_name"> 价格</span>
+                <span class="sale_price_name"> 售价</span>
                 <span class="line_price_name">原价</span>
                 <span class="inventory_name"> 库存</span>
                 <span class="unit_name">单位</span>
@@ -340,17 +393,24 @@
         <li>
           <div class="from-itrm-l">商品详情</div>
           <div>
-            <tinymce v-model="content" :height="400" />
+            <tinymce v-model="goodsData.goodsDetails" :height="400" />
           </div>
         </li>
         <li class="ags">
           <el-button type="success" plain>取消</el-button>
-          <el-button type="success">发布</el-button>
+          <el-button type="success" @click="submitForm">发布</el-button>
         </li>
       </ul>
     </el-scrollbar>
 
-    <gallery @onlyclose="isShow = false" :dialogVisible="isShow" />
+    <materialImg
+      @onlyclose="isShow = false"
+      @subMit="subMit"
+      :multiple="true"
+      :totalNum="totalNum"
+      :showImgMaterial="isShow"
+      :selectNum="selectNum"
+    />
 
     <!-- 规格名 -->
     <el-dialog
@@ -426,20 +486,36 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
-import gallery from "@/components/gallery/index.vue";
+import materialImg from "@/components/gallery/materialImg.vue";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
 import selectClassify from "@/components/common/selectClassify.vue";
+import { goodsPush } from "@/api/goods";
 @Component({
   name: "addGoods",
   components: {
     back,
     Tinymce,
-    gallery,
+    materialImg,
     selectClassify,
   },
 })
 export default class extends mixins(ResizeMixin1) {
+  private goodsData: any = {
+    goodsType: "0", // 默认商品类型
+    categoryCode: "", //商品分类id,
+    goodsTitle: "", // "商品标题",
+    goodsDescribe: "", //"商品简介"
+    goodsCover: "", //"商品封面url"
+    goodsRotationChart: "", //商品轮播图
+    czGoodsSpecificationsFirstList: [], //规格
+    bookingPrice: "", //预售价格百分比
+    stopBooking: "", //截止时间
+    estimatedDelivery: "", //发货时间
+    goodsDetails: "", //商品详情
+    specArr:''
+  };
+  private totalNum = 1;
   // 商品类型
   private options = [
     {
@@ -455,8 +531,6 @@ export default class extends mixins(ResizeMixin1) {
       label: "预定商品",
     },
   ];
-  // 默认商品类型
-  private value = "0";
 
   //定金比例 认领商品 50-90 预定商品 10-30
   //认领商品
@@ -532,12 +606,12 @@ export default class extends mixins(ResizeMixin1) {
 
   private codeType = false;
   private goodsImg: Array<any> = [];
+  private goodsImg1: Array<any> = [];
   private skuType0: any = {
     unit: "件",
   };
 
   private parameter: Array<any> = [];
-  private subLoading = false;
   private limitType = false;
   private selectNum = 0;
 
@@ -546,14 +620,13 @@ export default class extends mixins(ResizeMixin1) {
   private currentSpecIdx = 0;
   private currentSpecChildIdx = 0;
   private specShow = false;
-  //打开图片库
-  openGallery() {
-    this.isShow = true;
-  }
 
   //获取选中的商品分类
   getClassify(classify: any) {
     console.log(classify);
+    let endArr = classify.slice(-1);
+    // console.log(endArr[0].categoryCode)
+    this.goodsData.categoryCode = endArr[0].categoryCode;
   }
   //获取商品类型
   goodsType(e: any) {
@@ -815,105 +888,48 @@ export default class extends mixins(ResizeMixin1) {
     }
   }
 
-  submitForm(formName: any) {
-    console.log(this.ruleForm);
-    // 商品标题
-    if (!this.ruleForm.name) {
+  async submitForm(formName: any) {
+    // console.log(this.goodsData);
+    if (!this.goodsData.categoryCode) {
+      this.$message.error("请选择商品分类");
+      return;
+    }
+    if (!this.goodsData.goodsTitle) {
       this.$message.error("请填写商品标题");
       return;
     }
-    // 商品描述
-    if (!this.ruleForm.abstracts) {
-      this.$message.error("请填写商品描述");
+    if (!this.goodsData.goodsDescribe) {
+      this.$message.error("请填写商品简介");
       return;
     }
-    // 分享描述
-    if (!this.ruleForm.shareDescription) {
-      this.$message.error("请填写分享描述");
-      return;
-    }
-    // 商品编码
-    if (!this.ruleForm.code) {
-      this.$message.error("请填写商品编码");
-      return;
-    }
-    if (!this.codeType) {
-      this.$message.error("商品编码重复，请重新输入");
-      return;
-    }
-    // 分类
-    if (
-      !this.ruleForm.shopCategoryIdsArr ||
-      this.ruleForm.shopCategoryIdsArr.length == 0
-    ) {
-      this.$message.error("请选择商品分类");
-      return;
-    } else {
-      const arr: { pid: any; id: any }[] = [];
-      this.ruleForm.shopCategoryIdsArr.forEach((e: any[]) => {
-        const obj = {
-          pid: e[0],
-          id: e[1],
-        };
-        arr.push(obj);
-      });
-      this.ruleForm.shopCategoryIds = arr;
-    }
-    // 商品图片
     if (this.goodsImg.length == 0) {
-      this.$message.error("请上传商品图片");
+      this.$message.error("请上传封面图");
       return;
     }
-    this.ruleForm.imageUrl = this.goodsImg[0].imageUrl;
-    this.ruleForm.goodsImg = this.goodsImg;
-    // 商品规格
-    if (this.ruleForm.skuType == 0) {
-      if (!this.skuType0.salePrice) {
-        this.$message.error("请填写销售价");
-        return;
-      }
-      if (
-        this.skuType0.linePrice &&
-        this.skuType0.linePrice <= this.skuType0.salePrice
-      ) {
-        this.$message.error("划线价应大于销售价");
-        return;
-      }
-      if (this.skuType0.inventory == undefined) {
-        this.$message.error("请填写库存");
-        return;
-      }
-      if (this.skuType0.unit == undefined) {
-        this.$message.error("请填写单位");
-        return;
-      }
-      const arr = [];
-      arr.push(this.skuType0);
-      this.ruleForm.productSkuList = arr;
+    if (this.goodsImg1.length == 0) {
+      this.$message.error("请上传商品轮播图");
+      return;
     }
-    if (this.ruleForm.skuType == 1) {
-      console.log("specArr", this.specArr);
-      console.log("specData", this.specData);
-      if (this.specData.length == 0) {
-        this.$message.error("请添加商品规格");
+
+    if (this.specData.length == 0) {
+      this.$message.error("请添加商品规格");
+      return;
+    }
+    //
+    for (let i = 0; i < this.specArr.length; i++) {
+      const o = this.specArr[i];
+      if (!o.specName) {
+        this.$message.error("请填写正确的规格名");
         return;
       }
-      //
-      for (let i = 0; i < this.specArr.length; i++) {
-        const o = this.specArr[i];
-        if (!o.specName) {
-          this.$message.error("请填写正确的规格名");
+      if (o.specList.length == 0) {
+        this.$message.error("请完善商品规格列表中的规格名");
+        return;
+      }
+      for (let j = 0; j < o.specList.length; j++) {
+        if (!o.specList[j].specValue) {
+          this.$message.error("请完善商品规格列表中的规格值");
           return;
-        }
-        if (o.specList.length == 0) {
-          this.$message.error("请完善商品规格列表中的规格名");
-          return;
-        }
-        for (let j = 0; j < o.specList.length; j++) {
-          if (!o.specList[j].specValue) {
-            this.$message.error("请完善商品规格列表中的规格值");
-            return;
-          }
         }
       }
       // 验证列表中的数据
@@ -934,11 +950,11 @@ export default class extends mixins(ResizeMixin1) {
         (item) => item.linePrice && item.linePrice <= item.salePrice
       );
       if (specErrArr1.length > 0) {
-        this.$message.error("规格中的划线价应大于销售价");
+        this.$message.error("规格中的原价应大于售价");
         return;
       }
-      this.ruleForm.productSkuList = this.specData;
-      this.ruleForm.specArr = this.specArr;
+      this.goodsData.productSkuList = this.specData;
+      this.goodsData.specArr = this.specArr;
     }
     // 参数
     if (this.parameter.length != 0) {
@@ -952,26 +968,21 @@ export default class extends mixins(ResizeMixin1) {
         this.ruleForm.parameter = this.parameter;
       }
     }
-    // 富文本
-
-    // 物流信息
-    if (!this.ruleForm.isCompanyType && !this.ruleForm.isSelffetchType) {
-      this.$message.error("请选择物流信息");
+    if (!this.goodsData.goodsDetails) {
+      this.$message.error("请完善商品详情");
       return;
     }
-    this.ruleForm.isCompany = this.ruleForm.isCompanyType ? "1" : "0";
-    this.ruleForm.isSelffetch = this.ruleForm.isSelffetchType ? "1" : "0";
-    if (this.ruleForm.isCompanyType) {
-      if (
-        this.ruleForm.isFreeShipping == 0 &&
-        !this.ruleForm.freightTemplateId
-      ) {
-        this.$message.error("请选择运费模板");
-        return;
-      }
-    }
-    this.subLoading = true;
-    const params = JSON.stringify(this.ruleForm);
+    let arr: Array<any> = [];
+    let arr1: Array<any> = [];
+    this.goodsImg.map((item: any) => {
+      arr.push(item.imgUrl);
+    });
+    this.goodsImg1.map((item: any) => {
+      arr1.push(item.imgUrl);
+    });
+    this.goodsData.goodsCover = arr.join(",");
+    this.goodsData.goodsRotationChart = arr1.join(",");
+    await goodsPush(this.goodsData);
   }
 
   // 点击添加参数
@@ -988,18 +999,29 @@ export default class extends mixins(ResizeMixin1) {
   deleteImg(i: any) {
     this.goodsImg.splice(i, 1);
   }
-
-  showImgMaterialDia() {
-    this.limitType = true;
-    this.selectNum = this.goodsImg.length;
-    this.imgMaterialType = "goodsImg";
-    this.showImgMaterial = true;
+  // 删除图片
+  deleteImg1(i: any) {
+    this.goodsImg1.splice(i, 1);
   }
 
+  showImgMaterialDia() {
+    this.totalNum = 1;
+    this.imgMaterialType = "goodsImg";
+    this.selectNum = this.goodsImg.length;
+    this.isShow = true;
+  }
+  //打开图片库
+  openGallery() {
+    this.totalNum = 5;
+    this.imgMaterialType = "goodsImg1";
+    this.selectNum = this.goodsImg1.length;
+    this.isShow = true;
+  }
   // 规格值处调取图片库
   showSpecImgMaterialDia(index: any, imgIdx: any) {
+    this.totalNum = 1;
     this.imgMaterialType = "specImg";
-    this.showImgMaterial = true;
+    this.isShow = true;
     this.currentSpecIdx = index;
     this.currentSpecChildIdx = imgIdx;
     console.log(this.currentSpecIdx, this.currentSpecChildIdx);
@@ -1009,6 +1031,21 @@ export default class extends mixins(ResizeMixin1) {
   deletSkuImg(index: any, imgIdx: any) {
     this.specData[index].children[imgIdx].skuImageUrl = "";
   }
+  // 图片库确定
+  subMit(e: any) {
+    console.log(e);
+    this.isShow = false;
+    console.log(this.imgMaterialType);
+    if (this.imgMaterialType == "goodsImg")
+      e.forEach((item: any) => this.goodsImg.push(item));
+    if (this.imgMaterialType == "goodsImg1")
+      e.forEach((item: any) => this.goodsImg1.push(item));
+    if (this.imgMaterialType == "specImg")
+      this.specData[this.currentSpecIdx].children[
+        this.currentSpecChildIdx
+      ].skuImageUrl = e[0].imgUrl;
+    console.log(this.specData);
+  }
 }
 </script>
 
@@ -1017,6 +1054,9 @@ export default class extends mixins(ResizeMixin1) {
   align-items: flex-end;
 }
 .el-link.el-link--default:hover {
+  color: #06c654;
+}
+ul li .spec_con .spec_box .rows .td .product_img_box .el-icon-delete {
   color: #06c654;
 }
 .el-link.el-link--default {
@@ -1087,6 +1127,34 @@ export default class extends mixins(ResizeMixin1) {
     .el-button {
       margin-right: 10px;
     }
+  }
+}
+.pr {
+  height: 100px;
+  &:hover {
+    .dec_ {
+      display: block;
+      cursor: pointer;
+    }
+  }
+}
+
+.dec_ {
+  position: absolute;
+  display: none;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  .el-icon-delete {
+    font-size: 30px;
   }
 }
 
