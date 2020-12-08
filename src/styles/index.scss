@@ -118,7 +118,9 @@ li {
 .el-pagination.is-background .el-pager li:not(.disabled).active:hover {
   color: #fff;
 }
-
+.el-table__empty-block,.el-table__body-wrapper{
+  background-color: rgb(243, 246, 245);
+}
 body .el-scrollbar__wrap {
   overflow-x: hidden;
 }
