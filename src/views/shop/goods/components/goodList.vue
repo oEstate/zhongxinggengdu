@@ -131,6 +131,7 @@
         @current-change="pageChange"
         background
         layout="total,prev, pager, next"
+        :page-size="15"
         :total="total"
       >
       </el-pagination>

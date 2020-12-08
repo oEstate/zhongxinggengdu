@@ -53,6 +53,28 @@
           </div>
         </li>
         <li class="ag">
+          <div class="from-itrm-l">商品视频</div>
+          <el-button
+            type="success"
+            v-if="videoForm.length == 0"
+            plain
+            @click="showVideoMaterialDia"
+            >添加视频</el-button
+          >
+          <div class="pr">
+            <img
+              style="width: 100px; height: 100px"
+              v-if="videoForm.length != 0"
+              :src="videoForm[0].imgUrl"
+              alt=""
+              class="preview"
+            />
+            <div class="dec_" @click="deleteImg">
+              <i class="el-icon-delete"></i>
+            </div>
+          </div>
+        </li>
+        <li class="ag">
           <div class="from-itrm-l">商品封面</div>
           <el-button
             type="success"
@@ -84,7 +106,11 @@
               alt=""
               class="preview"
             />
-            <div class="dec_" @click="deleteImg1" style="margin-right: 10px">
+            <div
+              class="dec_"
+              @click="deleteImg1(index)"
+              style="margin-right: 10px"
+            >
               <i class="el-icon-delete"></i>
             </div>
           </div>
@@ -96,11 +122,14 @@
             >添加图片</el-button
           >
         </li>
-        <li class="ag" v-if="goodsData.goodsType !== '0'">
+        <li
+          class="ag"
+          v-if="goodsData.goodsType !== '0' && goodsData.goodsType !== '3'"
+        >
           <div class="from-itrm-l">商品定金</div>
           <div class="phone">
             <el-select
-              v-if="goodsData.goodsType !== '1'"
+              v-if="goodsData.goodsType == '2'"
               class="select"
               v-model="deposit"
               placeholder="请选择"
@@ -114,7 +143,7 @@
               </el-option>
             </el-select>
             <el-select
-              v-if="goodsData.goodsType !== '2'"
+              v-if="goodsData.goodsType == '1'"
               class="select"
               v-model="deposit1"
               placeholder="请选择"
@@ -151,7 +180,10 @@
             </el-date-picker>
           </div>
         </li>
-        <li class="ag" v-if="goodsData.goodsType !== '0'">
+        <li
+          class="ag"
+          v-if="goodsData.goodsType !== '0' && goodsData.goodsType !== '3'"
+        >
           <div class="from-itrm-l">预计发货时间</div>
           <div class="phone">
             <el-date-picker
@@ -293,7 +325,9 @@
                 }}</span>
 
                 <span class="sale_price_name"> 售价</span>
-                <span class="line_price_name">原价</span>
+                <span class="line_price_name" v-if="goodsData.goodsType == '3'"
+                  >原价</span
+                >
                 <span class="inventory_name"> 库存</span>
                 <span class="unit_name">单位</span>
                 <span class="product_img">
@@ -330,7 +364,7 @@
                     :controls="false"
                   ></el-input-number>
                 </p>
-                <p class="td">
+                <p class="td" v-if="goodsData.goodsType == '3'">
                   <el-input-number
                     style="width: 90%"
                     v-for="(lineChild, lineIdx) in item.children"
@@ -397,8 +431,15 @@
           </div>
         </li>
         <li class="ags">
-          <el-button type="success" plain>取消</el-button>
-          <el-button type="success" @click="submitForm">发布</el-button>
+          <el-button
+            type="success"
+            @click="$router.push({ path: '/goods/list' })"
+            plain
+            >取消</el-button
+          >
+          <el-button type="success" :loading="subLoading" @click="submitForm"
+            >发布</el-button
+          >
         </li>
       </ul>
     </el-scrollbar>
@@ -411,7 +452,15 @@
       :showImgMaterial="isShow"
       :selectNum="selectNum"
     />
-
+    <materialVideo
+      :limitType="true"
+      :showVideoMaterial="showVideoMaterial"
+      :multiple="false"
+      :totalNum="1"
+      :selectNum="0"
+      @onlyclose="showVideoMaterial = false"
+      @subMit="subMitVideo"
+    />
     <!-- 规格名 -->
     <el-dialog
       title="规格名"
@@ -487,6 +536,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
 import materialImg from "@/components/gallery/materialImg.vue";
+import materialVideo from "@/components/gallery/materialVideo.vue";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
 import selectClassify from "@/components/common/selectClassify.vue";
@@ -497,6 +547,7 @@ import { goodsPush } from "@/api/goods";
     back,
     Tinymce,
     materialImg,
+    materialVideo,
     selectClassify,
   },
 })
@@ -513,7 +564,7 @@ export default class extends mixins(ResizeMixin1) {
     stopBooking: "", //截止时间
     estimatedDelivery: "", //发货时间
     goodsDetails: "", //商品详情
-    specArr:''
+    specArr: "",
   };
   private totalNum = 1;
   // 商品类型
@@ -529,6 +580,10 @@ export default class extends mixins(ResizeMixin1) {
     {
       value: "2", //10-30
       label: "预定商品",
+    },
+    {
+      value: "3", //10-30
+      label: "特价商品",
     },
   ];
 
@@ -571,6 +626,9 @@ export default class extends mixins(ResizeMixin1) {
 
   private icon = require("@/assets/header-icon/goods.png");
   private isShow = false;
+  private subLoading = false;
+  private showVideoMaterial = false;
+  private videoForm: Array<any> = [];
   private specArr: Array<any> = [
     {
       specName: "",
@@ -664,7 +722,10 @@ export default class extends mixins(ResizeMixin1) {
     this.specNameForm.specName = "";
     this.specNameShow = false;
   }
-
+  subMitVideo(e: any) {
+    this.showVideoMaterial = false;
+    this.videoForm = e;
+  }
   // 规格名弹出框 确定操作
   addSpecName() {
     const i = this.specNameForm.fatherIndex;
@@ -888,7 +949,7 @@ export default class extends mixins(ResizeMixin1) {
     }
   }
 
-  async submitForm(formName: any) {
+  submitForm(formName: any) {
     // console.log(this.goodsData);
     if (!this.goodsData.categoryCode) {
       this.$message.error("请选择商品分类");
@@ -911,6 +972,22 @@ export default class extends mixins(ResizeMixin1) {
       return;
     }
 
+    if (this.goodsData.goodsType == "2" && !this.goodsData.stopBooking) {
+      this.$message.error("请选择预定截止时间");
+      return;
+    }
+    if (this.goodsData.goodsType == "1" && !this.goodsData.stopBooking) {
+      this.$message.error("请选择认领截止时间");
+      return;
+    }
+    if (
+      this.goodsData.goodsType !== "0" &&
+      this.goodsData.goodsType !== "3" &&
+      !this.goodsData.estimatedDelivery
+    ) {
+      this.$message.error("请选择预计发货时间");
+      return;
+    }
     if (this.specData.length == 0) {
       this.$message.error("请添加商品规格");
       return;
@@ -982,7 +1059,24 @@ export default class extends mixins(ResizeMixin1) {
     });
     this.goodsData.goodsCover = arr.join(",");
     this.goodsData.goodsRotationChart = arr1.join(",");
-    await goodsPush(this.goodsData);
+    this.subLoading = true;
+    goodsPush(this.goodsData).then((res: any) => {
+      console.log("发布商品", res);
+      if (res.code == 200) {
+        this.$message({
+          message: "发布成功",
+          type: "success",
+        });
+        setTimeout(() => {
+          this.$router.replace({
+            path: "/goods/list",
+          });
+        }, 1000);
+      } else {
+        this.subLoading = false;
+        this.$message.error(res.message);
+      }
+    });
   }
 
   // 点击添加参数
@@ -1045,6 +1139,9 @@ export default class extends mixins(ResizeMixin1) {
         this.currentSpecChildIdx
       ].skuImageUrl = e[0].imgUrl;
     console.log(this.specData);
+  }
+  showVideoMaterialDia() {
+    this.showVideoMaterial = true;
   }
 }
 </script>

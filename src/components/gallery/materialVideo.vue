@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :visible.sync="showImgMaterial"
+    :visible.sync="showVideoMaterial"
     width="1200px"
     :show-close="false"
     :before-close="handleClose"
@@ -8,8 +8,13 @@
   >
     <div class="dashboard-container">
       <div class="adduploads u_f_ajs">
-        <div>图片库</div>
-        <el-button type="success" :disabled="selectImgArr.length > 0" @click="uploadImg = true">添加图片</el-button>
+        <div>视频库</div>
+        <el-button
+          type="success"
+          :disabled="selectImgArr.length > 0"
+          @click="uploadImg = true"
+          >添加视频</el-button
+        >
       </div>
       <el-container>
         <div class="aside" style="width: 166px">
@@ -62,9 +67,9 @@
 
     <span slot="footer" class="dialog-footer u_f_ajs">
       <p class="tips">
-        您已选中{{ selectNum + selectImgArr.length }}张，还可以选择{{
+        您已选中{{ selectNum + selectImgArr.length }}条，还可以选择{{
           totalNum - selectNum - selectImgArr.length
-        }}张
+        }}条
       </p>
       <div>
         <el-button type="success" @click="handleClose" plain>取 消</el-button>
@@ -72,10 +77,10 @@
       </div>
     </span>
 
-    <!-- 上传图片 -->
+    <!-- 上传视频 -->
     <el-dialog
       class="imgDia1"
-      title="上传图片"
+      title="上传视频"
       :visible.sync="uploadImg"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
@@ -84,21 +89,37 @@
       width="65%"
     >
       <el-upload
-        :class="{ hide: hideUpload }"
-        ref="upload"
+        class="uploader"
         :action="action"
         name="file"
-        :multiple="true"
-        list-type="picture-card"
-        :on-success="imgUp"
-        :on-remove="imgRemove"
-        :before-upload="beforeAvatarUpload"
+        ref="upload"
+        :on-progress="uploadVideoProcess"
+        :on-success="handleVideoSuccess"
+        :before-upload="beforeUploadVideo"
+        :show-file-list="false"
       >
-        <i class="el-icon-plus"></i>
-        <div slot="tip" class="el-upload__tip">
-          仅支持 gif、 jpeg、 png、 bmp 4种格式, 大小不超过3.0 MB
-        </div>
+        <video
+          v-if="videoData.imgUrl != '' && !videoFlag"
+          :src="galleryList[0].imgUrl"
+          style="width: 300px; height: 200px"
+          class="avatar video-avatar"
+          controls="controls"
+        >
+          您的浏览器不支持视频播放
+        </video>
+        <el-button v-if="videoData.imgUrl == '' && !videoFlag" type="success"
+          >添加视频</el-button
+        >
+        <el-progress
+          v-if="videoFlag == true"
+          type="circle"
+          :percentage="videoUploadPercent"
+          style="margin-top: 7px"
+        ></el-progress>
       </el-upload>
+      <div>
+        视频不能超过20M，支持mp4，mov，m4v，flv,x-flv，mkv，wmv，avi，rmvb，3gp视频格式
+      </div>
 
       <span slot="footer" class="dialog-footer">
         <el-button type="success" plain @click="uploadImgClose"
@@ -126,16 +147,16 @@ import {
   upPhotos,
 } from "@/api/material";
 @Component({
-  name: "materialImg",
+  name: "materialVideo",
   components: {},
 })
 export default class extends Vue {
-  @Prop({ default: false }) showImgMaterial!: Boolean;
+  @Prop({ default: false }) showVideoMaterial!: Boolean;
   @Prop({ default: true }) limitType!: Boolean; // 是否限制了上传数量 true支持  false不支持
   @Prop({ default: false }) multiple!: Boolean; // 本地上传是否支持多选  true支持  false不支持
   @Prop({ default: 5 }) totalNum!: any; // 可选择的总数
   @Prop({ default: 0 }) selectNum!: any; // 已选择数量
-  @Watch("showImgMaterial")
+  @Watch("showVideoMaterial")
   onChangeValue(newVal: string, oldVal: string) {
     // todo...
     if (newVal) {
@@ -175,6 +196,13 @@ export default class extends Vue {
   private loading = false;
   private selectedOptions: Array<any> = [];
   private total = 0;
+
+  private videoData: any = { imgUrl: "" }; // 选中的图片
+
+  private videoImg = "";
+  private videoFlag = false;
+  private videoUploadPercent = 0;
+  private isShowUploadVideo = false;
   async created() {
     await this.init();
   }
@@ -212,7 +240,7 @@ export default class extends Vue {
         this.totalNum - this.selectNum - this.selectImgArr.length <= 0
       ) {
         this.$message({
-          message: "已超过添加最大图片数量",
+          message: "已超过添加最大视频数量",
           type: "warning",
         });
         return;
@@ -229,7 +257,7 @@ export default class extends Vue {
   subMit() {
     console.log("this.selectImgArr", this.selectImgArr);
     if (this.selectImgArr.length == 0) {
-      this.$message.error("请先选择图片");
+      this.$message.error("请先选择视频");
       return;
     }
     this.$emit("subMit", this.selectImgArr);
@@ -240,16 +268,6 @@ export default class extends Vue {
     // console.log(page)
     this.getImgsForm.pageNo = page;
     this.clickSider(this.item, this.active, this.getImgsForm.pageNo);
-  }
-  showUploadImg() {
-    if (
-      this.limitType &&
-      this.totalNum - this.selectNum - this.selectImgArr.length <= 0
-    ) {
-      this.$message.error("已超过添加最大图片数量");
-      return;
-    }
-    this.uploadImg = true;
   }
   // 点击图片判断是否显示遮罩层
   isLayer(e: any) {
@@ -272,25 +290,11 @@ export default class extends Vue {
     console.log(e);
     this.selectImgArr = e;
   }
-  handleAvatarSuccess(res: any, file: any) {
-    this.imageUrl = URL.createObjectURL(file.raw);
-  }
-  beforeAvatarUpload(file: any) {
-    const isJPG = file.type === "image/jpeg";
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isJPG) {
-      this.$message.error("上传头像图片只能是 JPG 格式!");
-    }
-    if (!isLt2M) {
-      this.$message.error("上传头像图片大小不能超过 2MB!");
-    }
-    return isJPG && isLt2M;
-  }
 
-  // 图片 上传请求
+  // 视频 上传请求
   uploadImgFun() {
     if (this.galleryList.length == 0) {
-      this.$message.error("请先上传图片");
+      this.$message.error("请先上传视频");
       return;
     }
     this.uploadImgLoading = true;
@@ -301,7 +305,7 @@ export default class extends Vue {
     };
     console.log(uploadImgForm);
     upPhotos(uploadImgForm).then((res: any) => {
-      console.log("上传图片保存", res);
+      console.log("上传视频保存", res);
       if (res.code == 200) {
         this.$message({
           message: "上传成功",
@@ -320,47 +324,59 @@ export default class extends Vue {
       }
     });
   }
-  // 图片 - 上传
-  imgUp(file: any, fileList: any) {
-    console.log("--", file, fileList);
-    this.galleryList.push(file.data.id);
-    this.selectImgArr.push(file.data);
-    this.hideUpload =
-      this.totalNum - this.selectNum - this.selectImgArr.length == 0;
-    console.log(this.galleryList);
-  }
-  // 图片 - 删除
-  imgRemove(file: any, fileList: any) {
-    console.log("图片删除", file, fileList);
-    if (file.response) {
-      this.galleryList = [];
-      fileList.forEach((e: any) => {
-        this.galleryList.push(e.response.data.id);
-      });
-      let id = file.response.data.id;
-      this.selectImgArr.splice(
-        this.selectImgArr.findIndex((item) => (item.id && item.id) === id),
-        1
-      );
-      this.hideUpload =
-        this.totalNum - this.selectNum - this.selectImgArr.length == 0;
-      console.log("删除后的已选择", this.selectImgArr);
+  // 视频 - 上传
+  handleVideoSuccess(res: any, file: any) {
+    console.log("上传成功", res, file);
+    this.isShowUploadVideo = true;
+    this.videoFlag = false;
+    this.videoUploadPercent = 0;
+    //后台上传地址
+    if (res.code == 200) {
+      this.videoData = res.data;
+      this.galleryList.push(res.data.id);
+    } else {
+      this.$message.error(res.Message);
     }
   }
-  // 图片 - 弹出框关闭
+
+  //进度条
+  uploadVideoProcess(event: any, file: any, fileList: any) {
+    console.log("进度条", event, file, fileList);
+    this.videoFlag = true;
+    this.videoUploadPercent = file.percentage.toFixed(0) * 1;
+  }
+
+  // 视频 - 格式检测
+  beforeUploadVideo(file: any) {
+    console.log("上传前", file);
+    var fileSize = file.size / 1024 / 1024 < 20;
+    if (
+      [
+        "video/mp4",
+        "video/mov",
+        "video/m4v",
+        "video/flv",
+        "video/x-flv",
+        "video/mkv",
+        "video/wmv",
+        "video/avi",
+        "video/rmvb",
+        "video/3gp",
+      ].indexOf(file.type) == -1
+    ) {
+      this.$message.error("请上传正确的视频格式");
+      return false;
+    }
+    if (!fileSize) {
+      this.$message.error("视频大小不能超过20MB");
+      return false;
+    }
+    this.isShowUploadVideo = false;
+  }
+
+  // 视频 - 弹出框关闭
   uploadImgClose(done: any) {
-    this.$confirm("确认关闭？")
-      .then((_) => {
-        console.log("执行了", this.galleryList);
-        this.galleryList = [];
-        this.selectImgArr = [];
-        this.uploadImg = false;
-        this.hideUpload =
-          this.totalNum - this.selectNum - this.selectImgArr.length ==
-          0(this.$refs["upload"] as any).clearFiles();
-        done();
-      })
-      .catch((_) => {});
+    this.uploadImg = false;
   }
 }
 </script>
@@ -541,5 +557,8 @@ export default class extends Vue {
   .el-dialog__body {
     margin: 0 20px;
   }
+}
+.uploader {
+  margin-bottom: 20px;
 }
 </style>

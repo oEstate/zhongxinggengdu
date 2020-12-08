@@ -6,11 +6,27 @@
   >
     <tinymce-editor :id="id" v-model="tinymceContent" :init="initOptions" />
     <div class="editor-custom-btn-container">
-      <editor-image-upload
+      <!--<editor-image-upload
         class="editor-upload-btn"
         @success-callback="imageSuccessCBK"
-      />
+      />-->
+      <el-button
+        icon="el-icon-upload"
+        size="mini"
+        type="success"
+        @click="isShow = true"
+      >
+        上传
+      </el-button>
     </div>
+    <materialImg
+      @onlyclose="isShow = false"
+      @subMit="subMit"
+      :multiple="true"
+      :totalNum="99999"
+      :showImgMaterial="isShow"
+      :selectNum="0"
+    />
   </div>
 </template>
 
@@ -63,6 +79,7 @@ import "tinymce/plugins/wordcount";
 import TinymceEditor from "@tinymce/tinymce-vue"; // TinyMCE vue wrapper
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import EditorImageUpload, { IUploadObject } from "./components/EditorImage.vue";
+import materialImg from "@/components/gallery/materialImg.vue";
 import { plugins, toolbar } from "./config";
 
 const defaultId = () =>
@@ -73,6 +90,7 @@ const defaultId = () =>
   components: {
     EditorImageUpload,
     TinymceEditor,
+    materialImg,
   },
 })
 export default class extends Vue {
@@ -84,6 +102,7 @@ export default class extends Vue {
   @Prop({ default: "360px" }) private height!: string | number;
   @Prop({ default: "auto" }) private width!: string | number;
 
+  private isShow = false;
   private hasChange = false;
   private hasInit = false;
   private fullscreen = false;
@@ -161,6 +180,15 @@ export default class extends Vue {
     const tinymce = (window as any).tinymce.get(this.id);
     arr.forEach((v) => {
       tinymce.insertContent(`<img class="wscnph" src="${v.url}" >`);
+    });
+  }
+  // 图片库确定
+  subMit(e: any) {
+    console.log(e);
+    this.isShow = false;
+    const tinymce = (window as any).tinymce.get(this.id);
+    e.forEach((v: any) => {
+      tinymce.insertContent(`<img style="max-width:100%" src="${v.imgUrl}" >`);
     });
   }
 }
