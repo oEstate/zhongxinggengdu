@@ -40,7 +40,7 @@ export default class extends mixins(ResizeMixin) {
       legend: {
         left: 'center',
         bottom: '10',
-        data: ['定南县老城镇', '定南县新城区', '定南县新城区1']
+        data: ['简阳市老城镇', '简阳市新城区', '简阳市新城区1']
       },
       series: [
         {
@@ -51,21 +51,21 @@ export default class extends mixins(ResizeMixin) {
           data: [
             {
               value: 320,
-              name: '定南县老城镇',
+              name: '简阳市老城镇',
               itemStyle: {
                 color: '#968efb'
               }
             },
             {
               value: 240,
-              name: '定南县新城区',
+              name: '简阳市新城区',
               itemStyle: {
                 color: '#FE8FA5'
               }
             },
             {
               value: 149,
-              name: '定南县新城区1',
+              name: '简阳市新城区1',
               itemStyle: {
                 color: '#33C4AF'
               }
