@@ -46,12 +46,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import { getClassify } from "@/api/selectCity";
 @Component({
   name: "selectClassify",
 })
 export default class extends Vue {
+  @Prop({ default: "" }) echo!: any;
   private options = [];
   private value = "";
   private options1 = [];
@@ -61,6 +62,17 @@ export default class extends Vue {
   async created() {
     const { data } = await getClassify({ pcode: 0 });
     this.options = data;
+  }
+  mounted() {
+    this.value = this.echo[0];
+    if (this.echo.length > 1) {
+      this.echo.map((item: any, index: any) => {
+        console.log(item)
+        this.change(index, item);
+      });
+      this.value1 = this.echo[1];
+      this.value2 = this.echo[2];
+    }
   }
   async change(type: any, val: any) {
     let pcode = val.categoryCode;
@@ -77,7 +89,6 @@ export default class extends Vue {
       case 1:
         this.options2 = [];
         this.value2 = "";
-
         const data1 = await getClassify({ pcode });
         this.options2 = data1.data;
         this.combination();

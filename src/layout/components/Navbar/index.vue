@@ -9,7 +9,7 @@
           <div class="sidebar_welcome_img">
             <img src="@/assets/common/gh.png" alt="" />
           </div>
-          <div class="sidebar_welcome_title">定南县人民政府</div>
+          <div class="sidebar_welcome_title">简阳市人民政府</div>
           <div class="sidebar_welcome_text">您好！欢迎登录</div>
         </div>
       </div>

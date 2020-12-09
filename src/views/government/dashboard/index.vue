@@ -106,7 +106,7 @@
                 <li class="pie-chart-list-item1 u_f">
                   <div class="u_f_ac w55">
                     <span class="pie-chart-item-icon icon-color1"></span>
-                    <span>定南县老城镇</span>
+                    <span>简阳市老城镇</span>
                   </div>
                   <div class="w25">1900</div>
                   <div class="w20">28%</div>
@@ -114,7 +114,7 @@
                 <li class="pie-chart-list-item1 u_f">
                   <div class="u_f_ac w55">
                     <span class="pie-chart-item-icon icon-color2"></span>
-                    <span>定南县老城镇</span>
+                    <span>简阳市老城镇</span>
                   </div>
                   <div class="w25">1900</div>
                   <div class="w20">28%</div>
@@ -122,7 +122,7 @@
                 <li class="pie-chart-list-item1 u_f">
                   <div class="u_f_ac w55">
                     <span class="pie-chart-item-icon icon-color3"></span>
-                    <span>定南县老城镇</span>
+                    <span>简阳市老城镇</span>
                   </div>
                   <div class="w25">1900</div>
                   <div class="w20">28%</div>
@@ -146,7 +146,7 @@
                 <li class="pie-chart-list-item1 u_f">
                   <div class="u_f_ac w55">
                     <span class="pie-chart-item-icon icon-color1"></span>
-                    <span>定南县老城镇</span>
+                    <span>简阳市老城镇</span>
                   </div>
                   <div class="w25">1900</div>
                   <div class="w20">28%</div>
@@ -154,7 +154,7 @@
                 <li class="pie-chart-list-item1 u_f">
                   <div class="u_f_ac w55">
                     <span class="pie-chart-item-icon icon-color2"></span>
-                    <span>定南县老城镇</span>
+                    <span>简阳市老城镇</span>
                   </div>
                   <div class="w25">1900</div>
                   <div class="w20">28%</div>
@@ -162,7 +162,7 @@
                 <li class="pie-chart-list-item1 u_f">
                   <div class="u_f_ac w55">
                     <span class="pie-chart-item-icon icon-color3"></span>
-                    <span>定南县老城镇</span>
+                    <span>简阳市老城镇</span>
                   </div>
                   <div class="w25">1900</div>
                   <div class="w20">28%</div>

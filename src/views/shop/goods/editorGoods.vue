@@ -25,7 +25,7 @@
         <li class="ag">
           <div class="from-itrm-l">商品分类</div>
           <div class="phone">
-            <selectClassify @getClassify="getClassify" />
+            <selectClassify @getClassify="getClassify" :echo="echo" />
           </div>
         </li>
 
@@ -553,6 +553,32 @@ import { getGoodsById, upGoodsById } from "@/api/goods";
   },
 })
 export default class extends mixins(ResizeMixin1) {
+  private echo = [
+    {
+      categoryCode: "1",
+      categoryName: "一级分类",
+      flag: 0,
+      pCode: "0",
+      pageNo: 10,
+      pageSize: 1
+    },
+    {
+      categoryCode: "2",
+      categoryName: "二级分类",
+      flag: 0,
+      pCode: "0",
+      pageNo: 10,
+      pageSize: 1
+    },
+    {
+      categoryCode: "3",
+      categoryName: "三级分类",
+      flag: 0,
+      pCode: "0",
+      pageNo: 10,
+      pageSize: 1
+    }
+  ];
   private goodsData: any = {
     goodsType: "0", // 默认商品类型
     categoryCode: "", //商品分类id,
