@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <back :icon="icon" titleTxt="商品管理" backTxt="商品发布" bt="30px" />
+    <back :icon="icon" titleTxt="商品管理" backTxt="商品编辑" bt="30px" />
     <el-scrollbar :style="{ height: clientHeight - 288 + 'px' }">
       <ul class="from">
         <li class="ag">
@@ -540,7 +540,8 @@ import materialVideo from "@/components/gallery/materialVideo.vue";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
 import selectClassify from "@/components/common/selectClassify.vue";
-import { goodsPush } from "@/api/goods";
+import { getGoodsById, upGoodsById } from "@/api/goods";
+
 @Component({
   name: "addGoods",
   components: {
@@ -566,6 +567,7 @@ export default class extends mixins(ResizeMixin1) {
     goodsDetails: "", //商品详情
     specArr: "",
   };
+  private echoData: any = {};
   private totalNum = 1;
   // 商品类型
   private options = [
@@ -678,7 +680,42 @@ export default class extends mixins(ResizeMixin1) {
   private currentSpecIdx = 0;
   private currentSpecChildIdx = 0;
   private specShow = false;
+  private loading = false;
+  created() {
+    this.init(this.$route.query.id);
+  }
+  async init(id: any) {
+    this.loading = true;
+    const { data } = await getGoodsById({ id });
+    console.log(data);
 
+    this.goodsImg = [{ imgUrl: data.goodsCover }];
+    let arr = data.goodsRotationChart.split(",");
+    let arr1: any = [];
+    arr.map((item: any) => {
+      arr1.push({ imgUrl: item });
+    });
+    this.goodsImg1 = arr1;
+    this.specData = data.children;
+    this.specArr = data.specArr;
+    // console.log(this.goodsImg);
+    let obj = {
+      goodsType: data.goodsType, // 默认商品类型
+      categoryCode: "", //商品分类id,
+      goodsTitle: data.goodsTitle, // "商品标题",
+      goodsDescribe: data.goodsDescribe, //"商品简介"
+      goodsCover: "", //"商品封面url"
+      goodsRotationChart: "", //商品轮播图
+      czGoodsSpecificationsFirstList: [], //规格
+      bookingPrice: data.bookingPrice, //预售价格百分比
+      stopBooking: data.stopBooking, //截止时间
+      estimatedDelivery: data.estimatedDelivery, //发货时间
+      goodsDetails: data.goodsDetails, //商品详情
+      specArr: data.specArr,
+    };
+    this.goodsData = obj;
+    this.loading = false;
+  }
   //获取选中的商品分类
   getClassify(classify: any) {
     console.log(classify);
@@ -1067,7 +1104,7 @@ export default class extends mixins(ResizeMixin1) {
       this.goodsData.bookingPrice = this.deposit;
     }
     this.subLoading = true;
-    goodsPush(this.goodsData).then((res: any) => {
+    getGoodsById(this.goodsData).then((res: any) => {
       console.log("发布商品", res);
       if (res.code == 200) {
         this.$message({

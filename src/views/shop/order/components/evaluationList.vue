@@ -40,14 +40,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { getOrderList, getRefunt, getcommentList } from "@/api/order";
 @Component({
-  name: 'evaluationList',
-  components: {
-  }
+  name: "evaluationList",
+  components: {},
 })
 export default class extends Vue {
-  private url = 'http://dwz.date/dp5k';
+  private pageNo = 1;
+  private pageSize = 15;
+  private total = 0;
+  private url = "http://dwz.date/dp5k";
   private value = 3.5;
   private tableData = [
     1,
@@ -69,12 +72,17 @@ export default class extends Vue {
     1,
     1,
     1,
-    1
+    1,
   ];
 
   created() {}
+      //初始化
+  async init() {
+    const { data } = await getcommentList({});
+    console.log(data.list);
+  }
   addColumn() {
-    this.$router.push({ path: '/views/addColumn' })
+    this.$router.push({ path: "/views/addColumn" });
   }
 }
 </script>

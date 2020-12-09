@@ -10,7 +10,7 @@
       <vlChar />
       <messageItem />-->
 
-      <tabs :tabsData="tabsData" :tabsActive="tabsActive" @getPath="getPath">
+      <tabs :tabsData="tabsData" :tabsActive="tabsActive" @getPath="getPath" :isComponent="isComponent">
         <component
           :is="isComponent"
           :appKey="appKey"

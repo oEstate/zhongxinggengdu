@@ -305,7 +305,7 @@ export default class extends Vue {
       this.$message.error("上传图片只能是 JPG 格式!");
     }
     if (!isLt3M) {
-      this.$message.error("上传图片大小不能超过 2MB!");
+      this.$message.error("上传图片大小不能超过 3MB!");
     }
     return isJPG && isLt3M;
   }

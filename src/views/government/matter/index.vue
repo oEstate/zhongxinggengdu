@@ -5,7 +5,7 @@
       <span>内容管理</span>
     </div>
     <div class="dashboard-container">
-      <tabs :tabsData="userType == '4'?tabsData:tabsData1" :tabsActive="tabsActive" @getPath="getPath">
+      <tabs :tabsData="userType == '4'?tabsData:tabsData1" :tabsActive="tabsActive" @getPath="getPath" :isComponent="isComponent">
         <component :is="isComponent"></component>
       </tabs>
     </div>

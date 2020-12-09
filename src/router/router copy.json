@@ -43,6 +43,13 @@
         "meta": {
           "title": "商品发布"
         }
+      },
+      {
+        "path": "editor",
+        "component": "shop/goods/editorGoods.vue",
+        "meta": {
+          "title": "商品编辑"
+        }
       }
     ]
   },

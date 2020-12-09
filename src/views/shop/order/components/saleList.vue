@@ -17,7 +17,7 @@
         </el-select>
         <el-select class="ml22" v-model="value" placeholder="请选择">
           <el-option
-            v-for="item in options"
+            v-for="item in options1"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -35,12 +35,12 @@
       :header-cell-style="{
         background: '#E8EFEC',
         color: '#333',
-        textAlign: 'center'
+        textAlign: 'center',
       }"
       :cell-style="{
         background: '#F3F6F5',
         color: '#333',
-        textAlign: 'center'
+        textAlign: 'center',
       }"
     >
       <el-table-column
@@ -85,7 +85,7 @@
         width="200"
       >
       </el-table-column>
-            <el-table-column
+      <el-table-column
         :show-overflow-tooltip="true"
         prop="address"
         label="退款金额"
@@ -125,81 +125,124 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { getOrderList, getRefunt, getcommentList } from "@/api/order";
 @Component({
-  name: 'saleList'
+  name: "saleList",
 })
 export default class extends Vue {
+  private pageNo = 1;
+  private pageSize = 15;
+  private total = 0;
   private options = [
     {
-      value: '选项1',
-      label: '黄金糕'
+      value: "",
+      label: "全部",
     },
     {
-      value: '选项2',
-      label: '双皮奶'
+      value: "选项1",
+      label: "黄金糕",
     },
     {
-      value: '选项3',
-      label: '蚵仔煎'
+      value: "选项2",
+      label: "双皮奶",
     },
     {
-      value: '选项4',
-      label: '龙须面'
+      value: "选项3",
+      label: "蚵仔煎",
     },
     {
-      value: '选项5',
-      label: '北京烤鸭'
-    }
+      value: "选项4",
+      label: "龙须面",
+    },
+    {
+      value: "选项5",
+      label: "北京烤鸭",
+    },
+  ];
+    private options1 = [
+    {
+      value: "",
+      label: "全部",
+    },
+    {
+      value: "选项1",
+      label: "黄金糕",
+    },
+    {
+      value: "选项2",
+      label: "双皮奶",
+    },
+    {
+      value: "选项3",
+      label: "蚵仔煎",
+    },
+    {
+      value: "选项4",
+      label: "龙须面",
+    },
+    {
+      value: "选项5",
+      label: "北京烤鸭",
+    },
   ];
 
-  private value = '';
+  private value = "";
   private tableData = [
     {
-      date: '2016-05-02',
-      name: '张三1',
-      address: '上海市普陀区金沙江路 1518 弄'
+      value: "",
+      label: "全部",
     },
     {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
+      date: "2016-05-02",
+      name: "张三1",
+      address: "上海市普陀区金沙江路 1518 弄",
     },
     {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
+      date: "2016-05-04",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1517 弄",
     },
     {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
+      date: "2016-05-01",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1519 弄",
     },
     {
-      date: '2016-05-02',
-      name: '张三1',
-      address: '上海市普陀区金沙江路 1518 弄'
+      date: "2016-05-03",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1516 弄",
     },
     {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
+      date: "2016-05-02",
+      name: "张三1",
+      address: "上海市普陀区金沙江路 1518 弄",
     },
     {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
+      date: "2016-05-04",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1517 弄",
     },
     {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    }
+      date: "2016-05-01",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1519 弄",
+    },
+    {
+      date: "2016-05-03",
+      name: "张三",
+      address: "上海市普陀区金沙江路 1516 弄",
+    },
   ];
 
   created() {}
+  //初始化
+  async init() {
+    const { data } = await getRefunt({});
+    console.log(data.list);
+  }
   addColumn() {
-    this.$router.push({ path: '/views/addColumn' })
+    this.$router.push({ path: "/views/addColumn" });
   }
 }
 </script>
