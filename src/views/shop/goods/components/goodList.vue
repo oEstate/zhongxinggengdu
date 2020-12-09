@@ -5,8 +5,15 @@
         <el-input placeholder="请输入内容">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
-        <el-button class="query_btn" type="success" @click="change">搜索</el-button>
-        <el-select @change="change" class="ml22" v-model="goodsType" placeholder="请选择">
+        <el-button class="query_btn" type="success" @click="change"
+          >搜索</el-button
+        >
+        <el-select
+          @change="change"
+          class="ml22"
+          v-model="goodsType"
+          placeholder="请选择"
+        >
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -15,7 +22,12 @@
           >
           </el-option>
         </el-select>
-        <el-select @change="change" class="ml22" v-model="goodsStatus" placeholder="请选择">
+        <el-select
+          @change="change"
+          class="ml22"
+          v-model="goodsStatus"
+          placeholder="请选择"
+        >
           <el-option
             v-for="item in options1"
             :key="item.value"
@@ -101,7 +113,7 @@
       <el-table-column label="操作" width="180" fixed="right">
         <template slot-scope="scope">
           <el-button type="text">预览</el-button>
-          <el-button type="text">编辑</el-button>
+          <el-button type="text" @click="editorGoods(scope.row.id)">编辑</el-button>
           <el-button
             type="text"
             @click="
@@ -230,13 +242,15 @@ export default class extends Vue {
       type: "success",
     });
   }
-  change(){
+  change() {
     this.init(1);
   }
   addGoods() {
     this.$router.push({ path: "/goods/add" });
   }
-
+  editorGoods(id:any) {
+    this.$router.push({ path: `/goods/editor?id=${id}` });
+  }
   handleSelectionChange(val: any) {
     this.multipleSelection = val;
   }

@@ -20,42 +20,17 @@ export const batchLoadingAndUnloading = (data: any) =>
         method: 'post',
         data
     })
-//上传图片
-export const addPhotos = (params: any) =>
+//获取商品详情
+export const getGoodsById = (data: any) =>
     request({
-        url: '/photoController/addPhotos',
-        method: 'get',
-        params
-    })
-//删除素材库图片
-export const delPhotos = (data: any) =>
-    request({
-        url: '/photoController/delPhotos',
+        url: '/goodsController/getGoodsById',
         method: 'post',
         data
     })
-//查询素材库图片
-export const selectCzMaterialLibraryClassification = (data: any) =>
+//商品编辑发布
+export const upGoodsById = (data: any) =>
     request({
-        url: '/photoController/selectCzMaterialLibraryClassification',
-        method: 'post',
-        data
-    })
-
-//上传素材库图片
-export const upPhotos = (data: any) =>
-    request({
-        url: '/photoController/upPhotos',
-        method: 'post',
-        data
-    })
-
-//上传图片
-
-
-export const searchPhoto = (data: any) =>
-    request({
-        url: '/photoController/searchPhoto',
+        url: '/goodsController/upGoodsById',
         method: 'post',
         data
     })

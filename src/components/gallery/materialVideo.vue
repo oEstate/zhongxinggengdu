@@ -191,7 +191,7 @@ export default class extends Vue {
   private galleryList: Array<any> = []; // 准备上传的图片数据
   private action = `${process.env.VUE_APP_BASE_API}/photoController/addPhotos`;
   private siderData: Array<any> = [];
-  private item: any = { className: "未分组", id: -1 }; // 准备上传的图片数据
+  private item: any = { className: "未分组", id: -2 }; // 准备上传的图片数据
   private active = 0;
   private loading = false;
   private selectedOptions: Array<any> = [];
@@ -208,8 +208,8 @@ export default class extends Vue {
   }
   //初始化素材分类
   async init() {
-    this.siderData = [{ className: "未分组", id: -1 }];
-    const { data } = await selectCzMaterialLibrary({ id: 1 });
+    this.siderData = [{ className: "未分组", id: -2 }];
+    const { data } = await selectCzMaterialLibrary({ id: 2 });
     console.log(data.list);
     this.siderData = this.siderData.concat(data.list);
     this.clickSider(this.item, this.active, this.getImgsForm.pageNo);

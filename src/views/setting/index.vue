@@ -9,7 +9,7 @@
       <span>账号设置</span>
     </div>
     <div class="dashboard-container">
-      <tabs :tabsData="tabsData" :tabsActive="tabsActive" @getPath="getPath">
+      <tabs :tabsData="tabsData" :tabsActive="tabsActive" @getPath="getPath" :isComponent="isComponent">
         <component :is="isComponent" @changeShop="changeShop"></component>
       </tabs>
     </div>

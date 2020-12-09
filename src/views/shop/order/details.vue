@@ -1,11 +1,6 @@
 <template>
   <div class="container">
-    <back
-      :icon="icon"
-      titleTxt="订单管理"
-      backTxt="订单详情"
-      bt="20px"
-    />
+    <back :icon="icon" titleTxt="订单管理" backTxt="订单详情" bt="20px" />
     <ul>
       <li class="u_f">
         <div class="lable">下单时间</div>
@@ -66,27 +61,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import back from '@/components/header/back.vue'
-import Tinymce from '@/components/Tinymce/index.vue'
-
+import { Component, Vue, Watch } from "vue-property-decorator";
+import back from "@/components/header/back.vue";
+import Tinymce from "@/components/Tinymce/index.vue";
+import { getOrderList, getRefunt, getcommentList } from "@/api/order";
 @Component({
-  name: 'matterAdd',
+  name: "matterAdd",
   components: {
     back,
-    Tinymce
-  }
+    Tinymce,
+  },
 })
 export default class extends Vue {
-  private icon = require('@/assets/header-icon/order.png');
-  private content = '';
-  private shopName = '';
+  private icon = require("@/assets/header-icon/order.png");
+  private content = "";
+  private shopName = "";
+
+  //初始化
+  async init() {
+    const { data } = await getRefunt({});
+    console.log(data.list);
+  }
   changeShop() {
-    this.$emit('changeShop', 'binding')
+    this.$emit("changeShop", "binding");
   }
 
   next() {
-    this.$emit('changeShop', 'bindingPhone')
+    this.$emit("changeShop", "bindingPhone");
   }
 }
 </script>

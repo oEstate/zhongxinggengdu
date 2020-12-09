@@ -275,16 +275,23 @@ export default class extends Vue {
   handleAvatarSuccess(res: any, file: any) {
     this.imageUrl = URL.createObjectURL(file.raw);
   }
+  // 图片 - 格式检测
   beforeAvatarUpload(file: any) {
-    const isJPG = file.type === "image/jpeg";
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    console.log("file", file);
+    const isJPG =
+      file.type === "image/jpeg" ||
+      file.type === "image/gif" ||
+      file.type === "image/png" ||
+      file.type === "image/bmp";
+    console.log(isJPG);
+    const isLt3M = file.size / 1024 / 1024 < 3;
     if (!isJPG) {
-      this.$message.error("上传头像图片只能是 JPG 格式!");
+      this.$message.error("上传图片只能是 JPG 格式!");
     }
-    if (!isLt2M) {
-      this.$message.error("上传头像图片大小不能超过 2MB!");
+    if (!isLt3M) {
+      this.$message.error("上传图片大小不能超过 3MB!");
     }
-    return isJPG && isLt2M;
+    return isJPG && isLt3M;
   }
 
   // 图片 上传请求
@@ -355,9 +362,8 @@ export default class extends Vue {
         this.galleryList = [];
         this.selectImgArr = [];
         this.uploadImg = false;
-        this.hideUpload =
-          this.totalNum - this.selectNum - this.selectImgArr.length ==
-          0(this.$refs["upload"] as any).clearFiles();
+        this.hideUpload =this.totalNum - this.selectNum - this.selectImgArr.length == 0;
+        (this.$refs["upload"] as any).clearFiles();
         done();
       })
       .catch((_) => {});
