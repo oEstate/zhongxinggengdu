@@ -554,6 +554,7 @@ import { goodsPush } from "@/api/goods";
 export default class extends mixins(ResizeMixin1) {
   private goodsData: any = {
     goodsType: "0", // 默认商品类型
+    categoryData:[], //用于回显
     categoryCode: "", //商品分类id,
     goodsTitle: "", // "商品标题",
     goodsDescribe: "", //"商品简介"
@@ -681,7 +682,8 @@ export default class extends mixins(ResizeMixin1) {
 
   //获取选中的商品分类
   getClassify(classify: any) {
-    console.log(classify);
+    this.goodsData.categoryData=classify;
+    // console.log(classify);
     let endArr = classify.slice(-1);
     // console.log(endArr[0].categoryCode)
     this.goodsData.categoryCode = endArr[0].categoryCode;

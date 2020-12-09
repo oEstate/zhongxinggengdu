@@ -25,7 +25,7 @@
         <li class="ag">
           <div class="from-itrm-l">商品分类</div>
           <div class="phone">
-            <selectClassify @getClassify="getClassify" :echo="echo" />
+            <selectClassify @getClassify="getClassify" :echo="echoData" />
           </div>
         </li>
 
@@ -553,34 +553,10 @@ import { getGoodsById, upGoodsById } from "@/api/goods";
   },
 })
 export default class extends mixins(ResizeMixin1) {
-  private echo = [
-    {
-      categoryCode: "1",
-      categoryName: "一级分类",
-      flag: 0,
-      pCode: "0",
-      pageNo: 10,
-      pageSize: 1
-    },
-    {
-      categoryCode: "2",
-      categoryName: "二级分类",
-      flag: 0,
-      pCode: "0",
-      pageNo: 10,
-      pageSize: 1
-    },
-    {
-      categoryCode: "3",
-      categoryName: "三级分类",
-      flag: 0,
-      pCode: "0",
-      pageNo: 10,
-      pageSize: 1
-    }
-  ];
+
   private goodsData: any = {
     goodsType: "0", // 默认商品类型
+    categoryData:[], //用于回显
     categoryCode: "", //商品分类id,
     goodsTitle: "", // "商品标题",
     goodsDescribe: "", //"商品简介"
@@ -724,6 +700,7 @@ export default class extends mixins(ResizeMixin1) {
     this.goodsImg1 = arr1;
     this.specData = data.children;
     this.specArr = data.specArr;
+    this.echoData= data.categoryData;
     // console.log(this.goodsImg);
     let obj = {
       goodsType: data.goodsType, // 默认商品类型
@@ -744,6 +721,7 @@ export default class extends mixins(ResizeMixin1) {
   }
   //获取选中的商品分类
   getClassify(classify: any) {
+        this.goodsData.categoryData=classify;
     console.log(classify);
     let endArr = classify.slice(-1);
     // console.log(endArr[0].categoryCode)
