@@ -55,7 +55,6 @@
             <div class="item-img">
               <img :src="item.videoScreenshotUrl" alt="" />
               <div class="playIcon"><i class="el-icon-video-play"></i></div>
-              
             </div>
             <div class="item-name">{{ item.photosName }}</div>
             <div class="item-size">{{ item.videoTime }}</div>

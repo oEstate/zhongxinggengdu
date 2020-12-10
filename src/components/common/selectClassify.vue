@@ -53,6 +53,21 @@ import { getClassify } from "@/api/selectCity";
 })
 export default class extends Vue {
   @Prop({ default: "" }) echo!: any;
+  @Watch("echo", { deep: true })
+  onChangeValue(newVal: any, oldVal: any) {
+    // todo...
+    if (newVal) {
+      this.value = newVal[0];
+      newVal.map((item: any, index: any) => {
+        console.log(item);
+        this.change(index, item);
+      });
+      if (newVal.length > 1) {
+        this.value1 = newVal[1];
+        this.value2 = newVal[2];
+      }
+    }
+  }
   private options = [];
   private value = "";
   private options1 = [];
@@ -62,17 +77,6 @@ export default class extends Vue {
   async created() {
     const { data } = await getClassify({ pcode: 0 });
     this.options = data;
-  }
-  mounted() {
-    this.value = this.echo[0];
-    if (this.echo.length > 1) {
-      this.echo.map((item: any, index: any) => {
-        console.log(item)
-        this.change(index, item);
-      });
-      this.value1 = this.echo[1];
-      this.value2 = this.echo[2];
-    }
   }
   async change(type: any, val: any) {
     let pcode = val.categoryCode;

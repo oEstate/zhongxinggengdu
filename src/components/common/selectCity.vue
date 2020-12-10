@@ -74,12 +74,30 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import { getCity } from "@/api/selectCity";
 @Component({
   name: "selectCity",
 })
 export default class extends Vue {
+  @Prop({ default: "" }) echo!: any;
+  @Watch("echo", { deep: true })
+  onChangeValue(newVal: any, oldVal: any) {
+    // todo...
+    if (newVal) {
+      this.value = newVal[0];
+      newVal.map((item: any, index: any) => {
+        console.log(item);
+        this.change(index, item);
+      });
+      if (newVal.length > 1) {
+        this.value1 = newVal[1];
+        this.value2 = newVal[2];
+        this.value3 = newVal[3];
+        this.value4 = newVal[4];
+      }
+    }
+  }
   private options = [];
   private value = "";
   private options1 = [];
@@ -94,6 +112,7 @@ export default class extends Vue {
     const { data } = await getCity({ pcode: 0 });
     this.options = data;
   }
+  mounted() {}
   async change(type: any, val: any) {
     let pcode = val.code;
     switch (type) {
