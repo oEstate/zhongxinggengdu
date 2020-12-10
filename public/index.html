@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,36 @@
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
+
 <body>
   <noscript>
-    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
 </body>
+
 </html>
+<script type="text/javascript">
+  (function (window) {
+    var theUA = window.navigator.userAgent.toLowerCase();
+    if ((theUA.match(/msie\s\d+/) && theUA.match(/msie\s\d+/)[0]) || (theUA.match(/trident\s?\d+/) && theUA.match(
+        /trident\s?\d+/)[0])) {
+      var ieVersion = theUA.match(/msie\s\d+/)[0].match(/\d+/)[0] || theUA.match(/trident\s?\d+/)[0];
+      if (ieVersion < 11) {
+        var str = "浏览器版本过低，请升级浏览器 :(";
+        var str2 =
+          "推荐使用:<a href='https://www.baidu.com/s?ie=UTF-8&wd=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8' target='_blank' style='color:blue;'>谷歌</a>," +
+          "<a href='https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=360%E6%B5%8F%E8%A7%88%E5%99%A8&oq=%25E7%2581%25AB%25E7%258B%2590%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8&rsv_pq=920eff010018eea2&rsv_t=64aefHy3%2F2weA%2B3J2hXImOXido3PGWCiUsE%2BqW3Hckm4jNUOdQjqRvegpBQ&rqlang=cn&rsv_dl=tb&rsv_enter=0&rsv_sug3=3&rsv_sug1=5&rsv_sug7=100&rsv_btype=t&prefixsug=%2526lt%253B60%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8&rsp=0&inputT=8385&rsv_sug4=8385' target='_blank' style='color:blue;'>360</a>," +
+          "其他双核极速模式";
+        document.writeln(
+          "<pre style='text-align:center;color:#fff;background-color:#00b54d; height:100%;border:0;position:fixed;top:0;left:0;width:100%;z-index:1234'>" +
+          "<h2 style='padding-top:200px;margin:0'><strong>" + str + "<br/></strong></h2><h2>" +
+          str2 + "</h2><h2 style='margin:0'><strong>如果您的使用的是双核浏览器,请切换到极速模式访问<br/></strong></h2></pre>");
+        document.execCommand("Stop");
+      };
+    }
+  })(window);
+
+</script>

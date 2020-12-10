@@ -41,10 +41,10 @@
                 :key="index"
               >
                 <div class="item-img">
-                  <img :src="item.imgUrl" alt="" />
+                  <img :src="item.videoScreenshotUrl" alt="" />
                 </div>
                 <div class="item-name">{{ item.photosName }}</div>
-                <div class="item-size">{{ item.width }}X{{ item.height }}</div>
+                <div class="item-size">{{ item.videoTime }}</div>
                 <div class="isLayer" v-show="isLayer(item)">
                   <i class="el-icon-success"></i>
                   <span>{{ selectNumber(item) }}</span>
@@ -100,7 +100,7 @@
       >
         <video
           v-if="videoData.imgUrl != '' && !videoFlag"
-          :src="galleryList[0].imgUrl"
+          :src="videoData.imgUrl"
           style="width: 300px; height: 200px"
           class="avatar video-avatar"
           controls="controls"
@@ -332,7 +332,7 @@ export default class extends Vue {
     this.videoUploadPercent = 0;
     //后台上传地址
     if (res.code == 200) {
-      this.videoData = res.data;
+      this.videoData = res.data.list;
       this.galleryList.push(res.data.id);
     } else {
       this.$message.error(res.Message);
@@ -528,12 +528,11 @@ export default class extends Vue {
       .item-name {
         font-size: 16px;
         color: #444444;
-        margin-bottom: 4px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         width: 124px;
-        margin: 0 auto;
+        margin: 4px auto;
       }
       .item-size {
         font-size: 13px;

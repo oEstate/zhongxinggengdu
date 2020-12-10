@@ -110,6 +110,7 @@ class User extends VuexModule implements IUserState {
     this.SET_USERTYPE('')
     PermissionModule.REMOVE_ROUTES()
     // this.SET_ROLES([])
+    location.reload()
   }
 }
 

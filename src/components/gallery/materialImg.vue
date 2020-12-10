@@ -518,12 +518,11 @@ export default class extends Vue {
       .item-name {
         font-size: 16px;
         color: #444444;
-        margin-bottom: 4px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         width: 124px;
-        margin: 0 auto;
+        margin: 4px auto;
       }
       .item-size {
         font-size: 13px;

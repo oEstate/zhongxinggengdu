@@ -10,13 +10,6 @@ NProgress.configure({ showSpinner: false })
 const whiteList = ['/login', '/index', '/certification', '/storesCertification', '/govCertification', '/auditCertification']
 
 router.beforeEach(async(to: Route, _: Route, next: any) => {
-  // if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === 'index') {
-  //   //path:不兼容组件所在路由
-  //   alert('组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看, 浏览器不兼容通知')
-  // } else {
-  //   next();
-  // }
-
   // Sart progress bar
   NProgress.start()
   // console.log(UserModule.token)
