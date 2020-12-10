@@ -53,10 +53,12 @@
             :key="index"
           >
             <div class="item-img">
-              <img :src="item.imgUrl" alt="" />
+              <img :src="item.videoScreenshotUrl" alt="" />
+              <div class="playIcon"><i class="el-icon-video-play"></i></div>
+              
             </div>
             <div class="item-name">{{ item.photosName }}</div>
-            <div class="item-size">{{ item.width }}X{{ item.height }}</div>
+            <div class="item-size">{{ item.videoTime }}</div>
             <div class="isLayer" v-show="isLayer(item)">
               <i class="el-icon-success"></i>
             </div>
@@ -595,21 +597,31 @@ export default class extends Vue {
       }
       .item-img {
         overflow: hidden;
+        position: relative;
         img {
           width: 140px;
           height: 110px;
           border-radius: 10px 10px 0px 0px;
         }
+        .playIcon{
+          position: absolute;
+          top: 36px;
+          left: 48px;
+        }
+        .el-icon-video-play{
+          font-size: 40px;
+          color: rgba(0, 0, 0, .4);
+
+        }
       }
       .item-name {
         font-size: 16px;
         color: #444444;
-        margin-bottom: 4px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         width: 124px;
-        margin: 0 auto;
+        margin: 4px auto;
       }
       .item-size {
         font-size: 13px;

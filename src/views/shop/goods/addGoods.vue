@@ -65,11 +65,11 @@
             <img
               style="width: 100px; height: 100px"
               v-if="videoForm.length != 0"
-              :src="videoForm[0].imgUrl"
+              :src="videoForm[0].videoScreenshotUrl"
               alt=""
               class="preview"
             />
-            <div class="dec_" @click="deleteImg">
+            <div class="dec_" @click="deleteVideo">
               <i class="el-icon-delete"></i>
             </div>
           </div>
@@ -566,6 +566,8 @@ export default class extends mixins(ResizeMixin1) {
     estimatedDelivery: "", //发货时间
     goodsDetails: "", //商品详情
     specArr: "",
+    videoUrl: "",
+    vrUrl: "",
   };
   private totalNum = 1;
   // 商品类型
@@ -951,7 +953,7 @@ export default class extends mixins(ResizeMixin1) {
     }
   }
 
-  submitForm(formName: any) {
+  async submitForm(formName: any) {
     // console.log(this.goodsData);
     if (!this.goodsData.categoryCode) {
       this.$message.error("请选择商品分类");
@@ -1062,6 +1064,7 @@ export default class extends mixins(ResizeMixin1) {
     this.goodsData.goodsCover = arr.join(",");
     this.goodsData.goodsRotationChart = arr1.join(",");
     this.goodsData.czGoodsSpecificationsFirstList = this.specData;
+    this.goodsData.videoUrl=this.videoForm[0].imgUrl;
     if (this.goodsData.goodsType == "1") {
       this.goodsData.bookingPrice = this.deposit1;
     }
@@ -1069,10 +1072,9 @@ export default class extends mixins(ResizeMixin1) {
       this.goodsData.bookingPrice = this.deposit;
     }
     this.subLoading = true;
-    goodsPush(this.goodsData).then((res: any) => {
-      console.log("发布商品", res);
-      if (res.code == 200) {
-        this.$message({
+    try {
+      await goodsPush(this.goodsData);
+      this.$message({
           message: "发布成功",
           type: "success",
         });
@@ -1081,11 +1083,9 @@ export default class extends mixins(ResizeMixin1) {
             path: "/goods/list",
           });
         }, 1000);
-      } else {
-        this.subLoading = false;
-        this.$message.error(res.message);
-      }
-    });
+    } catch (err) {
+      this.subLoading = false;
+    }
   }
 
   // 点击添加参数
@@ -1105,6 +1105,10 @@ export default class extends mixins(ResizeMixin1) {
   // 删除图片
   deleteImg1(i: any) {
     this.goodsImg1.splice(i, 1);
+  }
+  // 删除视频
+  deleteVideo(i: any) {
+    this.videoForm.splice(i, 1);
   }
 
   showImgMaterialDia() {
