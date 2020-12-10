@@ -1064,7 +1064,7 @@ export default class extends mixins(ResizeMixin1) {
     this.goodsData.goodsCover = arr.join(",");
     this.goodsData.goodsRotationChart = arr1.join(",");
     this.goodsData.czGoodsSpecificationsFirstList = this.specData;
-    this.goodsData.videoUrl=this.videoForm[0].imgUrl;
+    this.goodsData.videoUrl=this.videoForm.length>0?this.videoForm[0].imgUrl:'';
     if (this.goodsData.goodsType == "1") {
       this.goodsData.bookingPrice = this.deposit1;
     }

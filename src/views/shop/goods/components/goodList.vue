@@ -75,7 +75,7 @@
       </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
-        prop="goodsName"
+        prop="goodsTitle"
         label="商品名称"
         width="200"
       >

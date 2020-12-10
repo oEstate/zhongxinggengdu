@@ -42,6 +42,7 @@
               >
                 <div class="item-img">
                   <img :src="item.videoScreenshotUrl" alt="" />
+                  <div class="playIcon"><i class="el-icon-video-play"></i></div>
                 </div>
                 <div class="item-name">{{ item.photosName }}</div>
                 <div class="item-size">{{ item.videoTime }}</div>
@@ -519,10 +520,20 @@ export default class extends Vue {
       }
       .item-img {
         overflow: hidden;
+        position: relative;
         img {
           width: 140px;
           height: 110px;
           border-radius: 10px 10px 0px 0px;
+        }
+        .playIcon{
+          position: absolute;
+          top: 36px;
+          left: 48px;
+        }
+        .el-icon-video-play{
+          font-size: 40px;
+          color: rgba(0, 0, 0, .4);
         }
       }
       .item-name {

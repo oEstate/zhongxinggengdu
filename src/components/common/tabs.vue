@@ -6,7 +6,7 @@
       :label="item.label"
       :name="item.name"
     >
-      <slot v-if="item.path == isComponent" />
+      <slot v-if="item.path == isComponent ||isComponent=='basicAlter'||isComponent=='bindingPhoneValidation'||isComponent=='bindingPhone'" />
     </el-tab-pane>
   </el-tabs>
 </template>

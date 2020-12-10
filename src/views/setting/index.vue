@@ -67,6 +67,7 @@ export default class extends Vue {
   }
 
   changeShop(e: any) {
+    console.log(e)
     this.isComponent = e
   }
 }
