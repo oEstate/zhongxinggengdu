@@ -124,7 +124,7 @@ export default class extends Vue {
   };
 
   private loginForm = {
-    phone: "15000000000",
+    phone: "15333333333",
     verificode: "111111",
   };
 

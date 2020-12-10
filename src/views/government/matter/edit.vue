@@ -23,6 +23,7 @@ import convenience from './components/convenience.vue'
 import customs from './components/customs.vue'
 import opengov from './components/opengov.vue'
 import tabs from '@/components/common/tabs.vue'
+import { addColumn,addContent,delColumn,delContent,queryColumn,queryContent,upColumn,upContent } from "@/api/information";
 @Component({
   name: 'Dashboard',
   components: {
