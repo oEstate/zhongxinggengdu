@@ -47,7 +47,7 @@ import back from "@/components/header/back.vue";
 import Tinymce from "@/components/Tinymce/index.vue";
 import { mixins } from "vue-class-component";
 import ResizeMixin1 from "@/layout/mixin/resize1";
-
+import { addColumn,addContent,delColumn,delContent,queryColumn,queryContent,upColumn,upContent } from "@/api/information";
 @Component({
   name: "matterAdd",
   components: {
