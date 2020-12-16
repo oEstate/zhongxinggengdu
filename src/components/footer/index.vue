@@ -2,11 +2,9 @@
   <div class="footer">
     <div class="footer-top">
       <el-link :underline="false" class="nav-button">关于我们</el-link> |
-      <el-link :underline="false" class="nav-button">联系我们</el-link> |
-      <el-link :underline="false" class="nav-button">International</el-link> |
-      <el-link :underline="false" class="nav-button">About Alipay</el-link>
+      <el-link :underline="false" class="nav-button">联系我们</el-link>
     </div>
-    <div class="icp">ICP证：沪B2-20150087</div>
+    <div class="icp">京ICP备2020046644号</div>
   </div>
 </template>
 
