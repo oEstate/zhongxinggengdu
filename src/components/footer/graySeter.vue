@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="icp">ICP证：沪B2-20150087</div>
+    <div class="icp">京ICP备2020046644号</div>
   </div>
 </template>
 
