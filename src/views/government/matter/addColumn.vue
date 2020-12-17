@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <back :icon="icon" titleTxt="内容管理" backTxt="新增栏目" />
-    <el-scrollbar :style="{height: clientHeight-310+'px'}">
+    <back :icon="icon" titleTxt="内容管理" :backTxt="backTxt" />
+    <el-scrollbar :style="{ height: clientHeight - 310 + 'px' }">
       <ul class="from">
         <li class="ag">
           <div class="from-itrm-l">栏目标题</div>
           <div class="phone">
             <el-input
-              v-model="shopName"
+              v-model.trim="contentTitle"
               placeholder="请输入栏目标题"
             ></el-input>
           </div>
@@ -15,13 +15,17 @@
         <li>
           <div class="from-itrm-l">栏目详情</div>
           <div>
-            <tinymce v-model="content" :height="400" />
+            <tinymce v-model="contentDetail" :height="600" />
           </div>
         </li>
         <li class="ags">
-          <el-button type="success" plain @click="next">取消</el-button>
-          <el-button type="success" plain @click="next">保存</el-button>
-          <el-button type="success" @click="next">发布</el-button>
+          <el-button type="success" plain @click="goBack">取消</el-button>
+          <el-button type="success" :loading="loading" plain @click="release(1)"
+            >保存</el-button
+          >
+          <el-button type="success" :loading="loading" @click="release(0)"
+            >发布</el-button
+          >
         </li>
       </ul>
     </el-scrollbar>
@@ -29,29 +33,71 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import back from '@/components/header/back.vue'
-import Tinymce from '@/components/Tinymce/index.vue'
-import { mixins } from 'vue-class-component'
-import ResizeMixin1 from '@/layout/mixin/resize1'
-import { addColumn,addContent,delColumn,delContent,queryColumn,queryContent,upColumn,upContent } from "@/api/information";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import back from "@/components/header/back.vue";
+import Tinymce from "@/components/Tinymce/indexGov.vue";
+import { mixins } from "vue-class-component";
+import ResizeMixin1 from "@/layout/mixin/resize1";
+import {
+  addColumn,
+  addContent,
+  delColumn,
+  delContent,
+  queryColumn,
+  queryContent,
+  upColumn,
+  upContent,
+} from "@/api/information";
 @Component({
-  name: 'matterAdd',
+  name: "matterAdd",
   components: {
     back,
-    Tinymce
-  }
+    Tinymce,
+  },
 })
 export default class extends mixins(ResizeMixin1) {
-  private icon = require('@/assets/header-icon/matter.png');
-  private content = '';
-  private shopName = '';
+  private loading = false;
+  private icon = require("@/assets/header-icon/matter.png");
+  private contentTitle = "";
+  private contentDetail = "";
+  private backTxt = "新增栏目";
   changeShop() {
-    this.$emit('changeShop', 'binding')
+    this.$emit("changeShop", "binding");
   }
 
-  next() {
-    this.$emit('changeShop', 'bindingPhone')
+  goBack() {
+    this.$router.go(-1);
+  }
+  // 发布
+  async release(type: any) {
+    if (!this.contentTitle) {
+      this.$message.error("请输入栏目标题");
+      return;
+    }
+    if (this.contentDetail.length < 62) {
+      this.$message.error("请输入栏目详情");
+      return;
+    }
+    this.loading = true;
+    const { data } = await addContent({
+      columnType: 0,
+      contentStatus: type,
+      contentTitle: this.contentTitle,
+      contentDetail: this.contentDetail,
+    });
+    console.log(data);
+    let str = type == 1 ? "保存成功！" : "发布成功！";
+    this.$confirm(str, "提示", {
+      confirmButtonText: "确定",
+      showCancelButton: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      showClose: false,
+      type: "success",
+    }).then(() => {
+      this.goBack();
+    });
+    this.loading = false;
   }
 }
 </script>
