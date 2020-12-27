@@ -20,10 +20,10 @@
         </li>
         <li class="ags">
           <el-button type="success" plain @click="goBack">取消</el-button>
-          <el-button type="success" :loading="loading" plain @click="release(1)"
+          <el-button type="success" :loading="loading" plain @click="modification(1)"
             >保存</el-button
           >
-          <el-button type="success" :loading="loading" @click="release(0)"
+          <el-button type="success" :loading="loading" @click="modification(0)"
             >发布</el-button
           >
         </li>
@@ -47,6 +47,7 @@ import {
   queryContent,
   upColumn,
   upContent,
+  queryContentById,
 } from "@/api/information";
 @Component({
   name: "matterAdd",
@@ -61,12 +62,34 @@ export default class extends mixins(ResizeMixin1) {
   private contentTitle = "";
   private contentDetail = "";
   private backTxt = "新增栏目";
+  created() {
+    console.log(this.$route.query.id);
+    if (this.$route.query.id) {
+      this.init(this.$route.query.id);
+      this.backTxt = "编辑栏目";
+    }
+  }
   changeShop() {
     this.$emit("changeShop", "binding");
   }
 
   goBack() {
     this.$router.go(-1);
+  }
+  //回显
+  async init(id: any) {
+    const { data } = await queryContentById({ id });
+    console.log(data);
+    this.contentTitle = data.contentTitle;
+    this.contentDetail = data.contentDetail;
+  }
+
+  modification(type: any){
+    if(this.$route.query.id){
+      this.editorRelease(type)
+    }else{
+      this.release(type)
+    }
   }
   // 发布
   async release(type: any) {
@@ -80,13 +103,46 @@ export default class extends mixins(ResizeMixin1) {
     }
     this.loading = true;
     const { data } = await addContent({
-      columnType: 0,
+      columnType: 6,
       contentStatus: type,
       contentTitle: this.contentTitle,
       contentDetail: this.contentDetail,
     });
     console.log(data);
     let str = type == 1 ? "保存成功！" : "发布成功！";
+    this.$confirm(str, "提示", {
+      confirmButtonText: "确定",
+      showCancelButton: false,
+      closeOnPressEscape: false,
+      closeOnClickModal: false,
+      showClose: false,
+      type: "success",
+    }).then(() => {
+      this.goBack();
+    });
+    this.loading = false;
+  }
+
+  // 编辑
+  async editorRelease(type: any) {
+    if (!this.contentTitle) {
+      this.$message.error("请输入栏目标题");
+      return;
+    }
+    if (this.contentDetail.length < 62) {
+      this.$message.error("请输入栏目详情");
+      return;
+    }
+    this.loading = true;
+    const { data } = await upContent({
+      id:this.$route.query.id,
+      columnType: 6,
+      contentStatus: type,
+      contentTitle: this.contentTitle,
+      contentDetail: this.contentDetail,
+    });
+    console.log(data);
+    let str = type == 1 ? "保存成功！" : "编辑成功！";
     this.$confirm(str, "提示", {
       confirmButtonText: "确定",
       showCancelButton: false,

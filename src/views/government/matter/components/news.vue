@@ -2,20 +2,23 @@
   <div>
     <div class="u_f_ajs query">
       <ul class="u_f column">
-        <li class="column_item is_column_item">热点</li>
-        <li class="column_item">定南要闻</li>
-        <li class="column_item">文化</li>
-        <li class="column_item">民生</li>
-        <li class="column_item">教育</li>
+        <li
+          @click="getData(index, item.id, 1)"
+          v-for="(item, index) in columnData"
+          :key="index"
+          class="column_item"
+          :class="active == index ? 'is_column_item' : ''"
+        >
+          {{ item.columnName }}
+        </li>
       </ul>
       <el-button type="success" @click="dialogVisible = true"
         >编辑栏目</el-button
       >
-      <!--<el-button type="success" @click="addColumn">编辑栏目</el-button>-->
     </div>
     <div class="u_f_ajs query">
       <div class="u_f">
-        <el-input placeholder="请输入内容">
+        <el-input placeholder="请输入内容" v-model="contentTitle">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
         <el-button class="query_btn" type="success">搜索</el-button>
@@ -27,15 +30,16 @@
       :data="tableData"
       border
       style="width: 100%"
+      v-loading="loading"
       :header-cell-style="{
         background: '#E8EFEC',
         color: '#333',
-        textAlign: 'center'
+        textAlign: 'center',
       }"
       :cell-style="{
         background: '#F3F6F5',
         color: '#333',
-        textAlign: 'center'
+        textAlign: 'center',
       }"
     >
       <el-table-column
@@ -76,30 +80,26 @@
       :visible.sync="dialogVisible"
       width="960px"
       center
-      :before-close="handleClose"
     >
       <el-scrollbar style="height: 374px">
         <div class="matter">
           <ul class="dialog-column u_f">
             <li
-              v-for="(item, index) in tableData"
+              v-for="(item, index) in columnData"
               :key="index"
               class="dialog-columnItem u_f_ac"
             >
-              <span class="dialog-columnItemTxt">定南要闻</span>
-              <i class="el-icon-delete"></i>
+              <span class="dialog-columnItemTxt">{{ item.columnName }}</span>
+              <i class="el-icon-delete" @click="deleteColumn(item.id)"></i>
             </li>
           </ul>
           <div class="dialog-addColumn">
-            <el-button type="success">新建栏目</el-button>
+            <el-button type="success" @click="open">新建栏目</el-button>
           </div>
-          <div class="dialog-addColumn u_f">
-            <el-input
-              v-model="shopName"
-              placeholder="请输入栏目名"
-            ></el-input>
+          <!-- <div class="dialog-addColumn u_f">
+            <el-input v-model="shopName" placeholder="请输入栏目名"></el-input>
             <el-button type="success">确认</el-button>
-          </div>
+          </div> -->
         </div>
       </el-scrollbar>
       <span slot="footer" class="dialog-footer">
@@ -115,178 +115,92 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { addColumn,addContent,delColumn,delContent,queryColumn,queryContent,upColumn,upContent } from "@/api/information";
+import { Component, Vue, Prop } from "vue-property-decorator";
+import {
+  addColumn,
+  addContent,
+  delColumn,
+  delContent,
+  queryColumn,
+  queryContent,
+  upColumn,
+  upContent,
+} from "@/api/information";
 @Component({
-  name: 'news'
+  name: "news",
 })
 export default class extends Vue {
   private dialogVisible = false;
-  private tableData = [
-    {
-      date: '2016-05-02',
-      name: '张三1',
-      address: '上海市普陀区金沙江路 1518 弄'
-    },
-    {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-04',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1517 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    },
-    {
-      date: '2016-05-01',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1519 弄'
-    },
-    {
-      date: '2016-05-03',
-      name: '张三',
-      address: '上海市普陀区金沙江路 1516 弄'
-    }
-  ];
-
-  created() {}
+  private loading = false;
+  private total = 0;
+  private pageNo = 1;
+  private pageSize = 15;
+  private active = 0;
+  private contentTitle = "";
+  private tableData = [];
+  private columnData: any = [];
+  created() {
+    this.init();
+  }
+  //回显
+  async init() {
+    const { data } = await queryColumn({ columnType: 0 });
+    this.columnData = data;
+    console.log(data);
+    let id = this.columnData.length > 0 ? this.columnData[0].id : "";
+    this.getData(0, id, this.pageNo);
+  }
   addColumn() {
-    this.$router.push({ path: '/views/addColumn' })
+    this.$router.push({ path: "/views/addColumn" });
   }
 
   addContent() {
-    this.$router.push({ path: '/views/addContent' })
+    this.$router.push({ path: "/views/addContent" });
+  }
+  open() {
+    this.$prompt("请输入栏目名", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+    })
+      .then(({ value }: any) => {
+        this.add(value);
+      })
+      .catch(() => {});
+  }
+  async add(columnName: any) {
+    const { data } = await addColumn({ columnType: 0, columnName });
+    this.init();
+  }
+  async deleteColumn(id: any) {
+    this.$confirm("此操作将永久删除该栏目, 是否继续?", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning",
+    })
+      .then(async () => {
+        const { data } = await delColumn({ id });
+        this.$message({
+          message: "操作成功",
+          type: "success",
+        });
+        this.init();
+      })
+      .catch(() => {});
+  }
+  async getData(index: any, id: any, pageNo: any) {
+    this.active = index;
+    this.loading = true;
+    const { data } = await queryContent({
+      id,
+      pageNo,
+      pageSize: this.pageSize,
+      columnType: 0,
+      contentTitle: this.contentTitle,
+    });
+    // console.log(data);
+    this.tableData = data.list;
+    this.total = data.total;
+    this.loading = false;
   }
 }
 </script>
@@ -350,10 +264,13 @@ export default class extends Vue {
     }
   }
   .dialog-addColumn {
-    .el-input{
+    .el-input {
       width: 166px;
       margin-right: 16px;
     }
   }
+}
+.el-icon-delete {
+  cursor: pointer;
 }
 </style>

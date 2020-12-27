@@ -5,7 +5,9 @@
         <el-input placeholder="请输入内容" v-model="contentTitle">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
-        <el-button class="query_btn" type="success" @click="init(1)">搜索</el-button>
+        <el-button class="query_btn" type="success" @click="init(1)"
+          >搜索</el-button
+        >
       </div>
       <el-button type="success" @click="addColumn">新增栏目</el-button>
     </div>
@@ -41,12 +43,19 @@
       </el-table-column>
       <el-table-column :show-overflow-tooltip="true" label="发布状态">
         <template slot-scope="scope">
-          {{ scope.row.contentStatus == 0 ? "已发布" : "未发布" }}
+          <el-tag
+            type="success"
+            size="mini"
+            v-if="scope.row.contentStatus == 0"
+            effect="dark"
+            >已发布</el-tag
+          >
+          <el-tag type="info" size="mini" v-else effect="dark">未发布</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" icon="el-icon-edit-outline">编辑</el-button>
+          <el-button type="text" icon="el-icon-edit-outline" @click="editorColumn(scope.row.id)">编辑</el-button>
           <el-button
             type="text"
             icon="el-icon-delete"
@@ -101,13 +110,16 @@ export default class extends Vue {
   addColumn() {
     this.$router.push({ path: "/views/addColumn" });
   }
+  editorColumn(id:any) {
+    this.$router.push({ path: `/views/addColumn?id=${id}` });
+  }
   //初始化
   async init(pageNo: any) {
     this.loading = true;
     const { data } = await queryContent({
       pageNo: pageNo,
       pageSize: this.pageSize,
-      columnType: 0,
+      columnType: 6,
       contentTitle: this.contentTitle,
     });
     // console.log(data);
@@ -140,7 +152,7 @@ export default class extends Vue {
   }
   async changeState(id: any, type: any) {
     let contentStatus = type == 0 ? 1 : 0;
-    await upContent({ id,contentStatus });
+    await upContent({ id, contentStatus });
     this.$message({
       type: "success",
       message: "操作成功!",

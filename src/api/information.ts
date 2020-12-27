@@ -55,3 +55,10 @@ export const upContent = (data: any) =>
         method: 'post',
         data
     })
+//内容模块的查
+export const queryContentById = (params: any) =>
+    request({
+        url: '/contentController/queryContentById',
+        method: 'get',
+        params
+    })
